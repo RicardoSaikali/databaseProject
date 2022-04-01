@@ -1,40 +1,43 @@
 import java.awt.FlowLayout;
-
-import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
+import javax.swing.ButtonGroup;
+public class main {
+    public static void main(String s[]) {
+        JFrame f = new JFrame("Receptionist");
 
-public class main extends JFrame {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        JLabel label = new JLabel("Select Action:");
+        panel.add(label);
+        JRadioButton r1=new JRadioButton("Receptionist");
+        JRadioButton r2=new JRadioButton("Dentist");
+        JRadioButton r3=new JRadioButton("User");
 
-    public SwingJRadioButtonDemo() {
-        super("Swing JRadioButton Demo");
+        r1.setBounds(75,50,100,30);
+        r2.setBounds(75,100,100,30);
+        r3.setBounds(75,150,100,30);
 
-        JRadioButton option1 = new JRadioButton("Linux");
-        JRadioButton option2 = new JRadioButton("Windows");
-        JRadioButton option3 = new JRadioButton("Macintosh");
+        JButton button1 = new JButton();
+        button1.setText("Select");
 
-        ButtonGroup group = new ButtonGroup();
-        group.add(option1);
-        group.add(option2);
-        group.add(option3);
+        panel.add(button1);
+        ButtonGroup bg = new ButtonGroup();
 
-        setLayout(new FlowLayout());
-
-        add(option1);
-        add(option2);
-        add(option3);
-
-        pack();
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new SwingJRadioButtonDemo().setVisible(true);
-            }
-        });
+        f.add(panel);
+        bg.add(r1);
+        bg.add(r2);
+        bg.add(r3);
+        f.add(r1);
+        f.add(r2);
+        f.add(r3);
+        f.setLocationRelativeTo(null);
+        f.setSize(3000,3000);
+        f.setLayout(null);
+        f.setVisible(true);
     }
 }
