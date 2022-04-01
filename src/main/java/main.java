@@ -84,15 +84,15 @@ public class main {
 
             public void actionPerformed(ActionEvent e) {
                 if (r1.isSelected()) {
-                    System.out.println("Receptionist");
+                    System.out.println("Receptionist Selected");
                     radiopanel.setVisible(false);
                     ReceptionistUI receptionist = new ReceptionistUI();
                 } else if (r2.isSelected()) {
-                    System.out.println("Dentist");
+                    System.out.println("Dentist Selected");
                     radiopanel.setVisible(false);
 
                 } else if (r3.isSelected()) {
-                    System.out.println("User");
+                    System.out.println("User Selected");
                     radiopanel.setVisible(false);
                 }
             }
