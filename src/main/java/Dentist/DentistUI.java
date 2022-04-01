@@ -16,7 +16,7 @@ public class DentistUI {
         button1.setText("Retrieve Patient Information");
 
         panel.add(label);
-        panel.add(label);
+        panel.add(PatientID);
         panel.add(button1);
         frame.add(panel);
         frame.setSize(500, 500);
