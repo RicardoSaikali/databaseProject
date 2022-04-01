@@ -8,6 +8,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.ButtonGroup;
 public class main {
     public static void main(String s[]) {
+        createUI();
+    }
+
+    public static void createUI(){
         JFrame f = new JFrame("Receptionist");
 
         JPanel panel = new JPanel();
