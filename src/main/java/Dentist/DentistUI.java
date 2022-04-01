@@ -10,7 +10,7 @@ public class DentistUI {
         panel.setLayout(new FlowLayout());
         JLabel label = new JLabel("Patient ID:");
 
-        JTextField PatientID = new JTextField();
+        JTextField PatientID = new JTextField(20);
 
         JButton button1 = new JButton();
         button1.setText("Retrieve Patient Information");
