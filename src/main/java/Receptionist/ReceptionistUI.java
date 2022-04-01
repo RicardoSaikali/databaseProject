@@ -1,8 +1,6 @@
 import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 public class ReceptionistUI {
     public static void main(String s[]) {
         JFrame frame = new JFrame("Receptionist");
