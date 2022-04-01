@@ -1,4 +1,6 @@
+import Receptionist.ReceptionistUI;
 //UI imports
+import java.awt.event.*;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,8 +25,8 @@ public class main {
         String user = "mzjycxzivsmkni";
         String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
         String LINK = "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
-        run with java  -cp ".\postgresql-42.3.3.jar;.\" main 
-        */
+        run with java -cp ".\postgresql-42.3.3.jar;.\" main
+                */
 
         String user = "mzjycxzivsmkni";
         String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
@@ -44,41 +46,60 @@ public class main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // createUI();
+        createUI();
 
     }
 
     public static void createUI(){
-        JFrame f = new JFrame("Receptionist");
+      JFrame f = new JFrame("Main");
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        JLabel label = new JLabel("Select Action:");
-        panel.add(label);
-        JRadioButton r1=new JRadioButton("Receptionist");
-        JRadioButton r2=new JRadioButton("Dentist");
-        JRadioButton r3=new JRadioButton("User");
+      JLabel label = new JLabel("Select:");
+      JButton select = new JButton("OK");
+      JRadioButton r1=new JRadioButton("Receptionist");
+      JRadioButton r2=new JRadioButton("Dentist");
+      JRadioButton r3=new JRadioButton("User");
 
-        r1.setBounds(75,50,100,30);
-        r2.setBounds(75,100,100,30);
-        r3.setBounds(75,150,100,30);
+      ButtonGroup bg = new ButtonGroup();
+      bg.add(r1);
+      bg.add(r2);
+      bg.add(r3);
 
-        JButton button1 = new JButton();
-        button1.setText("Select");
+      JPanel radiopanel = new JPanel();
+      radiopanel.add(label);
+      radiopanel.add(r1);
+      radiopanel.add(r2);
+      radiopanel.add(r3);
+      radiopanel.add(select);
+      f.getContentPane().add(radiopanel);
+      radiopanel.setBounds(200,100,100,200);
+      radiopanel.setOpaque(false);
 
-        panel.add(button1);
-        ButtonGroup bg = new ButtonGroup();
 
-        f.add(panel);
-        bg.add(r1);
-        bg.add(r2);
-        bg.add(r3);
-        f.add(r1);
-        f.add(r2);
-        f.add(r3);
-        f.setLocationRelativeTo(null);
-        f.setSize(3000,3000);
-        f.setLayout(null);
-        f.setVisible(true);
+      f.setLayout(null);
+      f.setSize(500,500);
+      f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      f.setLocationRelativeTo(null);
+      f.setVisible(true);
+      select.addActionListener(new ActionListener() {
+
+        public void actionPerformed(ActionEvent e) {
+          if (r1.isSelected()){
+            System.out.println("Receptionist");
+            radiopanel.setVisible(false);
+            ReceptionistUI receptionist = new ReceptionistUI();
+          }
+          else if (r2.isSelected()){
+            System.out.println("Dentist");
+            radiopanel.setVisible(false);
+
+          }
+          else if (r3.isSelected()){
+            System.out.println("User");
+            radiopanel.setVisible(false);
+          }
+        }
+      });
     }
+
+
 }
