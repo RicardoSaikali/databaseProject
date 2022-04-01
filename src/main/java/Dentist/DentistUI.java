@@ -1,27 +1,18 @@
+package Dentist;
+
 import java.awt.FlowLayout;
 import javax.swing.*;
 
 public class DentistUI {
-    public static void main(String s[]) {
-        JFrame frame = new JFrame("Dentist");
+    public DentistUI(JFrame aJFrame){
+      createUI(aJFrame);
+    }
 
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        JLabel label = new JLabel("Patient ID:");
-
-        JTextField PatientID = new JTextField(20);
-
-        JButton button1 = new JButton();
-        button1.setText("Retrieve Patient Information");
-
-        panel.add(label);
-        panel.add(PatientID);
-        panel.add(button1);
-        frame.add(panel);
-        frame.setSize(500, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+    private void createUI(JFrame f){
+      JPanel panel = new JPanel();
+      JLabel label = new JLabel("Dentist Page");
+      panel.add(label);
+      panel.setBounds(200,100,100,200);
+      f.getContentPane().add(panel);
     }
 }
