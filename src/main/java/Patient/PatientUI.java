@@ -1,11 +1,11 @@
-package User;
+package Patient;
 
 import Login.LoginUI;
 import java.awt.FlowLayout;
 import javax.swing.*;
 
-public class UserUI{
-  public UserUI(JFrame aJFrame){
+public class PatientUI{
+  public PatientUI(JFrame aJFrame){
     createUI(aJFrame);
   }
 

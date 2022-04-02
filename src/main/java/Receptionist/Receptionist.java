@@ -81,6 +81,7 @@ public class Receptionist {
         System.out.println("Please enter the patients Postal Code:");
         postalCode = scanner.nextLine();
         if (flag) insertUserInformation(conn);
+       
         return;
     }
     
@@ -130,15 +131,17 @@ public class Receptionist {
             
             preparedStatement = conn.prepareStatement("SELECT * FROM public.user, public.address, public.contactinformation WHERE SSN="+ ssn+ "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
             resultSet = preparedStatement.executeQuery();
+            System.out.println("------------------------------------------------------------------------------------------------------------");
             while (resultSet.next()){ 
-                System.out.println(" firstname: " +resultSet.getString("firstname") +",\n middlename: "+resultSet.getString("middlename")+ ",\n lastname: " +resultSet.getString("lastname")+ ",\n gender: " +resultSet.getString("gender") + ",\n ssn: "+resultSet.getInt("ssn")+",\n dateBirth: "+ resultSet.getDate("dateBirth")+
-                ",\n apartmentnumber: "+ resultSet.getInt("apartmentnumber")+ ",\n streetnumber: "+resultSet.getInt("streetnumber")+ ",\n street: "+resultSet.getString("street")+ ",\n city: "+resultSet.getString("city") + ",\n province: "+resultSet.getString("province")+ ",\n postalcode: "+resultSet.getString("postalcode") + ",\n email: "+resultSet.getString("email")
-                + ",\n phonenumber: "+resultSet.getString("phonenumber"));
+                System.out.println("firstname: " +resultSet.getString("firstname") +",\nmiddlename: "+resultSet.getString("middlename")+ ",\nlastname: " +resultSet.getString("lastname")+ ",\ngender: " +resultSet.getString("gender") + ",\nssn: "+resultSet.getInt("ssn")+",\ndatebirth: "+ resultSet.getDate("datebirth")+
+                ",\napartmentnumber: "+ resultSet.getInt("apartmentnumber")+ ",\nstreetnumber: "+resultSet.getInt("streetnumber")+ ",\nstreet: "+resultSet.getString("street")+ ",\ncity: "+resultSet.getString("city") + ",\nprovince: "+resultSet.getString("province")+ ",\npostalcode: "+resultSet.getString("postalcode") + ",\nemail: "+resultSet.getString("email")
+                + ",\nphonenumber: "+resultSet.getString("phonenumber"));
                 
                 addressId = resultSet.getInt("address_id");
                 userId = resultSet.getInt("user_id");
                 contactInformationId = resultSet.getInt("contactinfo_id");
             }
+            System.out.println("------------------------------------------------------------------------------------------------------------");
            
             System.out.println("Please enter the field you would like to update :");
             String field = scanner.nextLine();
@@ -162,19 +165,21 @@ public class Receptionist {
                 table = "public.address";
                 id = addressId;
                 type="address_id";
-            }else if(field.equals("firstname")||field.equals("middlename")||field.equals("lastname")||field.equals("gender")||field.equals("ssn")||field.equals("dateBirth")){
+            }else if(field.equals("firstname")||field.equals("middlename")||field.equals("lastname")||field.equals("gender")||field.equals("ssn")||field.equals("datebirth")){
                 table = "public.user";
                 type="user_id";
                 id = userId;
             }
             // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field +" = " +value +" WHERE SSN = "+ssn );
-            String sql1 = "UPDATE "+ table + " SET " + field +" = '" +value +"' WHERE " + type +" = " +id;
+            String sql = "UPDATE "+ table + " SET " + field +" = '" +value +"' WHERE " + type +" = " +id;
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement.addBatch(sql1);
+            statement.addBatch(sql);
             statement.executeBatch();
 
       } catch (SQLException e) {
           e.printStackTrace();
       }
+      
     }
+    
 }

@@ -1,8 +1,8 @@
 import Receptionist.Receptionist;
 import Receptionist.ReceptionistUI;
 import Dentist.DentistUI;
-import User.UserUI;
-import User.User;
+import Patient.PatientUI;
+import Patient.Patient;
 //UI imports
 import java.awt.event.*;
 import java.awt.FlowLayout;
@@ -120,7 +120,7 @@ public class main {
                 } else if (r3.isSelected()) {
                     System.out.println("User");
                     radiopanel.setVisible(false);
-                    UserUI User = new UserUI(f);
+                    PatientUI Patient = new PatientUI(f);
                 }
             }
         });

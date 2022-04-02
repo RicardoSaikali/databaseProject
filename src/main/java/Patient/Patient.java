@@ -1,4 +1,4 @@
-package User;
+package Patient;
 
 import java.util.*;
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 //databse imports
 import java.sql.*;
 
-public class User {
+public class Patient {
     private static Connection conn = null;
     private static Scanner scanner;
     private static String firstName;
