@@ -11,12 +11,11 @@ public class UserUI{
 
   private void createUI(JFrame f){
     f.setTitle("User Page");
-    JPanel panel = new JPanel();
     // JLabel label = new JLabel("User Page");
     // panel.add(label);
+    System.out.println("o");
+    LoginUI loginUi = new LoginUI("User", f);
+    System.out.println("k");
 
-    //LoginUI loginUi = new LoginUI("User", f);
-    panel.setBounds(200,100,100,200);
-    f.getContentPane().add(panel);
   }
 }
