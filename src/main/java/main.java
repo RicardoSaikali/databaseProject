@@ -1,6 +1,7 @@
 import Receptionist.ReceptionistUI;
 import Dentist.DentistUI;
 import User.UserUI;
+import User.User;
 //UI imports
 import java.awt.event.*;
 import java.awt.FlowLayout;
@@ -47,9 +48,10 @@ public class main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        createUI();
-        getSomething();
+        User userObj = new User();
+        userObj.getInformation(conn);
+        // createUI();
+        // getSomething();
     }
 
     public static void getSomething() {
@@ -62,7 +64,17 @@ public class main {
             e.printStackTrace();
         }
     }
-
+    public static void insertSomething() {
+      try {
+        //insert into public.contactinformation values (0, 'johnson@gmail.com', 613-210-3292)
+          PreparedStatement preparedStatement = conn.prepareStatement("Insert into * FROM public.USER");
+          ResultSet resultSet = preparedStatement.executeQuery();
+          while (resultSet.next())
+              System.out.println(resultSet.getString("firstName"));
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+    }
     public static void createUI() {
         JFrame f = new JFrame("Main");
 
