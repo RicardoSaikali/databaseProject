@@ -1,3 +1,4 @@
+import Receptionist.Receptionist;
 import Receptionist.ReceptionistUI;
 import Dentist.DentistUI;
 import User.UserUI;
@@ -48,8 +49,9 @@ public class main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        User userObj = new User();
-        userObj.getInformation(conn);
+        Receptionist receptionist = new Receptionist();
+        // receptionist.getInformation(conn,true);
+        receptionist.editUserInformation(conn);
         // createUI();
         // getSomething();
     }

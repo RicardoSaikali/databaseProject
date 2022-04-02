@@ -46,7 +46,7 @@ public class User {
             e.printStackTrace();
         }
     }
-    //TODO Add constraints on all inputs 
+    //TODO Add constraints on all inputs and change scanner to using UI
     public void getInformation(Connection conn){
         scanner = new Scanner(System.in);
         System.out.println("Please enter your First Name:");
