@@ -13,7 +13,7 @@ public class LoginUI{
 
   public void createUI(JFrame f){
       JPanel panel = new JPanel();
-      JLabel label = new JLabel("Please put your " + type + "ID");
+      JLabel label = new JLabel("Please put your bruh " + type + "ID");
       System.out.println(type);
       JTextField field = new JTextField(10);
       panel.add(label);
