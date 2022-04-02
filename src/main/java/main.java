@@ -4,13 +4,7 @@ import User.UserUI;
 //UI imports
 import java.awt.event.*;
 import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.SwingUtilities;
-import javax.swing.ButtonGroup;
+import javax.swing.*;
 
 //databse imports
 import java.sql.Connection;
