@@ -46,6 +46,7 @@ public class User {
             e.printStackTrace();
         }
     }
+    //TODO Add constraints on all inputs 
     public void getInformation(Connection conn){
         scanner = new Scanner(System.in);
         System.out.println("Please enter your First Name:");
@@ -81,11 +82,10 @@ public class User {
         System.out.println("Please enter your Postal Code:");
         postalCode = scanner.nextLine();
 
-        // DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
-	    // Date date = new Date();
-        // dateFormat.format(date);
         insertUserInformation(conn);
     }
+    
+    //Insert user information into ContactInfo, Address and User Tables 
     public void insertUserInformation(Connection conn) {
       try {
             //Get contact information id 
