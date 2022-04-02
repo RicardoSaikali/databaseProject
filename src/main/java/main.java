@@ -14,12 +14,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.*;
 //other imports
 
 public class main {
     public static Connection conn = null;
-
+    private static Scanner scanner;
     public static void main(String s[]) {
 
         /*
@@ -51,7 +51,12 @@ public class main {
         }
         Receptionist receptionist = new Receptionist();
         // receptionist.getInformation(conn,true);
-        receptionist.editUserInformation(conn);
+        scanner = new Scanner(System.in);
+        System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
+        int option = Integer.parseInt(scanner.nextLine());
+        if(option==1) receptionist.getInformation(conn, true);
+        else if(option==2) receptionist.editUserInformation(conn);
+        else receptionist.setAppointment(conn);;
         // createUI();
         // getSomething();
     }
