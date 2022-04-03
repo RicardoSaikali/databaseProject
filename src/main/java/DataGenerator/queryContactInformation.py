@@ -2,7 +2,7 @@ from faker import Faker
 import random
 faker = Faker('en_CA')
 
-queryAddress = ""
+
 queryContactInfo = ""
 queryCustomer = ""
 

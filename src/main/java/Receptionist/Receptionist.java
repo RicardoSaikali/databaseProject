@@ -49,7 +49,7 @@ public class Receptionist {
         }
     }
     //TODO Add constraints on all inputs and change scanner to using UI
-    public void getInformation(Connection conn, boolean flag){
+    public void helper(Connection conn, boolean flag){
         scanner = new Scanner(System.in);
         System.out.println("Please enter the patients First Name:");
         firstName = scanner.nextLine();
@@ -90,6 +90,22 @@ public class Receptionist {
         return;
     }
     
+    public boolean isReceptionist(int id){
+        try {
+            //Get contact information id 
+            preparedStatement = conn.prepareStatement("SELECT employee_role FROM public.employee WHERE employee_id="+id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){ 
+                if(resultSet.getString("employee_role").equals("Receptionist")){
+                    return true;
+                }
+            }
+
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+      return false;
+    }
     //Insert user information into ContactInfo, Address and User Tables 
     public void insertUserInformation(Connection conn) {
       try {

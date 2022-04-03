@@ -54,7 +54,7 @@ public class main {
         scanner = new Scanner(System.in);
         System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
         int option = Integer.parseInt(scanner.nextLine());
-        if(option==1) receptionist.getInformation(conn, true);
+        if(option==1) receptionist.helper(conn, true);
         else if(option==2) receptionist.editUserInformation(conn);
         else receptionist.setAppointment(conn);;
         // createUI();
