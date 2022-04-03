@@ -32,6 +32,7 @@ public class main {
          * String LINK =
          * "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
          * run with java -cp ".\postgresql-42.3.3.jar;.\" main
+         * OR run with java -cp ".\postgresql-42.3.3.jar;" main
          */
         
         Receptionist receptionist = new Receptionist();
