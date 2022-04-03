@@ -38,8 +38,25 @@ public class Receptionist {
     private static Statement statement;
     private static String[] rooms = new String[] {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 
-
-    
+    public Receptionist(){
+        String user = "mzjycxzivsmkni";
+        String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
+        String LINK = "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
+        
+        try {
+            conn = DriverManager.getConnection(LINK, user, pass);
+            if (conn != null) {
+                System.out.println("Connected to the database!");
+            } else {
+                System.out.println("Failed to make connection!");
+            }
+        
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     public static void getSomething() {
         try {
@@ -52,7 +69,7 @@ public class Receptionist {
         }
     }
     //TODO Add constraints on all inputs and change scanner to using UI
-    public void helper(Connection conn, boolean flag){
+    public void helper(boolean flag){
         scanner = new Scanner(System.in);
         System.out.println("Please enter the patients First Name:");
         firstName = scanner.nextLine();
@@ -88,12 +105,12 @@ public class Receptionist {
         postalCode = scanner.nextLine();
         System.out.println("Please enter the patients Insurance Number:");
         insuranceNumber = scanner.nextLine();
-        if (flag) insertUserInformation(conn);
+        if (flag) insertUserInformation();
        
         return;
     }
     
-    public boolean isReceptionist(Connection conn, int id){
+    public boolean isReceptionist(int id){
         try {
             //Get contact information id 
             preparedStatement = conn.prepareStatement("SELECT employee_role FROM public.employee WHERE employee_id="+id);
@@ -110,7 +127,7 @@ public class Receptionist {
       return false;
     }
     //Insert user information into ContactInfo, Address and User Tables 
-    public void insertUserInformation(Connection conn) {
+    public void insertUserInformation() {
       try {
             //Get contact information id 
             preparedStatement = conn.prepareStatement("SELECT max(contactinfo_id) FROM public.contactinformation");
@@ -153,7 +170,7 @@ public class Receptionist {
           e.printStackTrace();
       }
     }
-    public void editUserInformation(Connection conn){
+    public void editUserInformation(){
         try {
             //Get contact information id 
             scanner = new Scanner(System.in);
@@ -213,37 +230,55 @@ public class Receptionist {
       
     }
 
-    public void setAppointment(Connection conn){
+    public void setAppointment(){
         try {
             //Get contact information id 
             scanner = new Scanner(System.in);
             System.out.println("Please enter the Branch ID:");
             int branch = Integer.parseInt(scanner.nextLine());
-            System.out.println("Please enter the Patient ID:");
-            int patientId = Integer.parseInt(scanner.nextLine());
+            
+            ArrayList<Integer> patients = new ArrayList<Integer>();
+            preparedStatement = conn.prepareStatement("SELECT patient_id FROM public.appointment");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){ 
+                patients.add(resultSet.getInt("patient_id"));
+    
+            }
+            boolean flag=true;
+            while(flag){
+                System.out.println("Please enter the Patient ID:");
+                int patientId = Integer.parseInt(scanner.nextLine());
+                if(patients.contains(patientId)){
+                    System.out.println("This patient already has an appointment");
+                } else{
+                    flag=false;
+                }
+            }
+            
             System.out.println("Please enter the date (yyyy-mm-dd)");
             String date = scanner.nextLine();
             System.out.println("Please enter start time (in military time):");
             String startime = scanner.nextLine();
             System.out.println("Please enter end time (in military time):");
             String endtime = scanner.nextLine();
+
+            
             preparedStatement = conn.prepareStatement("SELECT roomassigned FROM public.appointment WHERE date='"+ date+ "' and starttime='" +startime+"'");
             resultSet = preparedStatement.executeQuery();
             System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.println("The following rooms are taken at that time:");
             ArrayList<String> roomsTaken = new ArrayList<String>();
             while (resultSet.next()){ 
-                System.out.println(resultSet.getString("roomassigned"));
                 roomsTaken.add(resultSet.getString("roomassigned"));
             }
-            System.out.println("Which means the following rooms are available at that time:");
+            System.out.println("The following rooms are available at that time:");
             for(int i=0;i<rooms.length;i++){
                 if(!roomsTaken.contains(rooms[i])){
                     System.out.println(rooms[i]);
                 }
             }
-            boolean flag = true;
+            flag = true;
             String room="";
+            System.out.println("------------------------------------------------------------------------------------------------------------");
             while(flag){
                 System.out.println("Please enter which available room you would like to book:");
                 room = scanner.nextLine();
@@ -252,6 +287,7 @@ public class Receptionist {
                     System.out.println("Invalid Entry");
                 }
             }
+            System.out.println("------------------------------------------------------------------------------------------------------------");
             System.out.println("Are there any notes you like to add:");
             String notes = scanner.nextLine();
             flag=true;
@@ -259,21 +295,18 @@ public class Receptionist {
             preparedStatement = conn.prepareStatement("SELECT employee_id FROM public.appointment WHERE date='"+ date+ "' and starttime='" +startime+"'");
             resultSet = preparedStatement.executeQuery();
             ArrayList<Integer> busyDentists = new ArrayList<Integer>();
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.println("The following Dentists are busy at this time:");
             while (resultSet.next()){ 
                 busyDentists.add(resultSet.getInt("employee_id"));
-                System.out.println(resultSet.getInt("employee_id"));
             }
             //get all dentists
             preparedStatement = conn.prepareStatement("SELECT employee_id FROM public.employee WHERE employee_role = 'Dentist' and branch_id="+branch);
             resultSet = preparedStatement.executeQuery();
             ArrayList<Integer> dentists = new ArrayList<Integer>();
             System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.println("But, the following Dentists are available:");
+            System.out.println("The following Dentists are available:");
             while (resultSet.next()){ 
                 dentists.add(resultSet.getInt("employee_id"));
-                System.out.println(resultSet.getInt("employee_id"));
+                if(!busyDentists.contains(resultSet.getInt("employee_id"))) System.out.println(resultSet.getInt("employee_id"));
             }
 
             int dentistId=0;;
