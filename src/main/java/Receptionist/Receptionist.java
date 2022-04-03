@@ -57,17 +57,6 @@ public class Receptionist {
             e.printStackTrace();
         }
     }
-    
-    public static void getSomething() {
-        try {
-            preparedStatement = conn.prepareStatement("SELECT * FROM public.USER");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-                System.out.println(resultSet.getString("firstname"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     //TODO Add constraints on all inputs and change scanner to using UI
     public void helper(boolean flag){
         scanner = new Scanner(System.in);
