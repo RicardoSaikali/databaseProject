@@ -34,40 +34,18 @@ public class main {
          * run with java -cp ".\postgresql-42.3.3.jar;.\" main
          * OR run with java -cp ".\postgresql-42.3.3.jar;" main
          */
-        
-        Receptionist receptionist = new Receptionist();
+
+        //Receptionist receptionist = new Receptionist();
         // receptionist.getInformation(conn,true);
-        scanner = new Scanner(System.in);
-        System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
-        int option = Integer.parseInt(scanner.nextLine());
-        if(option==1) receptionist.helper(true);
-        else if(option==2) receptionist.editUserInformation();
-        else receptionist.setAppointment();
-        // createUI();
-        // getSomething();
+        // scanner = new Scanner(System.in);
+        // System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
+        // int option = Integer.parseInt(scanner.nextLine());
+        // if(option==1) receptionist.helper(true);
+        // else if(option==2) receptionist.editUserInformation();
+        // else receptionist.setAppointment();
+        createUI();
     }
 
-    public static void getSomething() {
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM public.USER");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-                System.out.println(resultSet.getString("firstName"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void insertSomething() {
-      try {
-        //insert into public.contactinformation values (0, 'johnson@gmail.com', 613-210-3292)
-          PreparedStatement preparedStatement = conn.prepareStatement("Insert into * FROM public.USER");
-          ResultSet resultSet = preparedStatement.executeQuery();
-          while (resultSet.next())
-              System.out.println(resultSet.getString("firstName"));
-      } catch (SQLException e) {
-          e.printStackTrace();
-      }
-    }
     public static void createUI() {
         JFrame f = new JFrame("Main");
 

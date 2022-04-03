@@ -80,10 +80,44 @@ public class ReceptionistUI extends JPanel{
                   f.add(p2);
                   f.add(p3);
                   f.add(p4);
+                  btn.addActionListener(new ActionListener() {
+
+                      public void actionPerformed(ActionEvent e) {
+                        f.getContentPane().removeAll();
+                        f.repaint();
+
+                        JPanel firstPanel = new JPanel();
+                        firstPanel.setBackground(Color.red);
+                        firstPanel.setLayout(new FlowLayout());
+                        firstPanel.setBounds(0,0, f.getWidth(), 30);
+                        JLabel firstLabel = new JLabel("First Name:");
+                        //firstLabel.setBounds(150,0, 100, 30);
+                        JTextField firstField = new JTextField(10);
+                        //firstField.setBounds(250,0,100, 30);
+                        firstPanel.add(firstLabel);
+                        firstPanel.add(firstField);
+
+                        // JPanel secondPanel = new JPanel();
+                        // secondPanel.setBackground(Color.blue);
+                        // secondPanel.setBounds(0,30,f.getWidth(), 30);
+                        // secondPanel.setLayout(new FlowLayout());
+                        // JLabel secondLabel = new JLabel("Middle Name:");
+                        // JTextField secondField = new JTextField(10);
+                        // secondPanel.add(secondLabel);
+                        // secondPanel.add(secondField);
+
+
+                        f.add(firstPanel);
+                        //f.add(secondPanel);
+
+                      }
+                  });
                 } else {
                   JLabel errorLabel = new JLabel("Wrong ID");
                   errorLabel.setBounds(200, 0, 100, 30);
                   error.add(errorLabel);
+                  error.revalidate();
+                  error.repaint();
                 }
               } else {
                 System.out.println("bruh");
