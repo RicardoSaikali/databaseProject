@@ -11,30 +11,26 @@ public class PatientUI{
   }
 
   private void createUI(JFrame f){
-    f.getContentPane().setLayout(new FlowLayout());
-    f.setTitle("User Page");
-
-
+    f.setTitle("Patient Page");
+    f.getContentPane().removeAll();
+    f.repaint();
     JPanel panel = new JPanel();
-    Border blackline = BorderFactory.createLineBorder(Color.black);
-    panel.setBorder(blackline);
+    //panel.setBackground(Color.red);
 
-    JLabel label = new JLabel("Please put your Patient ID");
+    panel.setBounds(0, 100, f.getWidth(), 30);
+
+    JLabel label = new JLabel("Please enter your PatientID");
     JTextField field = new JTextField(10);
-
-    JPanel panel2 = new JPanel();
-    panel2.setBorder(blackline);
-    JButton button = new JButton("Verify");
-
-
-
     panel.add(label);
     panel.add(field);
+    JPanel panel2 = new JPanel();
+    //panel2.setBackground(Color.blue);
+    panel2.setBounds(0, 130, f.getWidth(), 40);
+    JButton button = new JButton("Login");
+    panel2.add(button);
 
-
-    panel.setBounds(200,100,100,2000);
-    f.getContentPane().add(panel);
-    f.getContentPane().add(panel2);
+    f.add(panel);
+    f.add(panel2);
 
   }
 }
