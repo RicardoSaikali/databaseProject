@@ -5,7 +5,7 @@ import Patient.PatientUI;
 import Patient.Patient;
 //UI imports
 import java.awt.event.*;
-import java.awt.FlowLayout;
+import java.awt.*;
 import javax.swing.*;
 
 //databse imports
@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 //other imports
 
 public class main {
@@ -31,35 +33,6 @@ public class main {
          * "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
          * run with java -cp ".\postgresql-42.3.3.jar;.\" main
          */
-
-<<<<<<< Updated upstream
-        String user = "mzjycxzivsmkni";
-        String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
-        String LINK = "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
-
-        try {
-            conn = DriverManager.getConnection(LINK, user, pass);
-            if (conn != null) {
-                System.out.println("Connected to the database!");
-            } else {
-                System.out.println("Failed to make connection!");
-            }
-
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Receptionist receptionist = new Receptionist();
-        // receptionist.getInformation(conn,true);
-        scanner = new Scanner(System.in);
-        System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
-        int option = Integer.parseInt(scanner.nextLine());
-        if(option==1) receptionist.getInformation(conn, true);
-        else if(option==2) receptionist.editUserInformation(conn);
-        else receptionist.setAppointment(conn);;
-        // createUI();
-=======
         // String user = "mzjycxzivsmkni";
         // String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
         // String LINK = "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
@@ -81,7 +54,6 @@ public class main {
         // // receptionist.getInformation(conn,true);
         // receptionist.editUserInformation(conn);
         createUI();
->>>>>>> Stashed changes
         // getSomething();
     }
 
@@ -121,12 +93,14 @@ public class main {
         bg.add(r3);
 
         JPanel radiopanel = new JPanel();
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        radiopanel.setBorder(blackline);
         radiopanel.add(label);
         radiopanel.add(r1);
         radiopanel.add(r2);
         radiopanel.add(r3);
         radiopanel.add(select);
-        f.getContentPane().add(radiopanel);
+        f.add(radiopanel);
         radiopanel.setBounds(200, 100, 100, 200);
         radiopanel.setOpaque(false);
 
@@ -135,6 +109,7 @@ public class main {
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
+        f.setResizable(false);
         select.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
