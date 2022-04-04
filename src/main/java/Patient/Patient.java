@@ -1,5 +1,7 @@
 package Patient;
 
+import TheConnection.DBConnection;
+
 import java.util.*;
 import java.util.Date;
 
@@ -37,6 +39,10 @@ public class Patient {
     private static int userId;
     private static Statement statement;
 
+    public Patient(){
+        DBConnection connection = new DBConnection();
+        conn = connection.Connection();
+    }
 
     public static void getSomething() {
         try {
