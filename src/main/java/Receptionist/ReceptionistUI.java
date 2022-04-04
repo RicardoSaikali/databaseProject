@@ -17,7 +17,7 @@ public class ReceptionistUI extends JPanel {
     }
 
     private void createUI(JFrame f) {
-
+        receptionist = new Receptionist();
         f.setTitle("Receptionist Page");
         f.getContentPane().removeAll();
         f.repaint();
@@ -47,7 +47,6 @@ public class ReceptionistUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String s = field.getText();
                 if (isInteger(s)) {
-                    receptionist = new Receptionist();
                     if (receptionist.isReceptionist(Integer.parseInt(s))) {
                         constructMainReceptionistUI(f);
                     } else {

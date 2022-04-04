@@ -12,15 +12,18 @@ import java.awt.*;
 import java.util.*;
 
 public class DentistUI extends JPanel {
-
+  public Dentist dentist;
   private static Patient patient = new Patient();
   private static JFrame f;
+  private static String patientID="";
+  private static boolean idIsValid = false;
   public DentistUI(JFrame aJFrame) {
     f=aJFrame;
     createUI();
   }
 
   private void createUI() {
+    dentist = new Dentist();
     f.setTitle("Dentist Page");
     f.getContentPane().removeAll();
     f.repaint();
@@ -49,7 +52,6 @@ public class DentistUI extends JPanel {
       public void actionPerformed(ActionEvent e) {
         String s = field.getText();
         if (isInteger(s)) {
-          Dentist dentist = new Dentist();
           if (dentist.isDentist(Integer.parseInt(s))) {
             f.getContentPane().removeAll();
             f.repaint();
@@ -80,14 +82,13 @@ public class DentistUI extends JPanel {
             f.add(p3);
             btnGetRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
-                String patientID = getValidPatientIDUI();
-                createGetRecordsUI(patientID);
+                getValidPatientIDUI(1);
+                
               }
             });
             btnAddRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
-                String patientID = getValidPatientIDUI();
-                createAddRecordsUI(patientID);
+                getValidPatientIDUI(2);
               }
             });
 
@@ -152,7 +153,7 @@ public class DentistUI extends JPanel {
     return; //TODO
   }
 
-  public static String getValidPatientIDUI(){
+  public static void getValidPatientIDUI(int nextPage){
     //page where the doctor enters the patient ID
     //returns the id once its valid
     //this page is just a simple text box search
@@ -180,8 +181,7 @@ public class DentistUI extends JPanel {
     f.add(error);
     f.add(panel);
     f.add(panel2);
-    String patientID="";
-    boolean idIsValid = false;
+    
 
     //see while loop under for return functionality
     button.addActionListener(new ActionListener() {
@@ -191,8 +191,20 @@ public class DentistUI extends JPanel {
         if (isInteger(s)) {
           Patient patient = new Patient();
           if (patient.isPatient(Integer.parseInt(s))) {
-            // patientID = s;
-            // idIsValid = true;
+            patientID = s;
+            idIsValid = true;
+            switch (nextPage){
+              
+              case 1:
+              createGetRecordsUI(patientID);
+              break;
+
+              case 2:
+              createAddRecordsUI(patientID);
+              break;
+            }
+
+            return;
 
           } else {
             JLabel errorLabel = new JLabel("Wrong ID");
@@ -211,11 +223,9 @@ public class DentistUI extends JPanel {
       }
     });
 
-//     while(!idIsValid){
-//       ;//stay on this screen until they enter a valid id
-//     }
-
-    return patientID;
+    // while(!idIsValid){
+    //   ;//stay on this screen until they enter a valid id
+    // }
 
   }
 
