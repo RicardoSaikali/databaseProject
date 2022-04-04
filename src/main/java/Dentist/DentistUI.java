@@ -75,7 +75,6 @@ public class DentistUI extends JPanel {
                 createGetRecordsUI(patientID);
               }
             });
-            
             btnAddRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
                 int patientID = getValidPatientIDUI();
@@ -214,7 +213,7 @@ public class DentistUI extends JPanel {
     }
 
     return patientID;
-  
+
   }
 
   public static boolean isInteger(String s) {
