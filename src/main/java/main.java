@@ -61,6 +61,7 @@ public class main {
         bg.add(r3);
 
         JPanel radiopanel = new JPanel();
+        //radiopanel.setBounds(0,0,f.getWidth())
         Border blackline = BorderFactory.createLineBorder(Color.black);
         radiopanel.setBorder(blackline);
         radiopanel.add(label);
@@ -71,6 +72,7 @@ public class main {
         f.add(radiopanel);
         radiopanel.setBounds(200, 100, 100, 200);
         radiopanel.setOpaque(false);
+
 
         f.setLayout(null);
         f.setSize(500, 500);

@@ -19,6 +19,12 @@ public class Receptionist {
     private static String middleName;
     private static String gender;
     private static int ssn;
+    private static int recordId;
+    private static int procedurecode;
+    private static int appointmenttypeId;
+    private static int treatmentId;
+    private static int treatmenttypeId;
+    private static int proceduretype;
     private static String dateOfBirth;
     private static Integer apartmentNumber;
     private static int streetNumber;
@@ -241,9 +247,12 @@ public class Receptionist {
             while(flag){
                 System.out.println("Please enter the Patient ID:");
                 int patientId = Integer.parseInt(scanner.nextLine());
+                
                 if(patients.contains(patientId)){
                     System.out.println("This patient already has an appointment");
+                    System.out.println("patientId: "+ patientId);
                 } else{
+                    System.out.println("patientId: "+ patientId);
                     flag=false;
                 }
             }
@@ -323,15 +332,97 @@ public class Receptionist {
             appointmentId++;
             // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field +" = " +value +" WHERE SSN = "+ssn );
             String appointmentInfo = appointmentId +", '"+ date+"', '"+startime+"', '"+endtime+"',"+ null +",'" + room+"', '"+notes+"', "+patientId+", "+ dentistId;
-            String sql = "INSERT INTO public.appointment values ("+appointmentInfo + ")";
+            String sql1 = "INSERT INTO public.appointment values ("+appointmentInfo + ")"; 
+            String[] arr= setProcedure(appointmentId,dentistId,patientId);
+            String sql2 = arr[0];
+            String sql3 = arr[1];
+            String sql4 = arr[2];
+            String sql5 = arr[3];
+            String sql6 = arr[4];
+            String sql7 = arr[5];
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement.addBatch(sql);
+            statement.addBatch(sql1);
+            statement.addBatch(sql2);
+            statement.addBatch(sql3);
+            statement.addBatch(sql4);
+            statement.addBatch(sql5);
+            statement.addBatch(sql6);
+            statement.addBatch(sql7);
+
             statement.executeBatch();
+
+           
 
       } catch (SQLException e) {
           e.printStackTrace();
       }
       
+    }
+    public String[] setProcedure(int appointmentId, int dentistId, int patientId){
+        try {
+            scanner = new Scanner(System.in);
+            System.out.println("Please enter the Appointment type: (ex: cleaning, braces, etc.)");
+            String appointmentType = scanner.nextLine();
+            System.out.println("Please enter the procedure type: (ex: scaling, fluoride, removal, etc.)");
+            String type = scanner.nextLine();
+            System.out.println("Please enter the Description of what the procedure is for:");
+            String description = scanner.nextLine();
+            System.out.println("Please enter any notes the Dentist left:");
+            String notes = scanner.nextLine();
+            System.out.println("Please enter the toothinvolved: (ex: E45)");
+            String tooth = scanner.nextLine();
+            System.out.println("Please enter the number of procedures to be done:");
+            int amount = Integer.parseInt(scanner.nextLine());
+            System.out.println("Is the patient on any medication? If yes type the medication below:");
+            String medication = scanner.nextLine();
+            System.out.println("What are the patients symptomps: (seperate them by commas)");
+            String symptoms = scanner.nextLine();
+            preparedStatement = conn.prepareStatement("SELECT max(proceduretype_id) FROM public.proceduretype");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) proceduretype = resultSet.getInt("max");
+            proceduretype++;
+
+            preparedStatement = conn.prepareStatement("SELECT max(procedurecode) FROM public.appointmentprocedure");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) procedurecode = resultSet.getInt("max");
+            procedurecode++;
+
+            preparedStatement = conn.prepareStatement("SELECT max(record_id) FROM public.record");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) recordId = resultSet.getInt("max");
+            recordId++;
+
+            preparedStatement = conn.prepareStatement("SELECT max(type_id) FROM public.appointmenttype");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) appointmenttypeId = resultSet.getInt("max");
+            appointmenttypeId++;
+
+            preparedStatement = conn.prepareStatement("SELECT max(treatment_id) FROM public.treatment");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) treatmentId = resultSet.getInt("max");
+            treatmentId++;
+
+            preparedStatement = conn.prepareStatement("SELECT max(treatmenttype_id) FROM public.treatmenttype");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) treatmenttypeId = resultSet.getInt("max");
+            treatmenttypeId++;
+
+            String procedureInfo = procedurecode +", '"+ description+"', '"+tooth+"', "+amount+","+ appointmentId;
+            String sql1 = "INSERT INTO public.appointmentprocedure values ("+procedureInfo + ")";
+            String sql2 = "INSERT INTO public.proceduretype values ("+proceduretype+", '"+ type+"', "+procedurecode + ")";
+            String sql3 = "INSERT INTO public.record values ("+recordId+", '"+ notes+"', "+dentistId+", "+ patientId+ ")";
+            String sql4 = "INSERT INTO public.appointmenttype values ("+appointmenttypeId+", '"+ appointmentType+"', "+procedurecode+ ")";
+            String sql5 = "INSERT INTO public.treatment values ("+treatmentId+", '"+ medication+"', '"+symptoms+"', '"+ tooth+ "', '"+ notes+"', "+recordId+ ", "+ appointmentId+", "+ appointmenttypeId+ ")";
+            String sql6 = "INSERT INTO public.treatmenttype values ("+treatmenttypeId+", '"+ appointmentType+"', "+treatmentId+ ")";
+            
+            String[] arr = new String[]{sql1,sql2,sql3,sql4,sql5,sql6};
+          
+            return arr;
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
 }
