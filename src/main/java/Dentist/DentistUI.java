@@ -10,15 +10,17 @@ import javax.swing.border.Border;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
+import javax.swing.JFrame;
 
 public class DentistUI extends JPanel {
   public Dentist dentist;
   private static Patient patient = new Patient();
   private static JFrame f;
-  private static String patientID="";
+  private static String patientID = "";
   private static boolean idIsValid = false;
+
   public DentistUI(JFrame aJFrame) {
-    f=aJFrame;
+    f = aJFrame;
     createUI();
   }
 
@@ -83,7 +85,7 @@ public class DentistUI extends JPanel {
             btnGetRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
                 getValidPatientIDUI(1);
-                
+
               }
             });
             btnAddRecords.addActionListener(new ActionListener() {
@@ -96,6 +98,8 @@ public class DentistUI extends JPanel {
             JLabel errorLabel = new JLabel("Wrong ID");
             errorLabel.setBounds(200, 0, 100, 30);
             error.add(errorLabel);
+            error.revalidate();
+            error.repaint();
           }
         } else {
           System.out.println("bruh");
@@ -111,52 +115,68 @@ public class DentistUI extends JPanel {
   }
 
   public static void createGetRecordsUI(String patientID) {
-    f.getContentPane().removeAll();
-    f.revalidate();
+    f.setVisible(false);
+    JFrame recordFrame = new JFrame();
+    recordFrame.getContentPane().removeAll();
+    Dimension tmpSize = f.getSize();
+    recordFrame.setLayout(null);
+    recordFrame.setSize(1000,500);
+    recordFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    recordFrame.setLocationRelativeTo(null);
+    recordFrame.setVisible(true);
+    recordFrame.setResizable(false);
+    
     SwingUtilities.updateComponentTreeUI(f);
-    //Display all user information up top such as name, gender, date of birth, etc.
-    HashMap<String,String> patientInfo= patient.getPatientInfo(Integer.parseInt(patientID));
+    // Display all user information up top such as name, gender, date of birth, etc.
+    HashMap<String, String> patientInfo = patient.getPatientInfo(Integer.parseInt(patientID));
 
     JPanel firstPanel = new JPanel();
+    firstPanel.setBounds(0, 0, recordFrame.getWidth(), 30);
     firstPanel.setBackground(Color.red);
     firstPanel.setLayout(new FlowLayout());
-    firstPanel.setBounds(0, 0, f.getWidth(), 30);
-    JLabel lblFirstName = new JLabel("First Name: "+ patientInfo.get("firstname"));
-    JLabel lblMiddleName = new JLabel("Middle Name: " + patientInfo.get("middlename"));
-    JLabel lblLastName = new JLabel("Last Name: "+ patientInfo.get("lastname"));
-    JLabel lblGender = new JLabel("Gender: "+ patientInfo.get("gender"));
-    JLabel lblDateOfBirth = new JLabel("Date Of Birth: "+patientInfo.get("datebirth"));
+    
+
+    String middleName = patientInfo.get("middlename");
+
+    JLabel lblFirstName = new JLabel("First Name: " + patientInfo.get("firstname") + "  ");
+
+
+    JLabel lblLastName = new JLabel("Last Name: " + patientInfo.get("lastname") + "  ");
+    JLabel lblGender = new JLabel("Gender: " + patientInfo.get("gender") + "  ");
+    JLabel lblDateOfBirth = new JLabel("Date Of Birth: " + patientInfo.get("datebirth"));
     // firstLabel.setBounds(150,0, 100, 30);
 
-    lblFirstName.setBounds(0, 0, 200, 30);
-    lblMiddleName.setBounds(0, 0, 200, 30);
     lblLastName.setBounds(0, 0, 200, 30);
     lblGender.setBounds(0, 0, 200, 30);
     lblDateOfBirth.setBounds(0, 0, 200, 30);
 
     firstPanel.add(lblFirstName);
-    firstPanel.add(lblMiddleName);
+
+    if (middleName != "") {
+      JLabel lblMiddleName = new JLabel("Middle Name: " + middleName + "  ");
+      lblFirstName.setBounds(0, 0, 200, 30);
+      firstPanel.add(lblMiddleName);
+    }
+
     firstPanel.add(lblLastName);
     firstPanel.add(lblGender);
     firstPanel.add(lblDateOfBirth);
 
-
-    f.add(firstPanel);
+    recordFrame.add(firstPanel);
     // f.add(secondPanel);
 
+    // bottom section should display records
 
-
-    //bottom section should display records
   }
 
-  public static void createAddRecordsUI(String patientID){
-    return; //TODO
+  public static void createAddRecordsUI(String patientID) {
+    return; // TODO
   }
 
-  public static void getValidPatientIDUI(int nextPage){
-    //page where the doctor enters the patient ID
-    //returns the id once its valid
-    //this page is just a simple text box search
+  public static void getValidPatientIDUI(int nextPage) {
+    // page where the doctor enters the patient ID
+    // returns the id once its valid
+    // this page is just a simple text box search
 
     f.setTitle("Patient Search Page");
     f.getContentPane().removeAll();
@@ -181,9 +201,8 @@ public class DentistUI extends JPanel {
     f.add(error);
     f.add(panel);
     f.add(panel2);
-    
 
-    //see while loop under for return functionality
+    // see while loop under for return functionality
     button.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
@@ -193,15 +212,15 @@ public class DentistUI extends JPanel {
           if (patient.isPatient(Integer.parseInt(s))) {
             patientID = s;
             idIsValid = true;
-            switch (nextPage){
-              
+            switch (nextPage) {
+
               case 1:
-              createGetRecordsUI(patientID);
-              break;
+                createGetRecordsUI(patientID);
+                break;
 
               case 2:
-              createAddRecordsUI(patientID);
-              break;
+                createAddRecordsUI(patientID);
+                break;
             }
 
           } else {
@@ -222,7 +241,7 @@ public class DentistUI extends JPanel {
     });
 
     // while(!idIsValid){
-    //   ;//stay on this screen until they enter a valid id
+    // ;//stay on this screen until they enter a valid id
     // }
 
   }
