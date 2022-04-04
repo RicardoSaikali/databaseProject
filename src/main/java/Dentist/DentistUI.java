@@ -5,13 +5,16 @@ import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import java.awt.event.*;
+import java.awt.*;
 
 public class DentistUI extends JPanel {
+  private static JFrame f;
   public DentistUI(JFrame aJFrame) {
-    createUI(aJFrame);
+    f=aJFrame;
+    createUI();
   }
 
-  private void createUI(JFrame f) {
+  private void createUI() {
     f.setTitle("Dentist Page");
     f.getContentPane().removeAll();
     f.repaint();
@@ -71,14 +74,14 @@ public class DentistUI extends JPanel {
             f.add(p3);
             btnGetRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
-                int patientID = getValidPatientIDUI();
+                String patientID = getValidPatientIDUI();
                 createGetRecordsUI(patientID);
               }
             });
             
             btnAddRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
-                int patientID = getValidPatientIDUI();
+                String patientID = getValidPatientIDUI();
                 createAddRecordsUI(patientID);
               }
             });
@@ -146,11 +149,11 @@ public class DentistUI extends JPanel {
     //bottom section should display records
   }
 
-  createAddRecordsUI(String patientID){
+  public static void createAddRecordsUI(String patientID){
     return; //TODO
   }
 
-  public static int getValidPatientIDUI(){
+  public static String getValidPatientIDUI(){
     //page where the doctor enters the patient ID
     //returns the id once its valid
     //this page is just a simple text box search
@@ -178,8 +181,8 @@ public class DentistUI extends JPanel {
     f.add(error);
     f.add(panel);
     f.add(panel2);
-    int patientID;
-    bool idIsValid = false;
+    String patientID;
+    boolean idIsValid = false;
 
     //see while loop under for return functionality
     button.addActionListener(new ActionListener() {

@@ -1,4 +1,5 @@
 package Receptionist;
+import TheConnection.DBConnection;
 import java.util.*;
 import java.util.Date;
 
@@ -8,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.io.ObjectInputFilter.Status;
 //databse imports
 import java.sql.*;
+
+
 public class Receptionist {
     private static Connection conn = null;
     private static Scanner scanner;
@@ -39,23 +42,24 @@ public class Receptionist {
     private static String[] rooms = new String[] {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 
     public Receptionist(){
-        String user = "mzjycxzivsmkni";
-        String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
-        String LINK = "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
+        // String user = "mzjycxzivsmkni";
+        // String pass = "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
+        // String LINK = "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
         
-        try {
-            conn = DriverManager.getConnection(LINK, user, pass);
-            if (conn != null) {
-                System.out.println("Connected to the database!");
-            } else {
-                System.out.println("Failed to make connection!");
-            }
+        // try {
+        //     conn = DriverManager.getConnection(LINK, user, pass);
+        //     if (conn != null) {
+        //         System.out.println("Connected to the database!");
+        //     } else {
+        //         System.out.println("Failed to make connection!");
+        //     }
         
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // } catch (SQLException e) {
+        //     System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+        conn = new DBConnection().conn;
     }
     //TODO Add constraints on all inputs and change scanner to using UI
     public void helper(boolean flag){
