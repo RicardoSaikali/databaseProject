@@ -72,7 +72,7 @@ public class Patient {
         try {
             preparedStatement = conn.prepareStatement(
                     "SELECT * FROM public.user, public.address, public.contactinformation WHERE user_id=" + userid
-                            + "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
+                            + " and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
             while (resultSet.next()) {
@@ -83,6 +83,24 @@ public class Patient {
                 map.put("datebirth", resultSet.getString("datebirth"));
             }
             return map;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<Integer> getListAppointments(int userid) {
+        // TODO check if this actually works
+        try {
+            preparedStatement = conn.prepareStatement(
+                    "SELECT * FROM public.Appointment WHERE user_id=" + userid
+                            + " order by Date, Start_time");
+            resultSet = preparedStatement.executeQuery();
+            ArrayList<Integer> result = new ArrayList<Integer>();
+            while (resultSet.next()) {
+                result.add(Integer.valueOf(resultSet.getInt("Appointment_id")));
+            }
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
