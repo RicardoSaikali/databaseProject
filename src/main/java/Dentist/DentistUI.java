@@ -1,5 +1,6 @@
 package Dentist;
 
+import Patient.Patient;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.BorderFactory;

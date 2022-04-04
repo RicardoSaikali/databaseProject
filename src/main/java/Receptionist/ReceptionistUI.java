@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class ReceptionistUI extends JPanel {
 
-  public Receptionist receptionist;
+    public Receptionist receptionist;
 
     public ReceptionistUI(JFrame aJFrame) {
         createUI(aJFrame);
