@@ -3,11 +3,13 @@ package Patient;
 import java.util.*;
 import java.util.Date;
 
+import javax.print.DocFlavor.READER;
 import javax.swing.undo.StateEdit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 //databse imports
 import java.sql.*;
+
 
 public class Patient {
     private static Connection conn = null;
@@ -46,81 +48,36 @@ public class Patient {
             e.printStackTrace();
         }
     }
-    //TODO Add constraints on all inputs and change scanner to using UI
-    public void getInformation(Connection conn){
-        scanner = new Scanner(System.in);
-        System.out.println("Please enter your First Name:");
-        firstName = scanner.nextLine();
-        System.out.println("Please enter your Middle Name:");
-        middleName = scanner.nextLine();
-        System.out.println("Please enter your Last Name:");
-        lastName = scanner.nextLine();
-        System.out.println("Please enter your Email:");
-        email = scanner.nextLine();
-        System.out.println("Please enter your Phone Number:");
-        phonenumber = scanner.nextLine();
-        System.out.println("Please enter your Gender:");
-        gender = scanner.nextLine();
-        System.out.println("Please enter your SSN:");
-        ssn = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please enter your Date of Birth (yyyy-mm-dd):");
-        dateOfBirth = scanner.nextLine();
-        System.out.println("Please enter your Apartment Number:");
-        try{
-            apartmentNumber= (Integer) Integer.parseInt(scanner.nextLine());
-        } catch(NumberFormatException ex){
-            apartmentNumber=null;
-        }
-        System.out.println("Please enter your Street Number:");
-        streetNumber = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please enter your Street Address:");
-        street = scanner.nextLine();
-        System.out.println("Please enter your City:");
-        city = scanner.nextLine();
-        System.out.println("Please enter your Province:");
-        province = scanner.nextLine();
-        System.out.println("Please enter your Postal Code:");
-        postalCode = scanner.nextLine();
-
-        insertUserInformation(conn);
-    }
-    
-    //Insert user information into ContactInfo, Address and User Tables 
-    public void insertUserInformation(Connection conn) {
-      try {
+    public boolean isPatient(int id){
+        try {
             //Get contact information id 
-            preparedStatement = conn.prepareStatement("SELECT max(contactinfo_id) FROM public.contactinformation");
+            preparedStatement = conn.prepareStatement("SELECT * FROM public.user WHERE user_id="+id);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) contactInformationId = resultSet.getInt("max");
-            contactInformationId++;
-            //Get address id 
-            preparedStatement = conn.prepareStatement("SELECT max(address_id) FROM public.address");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) addressId = resultSet.getInt("max");
-            addressId++;
-            //Get User id 
-            preparedStatement = conn.prepareStatement("SELECT max(user_id) FROM public.user");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) userId = resultSet.getInt("max");
-            userId++;
 
-            
-           
-            String contactInfo = contactInformationId + ", '"+ email + "', '"+ phonenumber + "'";
-            String addressInfo = addressId + ","+ apartmentNumber + ", "+ streetNumber + ", '"+ street + "', '"+ city + "', '" + province +"', '"+ postalCode +"'" ;
-            String userInfo = "'"+firstName + "', '"+ middleName+"', '"+lastName+"', '"+gender+"', "+ssn+ ", '"+dateOfBirth+"',"+contactInformationId+","+ userId+","+addressId;
-            String sql1 = "INSERT INTO public.contactinformation values ("+contactInfo + ")";
-            String sql2 = "INSERT INTO public.address values ("+addressInfo + ")";
-            String sql3 = "INSERT INTO public.user values ("+userInfo + ")";
-            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement.addBatch(sql1);
-            statement.addBatch(sql2);
-            statement.addBatch(sql3);
-            statement.executeBatch();
+            return true;
 
       } catch (SQLException e) {
           e.printStackTrace();
+          return false;
       }
-    }   
-    
+      
+    }
+    public static HashMap<String,String> getPatientInfo(int userid){
+        try{
+            preparedStatement = conn.prepareStatement("SELECT * FROM public.user, public.address, public.contactinformation WHERE user_id="+ userid+ "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
+            resultSet = preparedStatement.executeQuery();
+            HashMap<String,String> map = new HashMap<String,String>();
+            while (resultSet.next()){ 
+                map.put("firstname", resultSet.getString("firstname"));
+                map.put("middlename", resultSet.getString("middlename"));
+                map.put("lastname", resultSet.getString("lastname"));
+                map.put("gender", resultSet.getString("gender"));
+                map.put("datebirth", resultSet.getString("datebirth"));
+            }
+            return map;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

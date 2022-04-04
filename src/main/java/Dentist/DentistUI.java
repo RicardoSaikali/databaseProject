@@ -1,14 +1,19 @@
 package Dentist;
 
 import Patient.Patient;
+import Receptionist.Receptionist;
+
 import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.*;
 
 public class DentistUI extends JPanel {
+
+  private static Patient patient = new Patient();
   private static JFrame f;
   public DentistUI(JFrame aJFrame) {
     f=aJFrame;
@@ -108,14 +113,8 @@ public class DentistUI extends JPanel {
     f.getContentPane().removeAll();
     f.repaint();
     //Display all user information up top such as name, gender, date of birth, etc.
-    String firstName;
-    String middleName;
-    String lastName;
-    String gender;
-    String dateOfBirth;
     //set the variables here, using patientID:
-
-
+    HashMap<String,String> patientInfo= patient.getPatientInfo(Integer.parseInt(patientID));
 
 
 
@@ -126,11 +125,11 @@ public class DentistUI extends JPanel {
     firstPanel.setBackground(Color.red);
     firstPanel.setLayout(new FlowLayout());
     firstPanel.setBounds(0, 0, f.getWidth(), 30);
-    JLabel lblFirstName = new JLabel("First Name: "+ firstName);
-    JLabel lblMiddleName = new JLabel("Middle Name: " + middleName);
-    JLabel lblLastName = new JLabel("Last Name: "+ lastName);
-    JLabel lblGender = new JLabel("Gender: "+ gender);
-    JLabel lblDateOfBirth = new JLabel("Date Of Birth: "+dateOfBirth);
+    JLabel lblFirstName = new JLabel("First Name: "+ patientInfo.get("firstname"));
+    JLabel lblMiddleName = new JLabel("Middle Name: " + patientInfo.get("middlename"));
+    JLabel lblLastName = new JLabel("Last Name: "+ patientInfo.get("lastname"));
+    JLabel lblGender = new JLabel("Gender: "+ patientInfo.get("gender"));
+    JLabel lblDateOfBirth = new JLabel("Date Of Birth: "+patientInfo.get("datebirth"));
     // firstLabel.setBounds(150,0, 100, 30);
 
 
@@ -181,7 +180,7 @@ public class DentistUI extends JPanel {
     f.add(error);
     f.add(panel);
     f.add(panel2);
-    String patientID;
+    String patientID="";
     boolean idIsValid = false;
 
     //see while loop under for return functionality
@@ -212,9 +211,9 @@ public class DentistUI extends JPanel {
       }
     });
 
-    while(!idIsValid){
-      ;//stay on this screen until they enter a valid id
-    }
+//     while(!idIsValid){
+//       ;//stay on this screen until they enter a valid id
+//     }
 
     return patientID;
 

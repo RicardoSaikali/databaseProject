@@ -173,10 +173,10 @@ public class Receptionist {
         try {
             //Get contact information id 
             scanner = new Scanner(System.in);
-            System.out.println("Please enter the SSN of the patient you would like to edit:");
-            ssn = Integer.parseInt(scanner.nextLine());
+            System.out.println("Please enter the UserID of the patient you would like to edit:");
+            int userid = Integer.parseInt(scanner.nextLine());
             
-            preparedStatement = conn.prepareStatement("SELECT * FROM public.user, public.address, public.contactinformation WHERE SSN="+ ssn+ "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
+            preparedStatement = conn.prepareStatement("SELECT * FROM public.user, public.address, public.contactinformation WHERE user_id="+ userid+ "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
             resultSet = preparedStatement.executeQuery();
             System.out.println("------------------------------------------------------------------------------------------------------------");
             while (resultSet.next()){ 
