@@ -112,15 +112,10 @@ public class DentistUI extends JPanel {
 
   public static void createGetRecordsUI(String patientID) {
     f.getContentPane().removeAll();
+    f.revalidate();
     f.repaint();
     //Display all user information up top such as name, gender, date of birth, etc.
-    //set the variables here, using patientID:
     HashMap<String,String> patientInfo= patient.getPatientInfo(Integer.parseInt(patientID));
-
-
-
-
-
 
     JPanel firstPanel = new JPanel();
     firstPanel.setBackground(Color.red);
@@ -160,7 +155,7 @@ public class DentistUI extends JPanel {
 
     f.setTitle("Patient Search Page");
     f.getContentPane().removeAll();
-    f.repaint();
+    SwingUtilities.updateComponentTreeUI(f);
     JPanel error = new JPanel();
     error.setBounds(0, 0, f.getWidth(), 30);
     // error.setBackground(Color.red);
@@ -203,8 +198,6 @@ public class DentistUI extends JPanel {
               createAddRecordsUI(patientID);
               break;
             }
-
-            return;
 
           } else {
             JLabel errorLabel = new JLabel("Wrong ID");
