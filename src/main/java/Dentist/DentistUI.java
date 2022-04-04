@@ -191,8 +191,8 @@ public class DentistUI extends JPanel {
         if (isInteger(s)) {
           Patient patient = new Patient();
           if (patient.isPatient(Integer.parseInt(s))) {
-            patientID = s;
-            idIsValid = true;
+            // patientID = s;
+            // idIsValid = true;
 
           } else {
             JLabel errorLabel = new JLabel("Wrong ID");

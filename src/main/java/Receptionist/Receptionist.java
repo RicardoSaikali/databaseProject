@@ -26,15 +26,13 @@ public class Receptionist {
     private static int treatmenttypeId;
     private static int proceduretype;
     private static String dateOfBirth;
-    private static Integer apartmentNumber;
-    private static int streetNumber;
     private static String street;
     private static String city;
     private static String province;
     private static String postalCode;
     private static String insuranceNumber;
 
-    
+    private static HashMap<String,String> patientInfo;
     private static String email;
     private static String phonenumber;
     private static PreparedStatement preparedStatement;
@@ -65,48 +63,57 @@ public class Receptionist {
         // } catch (Exception e) {
         //     e.printStackTrace();
         // }
-        conn = new DBConnection().conn;
+        DBConnection connection = new DBConnection();
+        conn = connection.Connection();
     }
     //TODO Add constraints on all inputs and change scanner to using UI
-    public void helper(boolean flag){
-        scanner = new Scanner(System.in);
-        System.out.println("Please enter the patients First Name:");
-        firstName = scanner.nextLine();
-        System.out.println("Please enter the patients Middle Name:");
-        middleName = scanner.nextLine();
-        System.out.println("Please enter the patients Last Name:");
-        lastName = scanner.nextLine();
-        System.out.println("Please enter the patients Email:");
-        email = scanner.nextLine();
-        System.out.println("Please enter the patients Phone Number:");
-        phonenumber = scanner.nextLine();
-        System.out.println("Please enter the patients Gender:");
-        gender = scanner.nextLine();
-        System.out.println("Please enter the patients SSN:");
-        ssn = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please enter the patients Date of Birth (yyyy-mm-dd):");
-        dateOfBirth = scanner.nextLine();
-        System.out.println("Please enter the patients Apartment Number:");
-        try{
-            apartmentNumber= (Integer) Integer.parseInt(scanner.nextLine());
-        } catch(NumberFormatException ex){
-            apartmentNumber=null;
-        }
-        System.out.println("Please enter the patients Street Number:");
-        streetNumber = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please enter the patients Street Address:");
-        street = scanner.nextLine();
-        System.out.println("Please enter the patients City:");
-        city = scanner.nextLine();
-        System.out.println("Please enter the patients Province:");
-        province = scanner.nextLine();
-        System.out.println("Please enter the patients Postal Code:");
-        postalCode = scanner.nextLine();
-        System.out.println("Please enter the patients Insurance Number:");
-        insuranceNumber = scanner.nextLine();
-        if (flag) insertUserInformation();
-       
-        return;
+    public void helper(HashMap<String,String> map){
+        patientInfo= map;
+
+        firstName= patientInfo.get("firstname");
+        middleName= patientInfo.get("middlename");
+        lastName= patientInfo.get("lastname");
+        email= patientInfo.get("email");
+        phonenumber= patientInfo.get("phonenumber");
+        gender= patientInfo.get("gender");
+        ssn= Integer.parseInt(patientInfo.get("ssn"));
+        dateOfBirth= patientInfo.get("datebirth");
+        street= patientInfo.get("street");
+        city = patientInfo.get("city");
+        province = patientInfo.get("province");
+        postalCode = patientInfo.get("postalCode");
+        insuranceNumber = patientInfo.get("insurancenumber");
+
+        insertUserInformation();
+
+        // scanner = new Scanner(System.in);
+        // System.out.println("Please enter the patients First Name:");
+        // firstName = scanner.nextLine();
+        // System.out.println("Please enter the patients Middle Name:");
+        // middleName = scanner.nextLine();
+        // System.out.println("Please enter the patients Last Name:");
+        // lastName = scanner.nextLine();
+        // System.out.println("Please enter the patients Email:");
+        // email = scanner.nextLine();
+        // System.out.println("Please enter the patients Phone Number:");
+        // phonenumber = scanner.nextLine();
+        // System.out.println("Please enter the patients Gender:");
+        // gender = scanner.nextLine();
+        // System.out.println("Please enter the patients SSN:");
+        // ssn = Integer.parseInt(scanner.nextLine());
+        // System.out.println("Please enter the patients Date of Birth (yyyy-mm-dd):");
+        // dateOfBirth = scanner.nextLine();
+        // System.out.println("Please enter the patients Full Address:");
+        // street = scanner.nextLine();
+        // System.out.println("Please enter the patients City:");
+        // city = scanner.nextLine();
+        // System.out.println("Please enter the patients Province:");
+        // province = scanner.nextLine();
+        // System.out.println("Please enter the patients Postal Code:");
+        // postalCode = scanner.nextLine();
+        // System.out.println("Please enter the patients Insurance Number:");
+        // insuranceNumber = scanner.nextLine();
+        // if (flag) insertUserInformation();
     }
     
     public boolean isReceptionist(int id){
@@ -152,7 +159,7 @@ public class Receptionist {
             
            
             String contactInfo = contactInformationId + ", '"+ email + "', '"+ phonenumber + "'";
-            String addressInfo = addressId + ","+ apartmentNumber + ", "+ streetNumber + ", '"+ street + "', '"+ city + "', '" + province +"', '"+ postalCode +"'" ;
+            String addressInfo = addressId +", '"+ street + "', '"+ city + "', '" + province +"', '"+ postalCode +"'" ;
             String userInfo = "'"+firstName + "', '"+ middleName+"', '"+lastName+"', '"+gender+"', "+ssn+ ", '"+dateOfBirth+"',"+contactInformationId+","+ userId+","+addressId;
             String sql1 = "INSERT INTO public.contactinformation values ("+contactInfo + ")";
             String sql2 = "INSERT INTO public.address values ("+addressInfo + ")";
@@ -181,7 +188,7 @@ public class Receptionist {
             System.out.println("------------------------------------------------------------------------------------------------------------");
             while (resultSet.next()){ 
                 System.out.println("firstname: " +resultSet.getString("firstname") +",\nmiddlename: "+resultSet.getString("middlename")+ ",\nlastname: " +resultSet.getString("lastname")+ ",\ngender: " +resultSet.getString("gender") + ",\nssn: "+resultSet.getInt("ssn")+",\ndatebirth: "+ resultSet.getDate("datebirth")+
-                ",\napartmentnumber: "+ resultSet.getInt("apartmentnumber")+ ",\nstreetnumber: "+resultSet.getInt("streetnumber")+ ",\nstreet: "+resultSet.getString("street")+ ",\ncity: "+resultSet.getString("city") + ",\nprovince: "+resultSet.getString("province")+ ",\npostalcode: "+resultSet.getString("postalcode") + ",\nemail: "+resultSet.getString("email")
+                ",\nstreetaddress: "+resultSet.getString("streetaddress")+ ",\ncity: "+resultSet.getString("city") + ",\nprovince: "+resultSet.getString("province")+ ",\npostalcode: "+resultSet.getString("postalcode") + ",\nemail: "+resultSet.getString("email")
                 + ",\nphonenumber: "+resultSet.getString("phonenumber"));
                 
                 addressId = resultSet.getInt("address_id");
@@ -189,38 +196,42 @@ public class Receptionist {
                 contactInformationId = resultSet.getInt("contactinfo_id");
             }
             System.out.println("------------------------------------------------------------------------------------------------------------");
-           
-            System.out.println("Please enter the field you would like to update :");
-            String field = scanner.nextLine();
-            
-            System.out.println("What would you like to change it to :");
-            Object value;            
-            if(field.equals("apartmentnumber") || field.equals("streetnumber")|| field.equals("ssn")){
-                value = Integer.parseInt(scanner.nextLine());
-            }else{
-                value = scanner.nextLine();
-            }
-            
-            String table ="";
-            int id=0;
-            String type="";
-            if(field.equals("email")||field.equals("phonenumber")){
-                table = "public.contactInformation";
-                id = contactInformationId;
-                type="contactinfo_id";
-            }else if(field.equals("apartmentnumber")||field.equals("streetnumber")||field.equals("street")||field.equals("city")||field.equals("province")||field.equals("postalcode")){
-                table = "public.address";
-                id = addressId;
-                type="address_id";
-            }else if(field.equals("firstname")||field.equals("middlename")||field.equals("lastname")||field.equals("gender")||field.equals("ssn")||field.equals("datebirth")){
-                table = "public.user";
-                type="user_id";
-                id = userId;
-            }
-            // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field +" = " +value +" WHERE SSN = "+ssn );
-            String sql = "UPDATE "+ table + " SET " + field +" = '" +value +"' WHERE " + type +" = " +id;
+            System.out.println("How many fields would you like to update:");
+            int number = Integer.parseInt(scanner.nextLine());
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement.addBatch(sql);
+
+            for(int i=0; i< number; i++){
+                System.out.println("Please enter the field you would like to update :");
+                String field = scanner.nextLine();
+                
+                System.out.println("What would you like to change it to :");
+                Object value;            
+                if(field.equals("apartmentnumber") || field.equals("streetnumber")|| field.equals("ssn")){
+                    value = Integer.parseInt(scanner.nextLine());
+                }else{
+                    value = scanner.nextLine();
+                }
+                
+                String table ="";
+                int id=0;
+                String type="";
+                if(field.equals("email")||field.equals("phonenumber")){
+                    table = "public.contactInformation";
+                    id = contactInformationId;
+                    type="contactinfo_id";
+                }else if(field.equals("apartmentnumber")||field.equals("streetnumber")||field.equals("street")||field.equals("city")||field.equals("province")||field.equals("postalcode")){
+                    table = "public.address";
+                    id = addressId;
+                    type="address_id";
+                }else if(field.equals("firstname")||field.equals("middlename")||field.equals("lastname")||field.equals("gender")||field.equals("ssn")||field.equals("datebirth")){
+                    table = "public.user";
+                    type="user_id";
+                    id = userId;
+                }
+                // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field +" = " +value +" WHERE SSN = "+ssn );
+                String sql = "UPDATE "+ table + " SET " + field +" = '" +value +"' WHERE " + type +" = " +id;
+                statement.addBatch(sql);
+            }
             statement.executeBatch();
 
       } catch (SQLException e) {

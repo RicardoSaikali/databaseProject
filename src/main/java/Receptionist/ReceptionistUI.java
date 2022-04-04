@@ -308,7 +308,7 @@ public class ReceptionistUI extends JPanel {
 
             public void actionPerformed(ActionEvent e) {
               HashMap<String,String> hashmap = new HashMap<String,String>();
-              String arr[] = {"First Name","Middle Name","Last Name","Email","Phone Number","Gender:","SSN","Date of Birth","Address","City","Province","Postal Code","Insurance Number"};
+              String arr[] = {"firstname","middlename","lastname","email","phonenumber","gender","ssn","datebirth","street","city","province","postalcode","insurancenumber"};
               //System.out.println("bruh");
               for (int i = 0; i < 13; i++){
                 JTextField field = fieldList.get(i);
@@ -316,7 +316,7 @@ public class ReceptionistUI extends JPanel {
                 System.out.println(arr[i] +", " + input);
                 hashmap.put(arr[i], input);
               }
-              //receptionist.helper(hashmap);  DEWI
+              receptionist.helper(hashmap);  
             }
           });
         }
