@@ -113,7 +113,7 @@ public class DentistUI extends JPanel {
   public static void createGetRecordsUI(String patientID) {
     f.getContentPane().removeAll();
     f.revalidate();
-    f.repaint();
+    SwingUtilities.updateComponentTreeUI(f);
     //Display all user information up top such as name, gender, date of birth, etc.
     HashMap<String,String> patientInfo= patient.getPatientInfo(Integer.parseInt(patientID));
 
@@ -128,6 +128,11 @@ public class DentistUI extends JPanel {
     JLabel lblDateOfBirth = new JLabel("Date Of Birth: "+patientInfo.get("datebirth"));
     // firstLabel.setBounds(150,0, 100, 30);
 
+    lblFirstName.setBounds(0, 0, 200, 30);
+    lblMiddleName.setBounds(0, 0, 200, 30);
+    lblLastName.setBounds(0, 0, 200, 30);
+    lblGender.setBounds(0, 0, 200, 30);
+    lblDateOfBirth.setBounds(0, 0, 200, 30);
 
     firstPanel.add(lblFirstName);
     firstPanel.add(lblMiddleName);

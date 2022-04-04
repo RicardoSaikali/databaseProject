@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 //databse imports
 import java.sql.*;
 
-
 public class Patient {
     private static Connection conn = null;
     private static Scanner scanner;
@@ -29,7 +28,6 @@ public class Patient {
     private static String province;
     private static String postalCode;
 
-    
     private static String email;
     private static String phonenumber;
     private static PreparedStatement preparedStatement;
@@ -39,7 +37,7 @@ public class Patient {
     private static int userId;
     private static Statement statement;
 
-    public Patient(){
+    public Patient() {
         DBConnection connection = new DBConnection();
         conn = connection.Connection();
     }
@@ -54,26 +52,30 @@ public class Patient {
             e.printStackTrace();
         }
     }
-    public boolean isPatient(int id){
+
+    public boolean isPatient(int id) {
         try {
-            //Get contact information id 
-            preparedStatement = conn.prepareStatement("SELECT * FROM public.user WHERE user_id="+id);
+            // Get contact information id
+            preparedStatement = conn.prepareStatement("SELECT * FROM public.user WHERE user_id=" + id);
             resultSet = preparedStatement.executeQuery();
 
             return true;
 
-      } catch (SQLException e) {
-          e.printStackTrace();
-          return false;
-      }
-      
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
-    public static HashMap<String,String> getPatientInfo(int userid){
-        try{
-            preparedStatement = conn.prepareStatement("SELECT * FROM public.user, public.address, public.contactinformation WHERE user_id="+ userid+ "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
+
+    public static HashMap<String, String> getPatientInfo(int userid) {
+        try {
+            preparedStatement = conn.prepareStatement(
+                    "SELECT * FROM public.user, public.address, public.contactinformation WHERE user_id=" + userid
+                            + "and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
             resultSet = preparedStatement.executeQuery();
-            HashMap<String,String> map = new HashMap<String,String>();
-            while (resultSet.next()){ 
+            HashMap<String, String> map = new HashMap<String, String>();
+            while (resultSet.next()) {
                 map.put("firstname", resultSet.getString("firstname"));
                 map.put("middlename", resultSet.getString("middlename"));
                 map.put("lastname", resultSet.getString("lastname"));
