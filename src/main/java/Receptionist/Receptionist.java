@@ -42,6 +42,7 @@ public class Receptionist {
     private static int userId;
     private static int appointmentId;
     private static int patientId;
+    private static int dentistId;
     private static Statement statement;
     private static String[] rooms = new String[] {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 
@@ -244,7 +245,7 @@ public class Receptionist {
         try {
             //Get contact information id 
             scanner = new Scanner(System.in);
-            System.out.println("Please enter the Branch ID:");
+            System.out.println("Please enter the Branch ID: (0-2)");
             int branch = Integer.parseInt(scanner.nextLine());
             
             ArrayList<Integer> patients = new ArrayList<Integer>();
@@ -257,7 +258,7 @@ public class Receptionist {
             boolean flag=true;
             while(flag){
                 System.out.println("Please enter the Patient ID:");
-                int patientId = Integer.parseInt(scanner.nextLine());
+                patientId = Integer.parseInt(scanner.nextLine());
                 
                 if(patients.contains(patientId)){
                     System.out.println("This patient already has an appointment");
@@ -322,7 +323,7 @@ public class Receptionist {
                 if(!busyDentists.contains(resultSet.getInt("employee_id"))) System.out.println(resultSet.getInt("employee_id"));
             }
 
-            int dentistId=0;;
+            
             while(flag){
                 System.out.println("Please enter the employee_id of the Dentist");
                 dentistId = Integer.parseInt(scanner.nextLine());
@@ -342,9 +343,10 @@ public class Receptionist {
             while (resultSet.next()) appointmentId = resultSet.getInt("max");
             appointmentId++;
             // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field +" = " +value +" WHERE SSN = "+ssn );
+            System.out.println("1-PatientId= "+patientId);
             String appointmentInfo = appointmentId +", '"+ date+"', '"+startime+"', '"+endtime+"',"+ null +",'" + room+"', '"+notes+"', "+patientId+", "+ dentistId;
             String sql1 = "INSERT INTO public.appointment values ("+appointmentInfo + ")"; 
-            String[] arr= setProcedure(appointmentId,dentistId,patientId);
+            String[] arr= setProcedure();
             String sql2 = arr[0];
             String sql3 = arr[1];
             String sql4 = arr[2];
@@ -369,7 +371,7 @@ public class Receptionist {
       }
       
     }
-    public String[] setProcedure(int appointmentId, int dentistId, int patientId){
+    public String[] setProcedure(){
         try {
             scanner = new Scanner(System.in);
             System.out.println("Please enter the Appointment type: (ex: cleaning, braces, etc.)");
@@ -421,7 +423,8 @@ public class Receptionist {
             String procedureInfo = procedurecode +", '"+ description+"', '"+tooth+"', "+amount+","+ appointmentId;
             String sql1 = "INSERT INTO public.appointmentprocedure values ("+procedureInfo + ")";
             String sql2 = "INSERT INTO public.proceduretype values ("+proceduretype+", '"+ type+"', "+procedurecode + ")";
-            String sql3 = "INSERT INTO public.record values ("+recordId+", '"+ notes+"', "+dentistId+", "+ patientId+ ")";
+            System.out.println("PatientID: "+ patientId);
+            String sql3 = "INSERT INTO public.record values ("+recordId+", '"+ description+"', "+dentistId+", "+ patientId+ ")";
             String sql4 = "INSERT INTO public.appointmenttype values ("+appointmenttypeId+", '"+ appointmentType+"', "+procedurecode+ ")";
             String sql5 = "INSERT INTO public.treatment values ("+treatmentId+", '"+ medication+"', '"+symptoms+"', '"+ tooth+ "', '"+ notes+"', "+recordId+ ", "+ appointmentId+", "+ appointmenttypeId+ ")";
             String sql6 = "INSERT INTO public.treatmenttype values ("+treatmenttypeId+", '"+ appointmentType+"', "+treatmentId+ ")";
