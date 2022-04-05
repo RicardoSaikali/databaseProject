@@ -162,7 +162,7 @@ public class ReceptionistUI {
                         p.setVisible(true);
                         p.setResizable(false);
                         System.out.println(map);
-                        patientInfo(p, map);
+                        patientInfo(p, map, id);
                         p.setTitle("Edit patient " + id);
 
 
@@ -185,7 +185,7 @@ public class ReceptionistUI {
             }
         });
     }
-    public void patientInfo(JFrame f, HashMap<String, String> map){
+    public void patientInfo(JFrame f, HashMap<String, String> map, int id){
       LinkedList<JTextField> fieldList = new LinkedList<JTextField>();
       f.getContentPane().removeAll();
       SwingUtilities.updateComponentTreeUI(f);
@@ -395,6 +395,7 @@ public class ReceptionistUI {
                   System.out.println(arr[i] + ", " + input);
                   hashmap.put(arr[i], input);
               }
+              hashmap.put("patientid", id);
               //receptionist.editUserInformation(hashmap); // DEWI
           }
       });
