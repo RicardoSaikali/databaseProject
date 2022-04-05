@@ -416,7 +416,7 @@ public class Receptionist {
             System.out.println("Please enter the toothinvolved: (ex: E45)");
             String tooth = scanner.nextLine();
             System.out.println("Please enter the number of procedures to be done:");
-            int amount = Integer.parseInt(scanner.nextLine());
+            int amount = Integer.parseInt(scanner.nextLine());//this will need to be changed to add x amount of procedures to databse, rn it only adds 1
             System.out.println("Is the patient on any medication? If yes type the medication below:");
             String medication = scanner.nextLine();
             System.out.println("What are the patients symptomps: (seperate them by commas)");

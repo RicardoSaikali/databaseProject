@@ -80,7 +80,13 @@ public class Patient {
                 map.put("middlename", resultSet.getString("middlename"));
                 map.put("lastname", resultSet.getString("lastname"));
                 map.put("gender", resultSet.getString("gender"));
-                map.put("datebirth", resultSet.getString("datebirth"));
+                map.put("ssn", resultSet.getString("ssn"));
+                map.put("streetaddress", resultSet.getString("streetaddress"));
+                map.put("city", resultSet.getString("city"));
+                map.put("province", resultSet.getString("province"));
+                map.put("postalcode", resultSet.getString("postalcode"));
+                map.put("email", resultSet.getString("email"));
+                map.put("phonenumber", resultSet.getString("phonenumber"));                
             }
             return map;
         } catch (SQLException e) {
@@ -131,4 +137,31 @@ public class Patient {
         }
         return null;
     }
+
+    // public static HashMap<String, String> getMedicalHistory(int appointment_id) {
+    //     // TODO check if this actually works
+    //     try {
+    //         preparedStatement = conn.prepareStatement(
+    //                 "SELECT type, symptoms, toothinvolved, description FROM public.Appointment WHERE Appointment_id=" + appointment_id);
+    //         resultSet = preparedStatement.executeQuery();
+    //         HashMap<String, String> map = new HashMap<String, String>();
+    //         while (resultSet.next()) {
+    //             map.put("Patient_id", resultSet.getString("Date"));
+    //             map.put("Employee_id", resultSet.getString("Date"));
+    //             map.put("Date", resultSet.getString("Date"));
+    //             map.put("Start_time", resultSet.getString("Start_time"));
+    //             map.put("End_time", resultSet.getString("End_time"));
+    //             map.put("Status", resultSet.getString("Status"));
+    //             map.put("Room_assigned", resultSet.getString("Room_assigned"));
+    //             map.put("Notes", resultSet.getString("Notes"));
+    //             map.put("Invoice_id", resultSet.getString("Invoice_id"));
+    //         }
+    //         return map;
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
+
+
 }
