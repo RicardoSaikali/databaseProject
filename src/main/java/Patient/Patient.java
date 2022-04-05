@@ -144,23 +144,18 @@ public class Patient {
         return null;
     }
 
-    public static HashMap<String, String> getMedicalHistory(int userid) {
-        // TODO check if this actually works
+    public static HashMap<String, String> getMedicalHistory(int patientId) {//this has to be patientID not userID
         try {
             preparedStatement = conn.prepareStatement(
-                    "SELECT type, symptoms, toothinvolved, description FROM public.Appointment WHERE user_id=" + userid);
+                "SELECT type, symptoms, public.appointmentprocedure.toothinvolved, description FROM public.treatmenttype, public.treatment, public.appointmentprocedure, public.appointment WHERE patient_id="+ patientId+ 
+                " and public.treatmenttype.treatment_id=public.treatment.treatment_id and public.appointmentprocedure.appointment_id=public.treatment.appointment_id and public.appointment.appointment_id=public.appointmentprocedure.appointment_id;");
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
             while (resultSet.next()) {
-                map.put("Patient_id", resultSet.getString("Date"));
-                map.put("Employee_id", resultSet.getString("Date"));
-                map.put("Date", resultSet.getString("Date"));
-                map.put("Start_time", resultSet.getString("Start_time"));
-                map.put("End_time", resultSet.getString("End_time"));
-                map.put("Status", resultSet.getString("Status"));
-                map.put("Room_assigned", resultSet.getString("Room_assigned"));
-                map.put("Notes", resultSet.getString("Notes"));
-                map.put("Invoice_id", resultSet.getString("Invoice_id"));
+                map.put("type", resultSet.getString("type"));
+                map.put("symptoms", resultSet.getString("symptoms"));
+                map.put("tooth", resultSet.getString("toothinvolved"));
+                map.put("description", resultSet.getString("description"));
             }
             return map;
         } catch (SQLException e) {
