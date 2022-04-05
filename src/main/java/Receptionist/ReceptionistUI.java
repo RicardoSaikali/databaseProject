@@ -365,9 +365,6 @@ public class ReceptionistUI {
       finalP.setLayout(new FlowLayout());
       JButton confirm = new JButton("Save Changes");
       confirm.setPreferredSize(new Dimension(150, 25));
-      JButton back = new JButton("Back");
-      back.setPreferredSize(new Dimension(150, 25));
-      finalP.add(back);
       finalP.add(confirm);
 
       f.add(firstPanel);
@@ -385,13 +382,6 @@ public class ReceptionistUI {
       f.add(thirtheenthPanel);
       f.add(finalP);
 
-      back.addActionListener(new ActionListener() {
-
-          public void actionPerformed(ActionEvent e) {
-              constructMainReceptionistUI(f);
-          }
-
-      });
       confirm.addActionListener(new ActionListener() {
 
           public void actionPerformed(ActionEvent e) {
