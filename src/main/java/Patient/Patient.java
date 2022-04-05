@@ -71,7 +71,7 @@ public class Patient {
     public static HashMap<String, String> getPatientInfo(int userid) {
         try {
             preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM public.user, public.address, public.contactinformation WHERE user_id=" + userid
+                    "SELECT * FROM public.user, public.address, public.contactinformation, public.patient WHERE user_id=" + userid
                             + " and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
@@ -88,6 +88,7 @@ public class Patient {
                 map.put("postalcode", resultSet.getString("postalcode"));
                 map.put("email", resultSet.getString("email"));
                 map.put("phonenumber", resultSet.getString("phonenumber"));                
+                map.put("insurancenumber", resultSet.getString("insurancenumber"));                
             }
             return map;
         } catch (SQLException e) {
