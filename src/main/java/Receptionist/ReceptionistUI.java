@@ -209,6 +209,7 @@ public class ReceptionistUI {
       JLabel secondLabel = new JLabel("Middle Name:");
       secondLabel.setBounds(0, 0, 200, 30);
       JTextField f2 = new JTextField(10);
+      f2.setText(map.get("middlename"));
       fieldList.add(f2);
       f2.setBounds(250, 5, 200, 20);
       secondPanel.add(secondLabel);
@@ -221,6 +222,7 @@ public class ReceptionistUI {
       JLabel thirdLabel = new JLabel("Last Name:");
       thirdLabel.setBounds(0, 0, 200, 30);
       JTextField f3 = new JTextField(10);
+      f3.setText(map.get("lastname"));
       fieldList.add(f3);
       f3.setBounds(250, 5, 200, 20);
       thirdPanel.add(thirdLabel);
@@ -233,6 +235,7 @@ public class ReceptionistUI {
       JLabel fourthLabel = new JLabel("Email:");
       fourthLabel.setBounds(0, 0, 200, 30);
       JTextField f4 = new JTextField(10);
+      f4.setText(map.get("email"));
       fieldList.add(f4);
       f4.setBounds(250, 5, 200, 20);
       fourthPanel.add(fourthLabel);
@@ -245,6 +248,7 @@ public class ReceptionistUI {
       JLabel fifthLabel = new JLabel("Phone Number:");
       fifthLabel.setBounds(0, 0, 200, 30);
       JTextField f5 = new JTextField(10);
+      f5.setText(map.get("phonenumber"));
       fieldList.add(f5);
       f5.setBounds(250, 5, 200, 20);
       fifthPanel.add(fifthLabel);
@@ -257,6 +261,7 @@ public class ReceptionistUI {
       JLabel sixthLabel = new JLabel("Gender:");
       sixthLabel.setBounds(0, 0, 200, 30);
       JTextField f6 = new JTextField(10);
+      f6.setText(map.get("gender"));
       fieldList.add(f6);
       f6.setBounds(250, 5, 200, 20);
       sixthPanel.add(sixthLabel);
@@ -269,6 +274,7 @@ public class ReceptionistUI {
       JLabel seventhLebel = new JLabel("SSN:");
       seventhLebel.setBounds(0, 0, 200, 30);
       JTextField f7 = new JTextField(10);
+      f7.setText(map.get("ssn"));
       fieldList.add(f7);
       f7.setBounds(250, 5, 200, 20);
       seventhPanel.add(seventhLebel);
@@ -281,6 +287,7 @@ public class ReceptionistUI {
       JLabel eigthLabel = new JLabel("Date of birth(yyyy-mm-dd):");
       eigthLabel.setBounds(0, 0, 200, 30);
       JTextField f8 = new JTextField(10);
+      f8.setText(map.get("firstname"));
       fieldList.add(f8);
       f8.setBounds(250, 5, 200, 20);
       eigthPanel.add(eigthLabel);
@@ -293,6 +300,7 @@ public class ReceptionistUI {
       JLabel ninthLabel = new JLabel("Address:");
       ninthLabel.setBounds(0, 0, 200, 30);
       JTextField f9 = new JTextField(10);
+      f9.setText(map.get("dateofbirth"));
       fieldList.add(f9);
       f9.setBounds(250, 5, 200, 20);
       ninthPanel.add(ninthLabel);
@@ -305,6 +313,7 @@ public class ReceptionistUI {
       JLabel tenthLabel = new JLabel("City:");
       tenthLabel.setBounds(0, 0, 200, 30);
       JTextField f10 = new JTextField(10);
+      f10.setText(map.get("city"));
       fieldList.add(f10);
       f10.setBounds(250, 5, 200, 20);
       tenthPanel.add(tenthLabel);
