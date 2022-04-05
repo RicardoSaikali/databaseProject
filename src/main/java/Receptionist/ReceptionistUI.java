@@ -287,7 +287,7 @@ public class ReceptionistUI {
       JLabel eigthLabel = new JLabel("Date of birth(yyyy-mm-dd):");
       eigthLabel.setBounds(0, 0, 200, 30);
       JTextField f8 = new JTextField(10);
-      f8.setText(map.get("firstname"));
+      f8.setText(map.get("datebirth"));
       fieldList.add(f8);
       f8.setBounds(250, 5, 200, 20);
       eigthPanel.add(eigthLabel);
@@ -300,7 +300,7 @@ public class ReceptionistUI {
       JLabel ninthLabel = new JLabel("Address:");
       ninthLabel.setBounds(0, 0, 200, 30);
       JTextField f9 = new JTextField(10);
-      f9.setText(map.get("dateofbirth"));
+      f9.setText(map.get("streetaddress"));
       fieldList.add(f9);
       f9.setBounds(250, 5, 200, 20);
       ninthPanel.add(ninthLabel);
@@ -326,6 +326,7 @@ public class ReceptionistUI {
       JLabel eleventhLabel = new JLabel("Province:");
       eleventhLabel.setBounds(0, 0, 200, 30);
       JTextField f11 = new JTextField(10);
+      f11.setText(map.get("province"));
       fieldList.add(f11);
       f11.setBounds(250, 5, 200, 20);
       eleventhPanel.add(eleventhLabel);
@@ -338,6 +339,7 @@ public class ReceptionistUI {
       JLabel twelfthLabel = new JLabel("Postal Code:");
       twelfthLabel.setBounds(0, 0, 200, 30);
       JTextField f12 = new JTextField(10);
+      f12.setText(map.get("postalcode"));
       fieldList.add(f12);
       f12.setBounds(250, 5, 200, 20);
       twelfthPanel.add(twelfthLabel);
@@ -350,6 +352,7 @@ public class ReceptionistUI {
       JLabel thirtheenthLabel = new JLabel("Insurance Number:");
       thirtheenthLabel.setBounds(0, 0, 200, 30);
       JTextField f13 = new JTextField(10);
+      f13.setText(map.get("insurancenumber"));
       fieldList.add(f13);
       f13.setBounds(250, 5, 200, 20);
       thirtheenthPanel.add(thirtheenthLabel);
@@ -360,10 +363,10 @@ public class ReceptionistUI {
       // finalP.setBackground(Color.red);
       finalP.setBounds(0, 400, f.getWidth(), 50);
       finalP.setLayout(new FlowLayout());
-      JButton confirm = new JButton("Confirm");
-      confirm.setPreferredSize(new Dimension(100, 25));
+      JButton confirm = new JButton("Save Changes");
+      confirm.setPreferredSize(new Dimension(150, 25));
       JButton back = new JButton("Back");
-      back.setPreferredSize(new Dimension(100, 25));
+      back.setPreferredSize(new Dimension(150, 25));
       finalP.add(back);
       finalP.add(confirm);
 
@@ -402,7 +405,7 @@ public class ReceptionistUI {
                   System.out.println(arr[i] + ", " + input);
                   hashmap.put(arr[i], input);
               }
-              receptionist.helper(hashmap);
+              //receptionist.editUserInformation(hashmap); // DEWI
           }
       });
     }
