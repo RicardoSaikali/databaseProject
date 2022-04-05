@@ -110,71 +110,7 @@ public class ReceptionistUI {
         btn2.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-              f.getContentPane().removeAll();
-              SwingUtilities.updateComponentTreeUI(f);
-
-              JPanel error = new JPanel();
-              error.setBounds(0, 0, f.getWidth(), 30);
-              // error.setBackground(Color.red);
-              JPanel panel = new JPanel();
-              // panel.setBackground(Color.red);
-
-              panel.setBounds(0, 100, f.getWidth(), 30);
-
-              JLabel label = new JLabel("Please enter the ID of the patient you would like to edit");
-              JTextField field = new JTextField(10);
-              panel.add(label);
-              panel.add(field);
-              JPanel panel2 = new JPanel();
-              // panel2.setBackground(Color.blue);
-              panel2.setBounds(0, 130, f.getWidth(), 40);
-              JButton button = new JButton("Find");
-              JButton back = new JButton("Back");
-              back.addActionListener(new ActionListener() {
-
-                  public void actionPerformed(ActionEvent e) {
-                      constructMainReceptionistUI(f);
-                  }
-
-              });
-              //back.setPreferredSize(new Dimension(100, 25));
-              panel2.add(button);
-              panel2.add(back);
-              f.add(error);
-              f.add(panel);
-              f.add(panel2);
-              button.addActionListener(new ActionListener() {
-
-                  public void actionPerformed(ActionEvent e) {
-                    String s = field.getText();
-                    if (isInteger(s)){
-                      int id = Integer.parseInt(s);
-                      Patient patient = new Patient();
-                      if (patient.isPatient(id)){
-                        HashMap map = patient.getPatientInfo(id);
-                        JFrame p = new JFrame();
-
-
-                        p.setLayout(null);
-                        p.setSize(500, 500);
-                        p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        p.setLocationRelativeTo(null);
-                        p.setVisible(true);
-                        p.setResizable(false);
-                        System.out.println(map);
-                        patientInfo(p, map, id);
-                        p.setTitle("Edit patient " + id);
-
-
-                      } else {
-                        System.out.println("ERROR");
-                      }
-                    } else {
-                      System.out.println("ERROR");
-                    }
-                  }
-
-              });
+              findPatientUI(f);
             }
 
         });
@@ -185,7 +121,64 @@ public class ReceptionistUI {
             }
         });
     }
-    public void patientInfo(JFrame f, HashMap<String, String> map, int id){
+    public void findPatientUI(JFrame f){
+      f.getContentPane().removeAll();
+      SwingUtilities.updateComponentTreeUI(f);
+
+      JPanel error = new JPanel();
+      error.setBounds(0, 0, f.getWidth(), 30);
+      // error.setBackground(Color.red);
+      JPanel panel = new JPanel();
+      // panel.setBackground(Color.red);
+
+      panel.setBounds(0, 100, f.getWidth(), 30);
+
+      JLabel label = new JLabel("Please enter the ID of the patient you would like to edit");
+      JTextField field = new JTextField(10);
+      panel.add(label);
+      panel.add(field);
+      JPanel panel2 = new JPanel();
+      // panel2.setBackground(Color.blue);
+      panel2.setBounds(0, 130, f.getWidth(), 40);
+      JButton button = new JButton("Find");
+      JButton back = new JButton("Back");
+      back.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent e) {
+              constructMainReceptionistUI(f);
+          }
+
+      });
+      //back.setPreferredSize(new Dimension(100, 25));
+      panel2.add(button);
+      panel2.add(back);
+      f.add(error);
+      f.add(panel);
+      f.add(panel2);
+      button.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent e) {
+            String s = field.getText();
+            if (isInteger(s)){
+              int id = Integer.parseInt(s);
+              Patient patient = new Patient();
+              if (patient.isPatient(id)){
+                HashMap map = patient.getPatientInfo(id);
+                System.out.println(map);
+                patientInfo(f, map, s);
+
+
+              } else {
+                System.out.println("ERROR");
+              }
+            } else {
+              System.out.println("ERROR");
+            }
+          }
+
+      });
+    }
+    public void patientInfo(JFrame f, HashMap<String, String> map, String id){
       LinkedList<JTextField> fieldList = new LinkedList<JTextField>();
       f.getContentPane().removeAll();
       SwingUtilities.updateComponentTreeUI(f);
@@ -364,7 +357,10 @@ public class ReceptionistUI {
       finalP.setBounds(0, 400, f.getWidth(), 50);
       finalP.setLayout(new FlowLayout());
       JButton confirm = new JButton("Save Changes");
-      confirm.setPreferredSize(new Dimension(150, 25));
+      confirm.setPreferredSize(new Dimension(120, 25));
+      JButton cancel = new JButton("Cancel");
+      cancel.setPreferredSize(new Dimension(120, 25));
+      finalP.add(cancel);
       finalP.add(confirm);
 
       f.add(firstPanel);
@@ -381,7 +377,12 @@ public class ReceptionistUI {
       f.add(twelfthPanel);
       f.add(thirtheenthPanel);
       f.add(finalP);
+      cancel.addActionListener(new ActionListener() {
 
+          public void actionPerformed(ActionEvent e) {
+              findPatientUI(f);
+          }
+      });
       confirm.addActionListener(new ActionListener() {
 
           public void actionPerformed(ActionEvent e) {
@@ -397,6 +398,8 @@ public class ReceptionistUI {
               }
               hashmap.put("patientid", id);
               //receptionist.editUserInformation(hashmap); // DEWI
+              constructMainReceptionistUI(f);
+              //TO DO add confirmation message
           }
       });
     }
