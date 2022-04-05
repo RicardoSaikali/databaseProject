@@ -188,7 +188,6 @@ public class Receptionist {
             e.printStackTrace();
         }
     }
-    
     public void editUserInformation() {
         try {
             // Get contact information id
