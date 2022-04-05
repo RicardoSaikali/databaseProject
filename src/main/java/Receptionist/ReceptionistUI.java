@@ -396,7 +396,7 @@ public class ReceptionistUI {
                   System.out.println(arr[i] + ", " + input);
                   hashmap.put(arr[i], input);
               }
-              hashmap.put("patientid", id);
+              hashmap.put("patientid", Integer.toString(id));
               //receptionist.editUserInformation(hashmap); // DEWI
               constructMainReceptionistUI(f);
               //TO DO add confirmation message

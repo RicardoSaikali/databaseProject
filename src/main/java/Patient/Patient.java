@@ -72,10 +72,10 @@ public class Patient {
 
     }
 
-    public static HashMap<String, String> getPatientInfo(int userid) {
+    public static HashMap<String, String> getPatientInfo(int patientId) {
         try {
             preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM public.user, public.address, public.contactinformation, public.patient WHERE user_id=" + userid
+                    "SELECT * FROM public.user, public.address, public.contactinformation, public.patient WHERE patient_id=" + patientId
                             + " and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id and public.user.user_id=public.patient.userid");
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
