@@ -56,10 +56,14 @@ public class Patient {
     public boolean isPatient(int id) {
         try {
             // Get contact information id
-            preparedStatement = conn.prepareStatement("SELECT * FROM public.user WHERE user_id=" + id);
+            preparedStatement = conn.prepareStatement("SELECT COUNT(*) FROM public.patient WHERE userid=" + id);
             resultSet = preparedStatement.executeQuery();
-
-            return true;
+            int count=0;
+            while (resultSet.next()) {
+                 count = Integer.parseInt(resultSet.getString("count"));
+            }
+            if(count>0) return true;
+            else return false;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +76,7 @@ public class Patient {
         try {
             preparedStatement = conn.prepareStatement(
                     "SELECT * FROM public.user, public.address, public.contactinformation, public.patient WHERE user_id=" + userid
-                            + " and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id");
+                            + " and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id and public.user.user_id=public.patient.userid");
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
             while (resultSet.next()) {
@@ -140,11 +144,11 @@ public class Patient {
         return null;
     }
 
-    public static HashMap<String, String> getMedicalHistory(int appointment_id) {
+    public static HashMap<String, String> getMedicalHistory(int userid) {
         // TODO check if this actually works
         try {
             preparedStatement = conn.prepareStatement(
-                    "SELECT type, symptoms, toothinvolved, description FROM public.Appointment WHERE Appointment_id=" + appointment_id);
+                    "SELECT type, symptoms, toothinvolved, description FROM public.Appointment WHERE user_id=" + userid);
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
             while (resultSet.next()) {
