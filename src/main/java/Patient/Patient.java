@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.Date;
 
 import javax.print.DocFlavor.READER;
+import javax.print.attribute.HashDocAttributeSet;
 import javax.swing.undo.StateEdit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -101,49 +102,6 @@ public class Patient {
         return null;
     }
 
-    public static ArrayList<Integer> getListAppointments(int userid) {
-        // TODO check if this actually works
-        try {
-            preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM public.Appointment WHERE user_id=" + userid
-                            + " order by Date, Start_time");
-            resultSet = preparedStatement.executeQuery();
-            ArrayList<Integer> result = new ArrayList<Integer>();
-            while (resultSet.next()) {
-                result.add(Integer.valueOf(resultSet.getInt("Appointment_id")));
-            }
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static HashMap<String, String> getAppointmentInfo(int appointment_id) {
-        // TODO check if this actually works
-        try {
-            preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM public.Appointment WHERE Appointment_id=" + appointment_id);
-            resultSet = preparedStatement.executeQuery();
-            HashMap<String, String> map = new HashMap<String, String>();
-            while (resultSet.next()) {
-                map.put("Patient_id", resultSet.getString("Date"));
-                map.put("Employee_id", resultSet.getString("Date"));
-                map.put("Date", resultSet.getString("Date"));
-                map.put("Start_time", resultSet.getString("Start_time"));
-                map.put("End_time", resultSet.getString("End_time"));
-                map.put("Status", resultSet.getString("Status"));
-                map.put("Room_assigned", resultSet.getString("Room_assigned"));
-                map.put("Notes", resultSet.getString("Notes"));
-                map.put("Invoice_id", resultSet.getString("Invoice_id"));
-            }
-            return map;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static HashMap<String, String> getMedicalHistory(int patientId) {//this has to be patientID not userID
         try {
             preparedStatement = conn.prepareStatement(
@@ -163,6 +121,29 @@ public class Patient {
         }
         return null;
     }
+    public static ArrayList<HashMap<String,String>> upcomingAppointments(int patientId) {//this has to be patientID not userID
+        try {
+            preparedStatement = conn.prepareStatement(
+                "SELECT * FROM public.appointment WHERE patient_id="+ patientId);
+            resultSet = preparedStatement.executeQuery();
+            ArrayList<HashMap<String,String>> appointment = new ArrayList<HashMap<String,String>>();
+            while (resultSet.next()) {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("date", resultSet.getString("date"));
+                map.put("starttime", resultSet.getString("starttime"));
+                map.put("endtime", resultSet.getString("endtime"));
+                map.put("status", resultSet.getString("status"));
+                map.put("roomassigned", resultSet.getString("roomassigned"));
+                map.put("notes", resultSet.getString("notes"));
+                appointment.add(map);
+            }
+            System.out.println(appointment.toString());
 
+            return appointment; // returns an arraylist that has many hashmaps with appointment information
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
