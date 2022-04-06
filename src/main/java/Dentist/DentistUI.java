@@ -5,12 +5,10 @@ import Receptionist.Receptionist;
 
 import java.awt.FlowLayout;
 import javax.swing.*;
-import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
-import javax.swing.JFrame;
 
 public class DentistUI extends JPanel {
   public Dentist dentist;
@@ -117,6 +115,7 @@ public class DentistUI extends JPanel {
   public static void createGetRecordsUI(String patientID) {
     f.setVisible(false);
     JFrame recordFrame = new JFrame();
+    f = recordFrame;
     recordFrame.getContentPane().removeAll();
     Dimension tmpSize = f.getSize();
     recordFrame.setLayout(null);
@@ -125,7 +124,18 @@ public class DentistUI extends JPanel {
     recordFrame.setLocationRelativeTo(null);
     recordFrame.setVisible(true);
     recordFrame.setResizable(false);
-    
+
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 130, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        getValidPatientIDUI(1);
+      }
+    });
+    panelb.add(back);
+    recordFrame.add(panelb);
     SwingUtilities.updateComponentTreeUI(f);
     // Display all user information up top such as name, gender, date of birth, etc.
     HashMap<String, String> patientInfo = patient.getPatientInfo(Integer.parseInt(patientID));
@@ -196,7 +206,7 @@ public class DentistUI extends JPanel {
     JPanel panel2 = new JPanel();
     // panel2.setBackground(Color.blue);
     panel2.setBounds(0, 130, f.getWidth(), 40);
-    JButton button = new JButton("Login");
+    JButton button = new JButton("Search");
     panel2.add(button);
     f.add(error);
     f.add(panel);

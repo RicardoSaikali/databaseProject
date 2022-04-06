@@ -10,10 +10,12 @@ import java.util.LinkedList;
 import Patient.Patient;
 
 public class ReceptionistUI {
-
+    public Patient patient;
     public Receptionist receptionist;
 
     public ReceptionistUI(JFrame aJFrame) {
+        patient = new Patient();
+        receptionist = new Receptionist();
         createUI(aJFrame);
     }
 
@@ -47,7 +49,7 @@ public class ReceptionistUI {
             public void actionPerformed(ActionEvent e) {
                 String s = field.getText();
                 if (isInteger(s)) {
-                    receptionist = new Receptionist();
+                    //receptionist = new Receptionist();
                     if (receptionist.isReceptionist(Integer.parseInt(s))) {
                         constructMainReceptionistUI(f);
                     } else {
@@ -107,6 +109,11 @@ public class ReceptionistUI {
         f.add(p2);
         f.add(p3);
         f.add(p4);
+        btn3.addActionListener(new ActionListener(){
+          public void actionPerformed(ActionEvent e){
+            setAppointment();
+          }
+        });
         btn2.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -120,6 +127,46 @@ public class ReceptionistUI {
                 patientInfo(f);
             }
         });
+    }
+    public void setAppointment(){ // Assumption: receptionist can only make appointments to own branch
+      JFrame f = new JFrame("Set Appointment");
+      f.setSize(1000, 1000);
+      f.setLayout(null);
+
+      JPanel panel = new JPanel();
+      panel.setLayout(null);
+      panel.setBounds(0,0, f.getWidth(), 120);
+      panel.setBackground(Color.red);
+
+      JLabel label = new JLabel("Please enter patiend ID:");
+      label.setBounds(425, 15,150,30);
+      JTextField field = new JTextField(10);
+      field.setBounds(475, 50, 50, 20);
+      JButton btn = new JButton("Submit");
+      btn.setBounds(450, 80, 100, 25);
+      panel.add(label);
+      panel.add(field);
+      panel.add(btn);
+
+      btn.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent e) {
+              panel.setVisible(false);
+
+              JPanel panel2 = new JPanel();
+              panel2.setLayout(null);
+              panel2.setBounds(0, 120, f.getWidth(), 120);
+              panel2.setBackground(Color.blue);
+
+              f.add(panel2);
+              f.repaint();
+          }
+      });
+      f.add(panel);
+      f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      f.setLocationRelativeTo(null);
+      f.setVisible(true);
+      f.setResizable(false);
     }
     public void findPatientUI(JFrame f){
       f.getContentPane().removeAll();
@@ -161,7 +208,7 @@ public class ReceptionistUI {
             String s = field.getText();
             if (isInteger(s)){
               int patientId = Integer.parseInt(s);
-              Patient patient = new Patient();
+              //Patient patient = new Patient();
               if (patient.isPatient(patientId)){
                 HashMap<String,String> map = patient.getPatientInfo(patientId);
                 System.out.println(map);
@@ -397,7 +444,7 @@ public class ReceptionistUI {
                   hashmap.put(arr[i], input);
               }
               hashmap.put("patientid", patientId);
-              receptionist.editUserInformation(hashmap); 
+              receptionist.editUserInformation(hashmap);
               constructMainReceptionistUI(f);
               //TO DO add confirmation message
           }
