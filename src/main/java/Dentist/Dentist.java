@@ -55,4 +55,31 @@ public class Dentist {
         return false;
     }
 
+    public static ArrayList<HashMap<String,String>> upcomingAppointments(int employeeId) {//this has to be patientID not userID
+        try {
+            preparedStatement = conn.prepareStatement(
+                "SELECT * FROM public.appointment WHERE employee_id="+ employeeId);
+            resultSet = preparedStatement.executeQuery();
+            ArrayList<HashMap<String,String>> appointment = new ArrayList<HashMap<String,String>>();
+            while (resultSet.next()) {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("date", resultSet.getString("date"));
+                map.put("starttime", resultSet.getString("starttime"));
+                map.put("endtime", resultSet.getString("endtime"));
+                map.put("status", resultSet.getString("status"));
+                map.put("roomassigned", resultSet.getString("roomassigned"));
+                map.put("notes", resultSet.getString("notes"));
+                appointment.add(map);
+            }
+            System.out.println(appointment.toString());
+
+            return appointment; // returns an arraylist that has many hashmaps with appointment information
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 }
