@@ -2,15 +2,7 @@ package Receptionist;
 
 import TheConnection.DBConnection;
 import java.util.*;
-import java.util.Date;
 
-import javax.swing.undo.StateEdit;
-
-import org.junit.platform.engine.discovery.UriSelector;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.io.ObjectInputFilter.Status;
 //databse imports
 import java.sql.*;
 
@@ -194,37 +186,38 @@ public class Receptionist {
     public void editUserInformation(HashMap<String,String> map) {
         try {
             // Get contact information id
-           
-                // if (field.equals("email") || field.equals("phonenumber")) {
-                //     table = "public.contactInformation";
-                //     id = contactInformationId;
-                //     type = "contactinfo_id";
-                // } else if (field.equals("apartmentnumber") || field.equals("streetnumber") || field.equals("street")
-                //         || field.equals("city") || field.equals("province") || field.equals("postalcode")) {
-                //     table = "public.address";
-                //     id = addressId;
-                //     type = "address_id";
-                // } else if (field.equals("firstname") || field.equals("middlename") || field.equals("lastname")
-                //         || field.equals("gender") || field.equals("ssn") || field.equals("datebirth")) {
-                //     table = "public.user";
-                //     type = "user_id";
-                //     id = userId;
-                // }
-                // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field
-                // +" = " +value +" WHERE SSN = "+ssn );
                 preparedStatement = conn.prepareStatement("SELECT contactinfo_id FROM public.user, public.patient WHERE patient_id=" + Integer.parseInt(map.get("patientid"))+ " and public.patient.userid=public.user.user_id");
                 resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    contactInformationId= Integer.parseInt(resultSet.getString("userid"));
+                    contactInformationId= Integer.parseInt(resultSet.getString("contactinfo_id"));
                 }
+
+                preparedStatement = conn.prepareStatement("SELECT address_id FROM public.user, public.patient WHERE patient_id=" + Integer.parseInt(map.get("patientid"))+ " and public.patient.userid=public.user.user_id");
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    addressId= Integer.parseInt(resultSet.getString("address_id"));
+                }
+
+                preparedStatement = conn.prepareStatement("SELECT user_id FROM public.user, public.patient WHERE patient_id=" + Integer.parseInt(map.get("patientid"))+ " and public.patient.userid=public.user.user_id");
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    userId= Integer.parseInt(resultSet.getString("user_id"));
+                }
+
                 
-                String sql1 = "UPDATE public.contactInformation SET email= " + map.get("email")+ ", phonenumber= " +map.get("phonenumber") + " where contactinfo_id= " + contactInformationId;
+                String sql1 = "UPDATE public.contactInformation SET email= '" + map.get("email")+ "', phonenumber='" +map.get("phonenumber") + "' where contactinfo_id= " + contactInformationId;
+                String sql2 = "UPDATE public.address SET streetaddress= '" + map.get("street")+ "', city= '" +map.get("city") + "', province= '" +map.get("province") + "', postalcode= '" +map.get("postalcode") +"' where address_id= " + addressId;
+                String sql3 = "UPDATE public.user SET firstname= '" + map.get("firstname")+ "', middlename= '" +map.get("middlename") + "', lastname= '" +map.get("lastname") + "', gender= '" +map.get("gender") + "', ssn= " +map.get("ssn") + ", datebirth= '" +map.get("datebirth") +"' where user_id= " + userId;
+                String sql4 = "UPDATE public.patient SET insurancenumber= '" + map.get("insurancenumber")+"' where userid= " + userId;
                 
-                //Dewi Add the rest of the sql statements to update all fields in public.address and public.user 
-                
-                // statement.addBatch(sql);
+                statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                                
+                statement.addBatch(sql1);
+                statement.addBatch(sql2);
+                statement.addBatch(sql3);
+                statement.addBatch(sql4);
             
-            statement.executeBatch();
+                statement.executeBatch();
 
         } catch (SQLException e) {
             e.printStackTrace();

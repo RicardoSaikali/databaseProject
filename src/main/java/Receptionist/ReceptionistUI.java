@@ -133,7 +133,7 @@ public class ReceptionistUI {
 
       panel.setBounds(0, 100, f.getWidth(), 30);
 
-      JLabel label = new JLabel("Please enter the ID of the patient you would like to edit");
+      JLabel label = new JLabel("Please enter the Patient ID of the patient you would like to edit");
       JTextField field = new JTextField(10);
       panel.add(label);
       panel.add(field);
@@ -160,10 +160,10 @@ public class ReceptionistUI {
           public void actionPerformed(ActionEvent e) {
             String s = field.getText();
             if (isInteger(s)){
-              int id = Integer.parseInt(s);
+              int patientId = Integer.parseInt(s);
               Patient patient = new Patient();
-              if (patient.isPatient(id)){
-                HashMap map = patient.getPatientInfo(id);
+              if (patient.isPatient(patientId)){
+                HashMap<String,String> map = patient.getPatientInfo(patientId);
                 System.out.println(map);
                 patientInfo(f, map, s);
 
@@ -178,7 +178,7 @@ public class ReceptionistUI {
 
       });
     }
-    public void patientInfo(JFrame f, HashMap<String, String> map, String id){
+    public void patientInfo(JFrame f, HashMap<String, String> map, String patientId){
       LinkedList<JTextField> fieldList = new LinkedList<JTextField>();
       f.getContentPane().removeAll();
       SwingUtilities.updateComponentTreeUI(f);
@@ -396,8 +396,8 @@ public class ReceptionistUI {
                   System.out.println(arr[i] + ", " + input);
                   hashmap.put(arr[i], input);
               }
-              hashmap.put("patientid", Integer.toString(id));
-              //receptionist.editUserInformation(hashmap); // DEWI
+              hashmap.put("patientid", patientId);
+              receptionist.editUserInformation(hashmap); 
               constructMainReceptionistUI(f);
               //TO DO add confirmation message
           }

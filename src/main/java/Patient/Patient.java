@@ -56,7 +56,7 @@ public class Patient {
     public boolean isPatient(int id) {
         try {
             // Get contact information id
-            preparedStatement = conn.prepareStatement("SELECT COUNT(*) FROM public.patient WHERE userid=" + id);
+            preparedStatement = conn.prepareStatement("SELECT COUNT(*) FROM public.patient WHERE patient_id=" + id);
             resultSet = preparedStatement.executeQuery();
             int count=0;
             while (resultSet.next()) {
