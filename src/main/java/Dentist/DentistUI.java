@@ -208,7 +208,7 @@ public class DentistUI extends JPanel {
       secondPanel.add(lblMedications);
 
       if(patientRecord.get(i).get("comments")!=null){
-        JLabel lblComments = new JLabel("Treatment comments: " + patientRecord.get(i).get("comments"));
+        JLabel lblComments = new JLabel("Treatment Comments: " + patientRecord.get(i).get("comments"));
         lblComments.setBounds(0, 0, 200, 30);
         secondPanel.add(lblComments);
       }
