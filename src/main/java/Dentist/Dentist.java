@@ -79,7 +79,8 @@ public class Dentist {
         }
         return null;
     }
-
+    
+    //call Patient.getMedicalHistory with patientId to get medical history 
 
 
 }
