@@ -204,25 +204,72 @@ public class Receptionist {
                     userId= Integer.parseInt(resultSet.getString("user_id"));
                 }
 
-                
+
                 String sql1 = "UPDATE public.contactInformation SET email= '" + map.get("email")+ "', phonenumber='" +map.get("phonenumber") + "' where contactinfo_id= " + contactInformationId;
                 String sql2 = "UPDATE public.address SET streetaddress= '" + map.get("street")+ "', city= '" +map.get("city") + "', province= '" +map.get("province") + "', postalcode= '" +map.get("postalcode") +"' where address_id= " + addressId;
                 String sql3 = "UPDATE public.user SET firstname= '" + map.get("firstname")+ "', middlename= '" +map.get("middlename") + "', lastname= '" +map.get("lastname") + "', gender= '" +map.get("gender") + "', ssn= " +map.get("ssn") + ", datebirth= '" +map.get("datebirth") +"' where user_id= " + userId;
                 String sql4 = "UPDATE public.patient SET insurancenumber= '" + map.get("insurancenumber")+"' where userid= " + userId;
-                
+
                 statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                                
+
                 statement.addBatch(sql1);
                 statement.addBatch(sql2);
                 statement.addBatch(sql3);
                 statement.addBatch(sql4);
-            
+
                 statement.executeBatch();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+    public ArrayList<String> checkAvailableRoom(String date, String startime){
+      try{
+
+        preparedStatement = conn.prepareStatement("SELECT roomassigned FROM public.appointment WHERE date='" + date
+                + "' and starttime='" + startime + "'");
+        resultSet = preparedStatement.executeQuery();
+        ArrayList<String> roomsTaken = new ArrayList<String>();
+        ArrayList<String> roomAvail = new ArrayList<String>();
+        while (resultSet.next()) {
+            roomsTaken.add(resultSet.getString("roomassigned"));
+        }
+        for (int i = 0; i < rooms.length; i++) {
+            if (!roomsTaken.contains(rooms[i])) {
+                //System.out.println(rooms[i]);
+                roomAvail.add(rooms[i]);
+            }
+        }
+        return roomAvail;
+      } catch (Exception e){
+        e.printStackTrace();
+        return null;
+      }
+    }
+    public ArrayList<Integer> getAvailableDentists(String date, String startime, int branch){
+      try {
+        preparedStatement = conn.prepareStatement("SELECT employee_id FROM public.appointment WHERE date='" + date
+                + "' and starttime='" + startime + "'");
+        resultSet = preparedStatement.executeQuery();
+        ArrayList<Integer> busyDentists = new ArrayList<Integer>();
+        ArrayList<Integer> availDentists = new ArrayList<Integer>();
+        while (resultSet.next()) {
+            busyDentists.add(resultSet.getInt("employee_id"));
+        }
+        // get all dentists
+        preparedStatement = conn.prepareStatement(
+                "SELECT employee_id FROM public.employee WHERE employee_role = 'Dentist' and branch_id=" + branch);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            if (!busyDentists.contains(resultSet.getInt("employee_id")))
+                //System.out.println(resultSet.getInt("employee_id"));
+                availDentists.add(resultSet.getInt("employee_id"));
+        }
+        return availDentists;
+        } catch (Exception e){
+          return null;
+        }
     }
 
     public void setAppointment() {

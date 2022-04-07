@@ -35,21 +35,21 @@ public class main {
          * OR run with java -cp ".\postgresql-42.3.3.jar;" main
          */
 
-        Receptionist receptionist = new Receptionist();
-        // receptionist.getInformation(conn,true);
-        scanner = new Scanner(System.in);
+        // Receptionist receptionist = new Receptionist();
+        // // receptionist.getInformation(conn,true);
+        // scanner = new Scanner(System.in);
         // System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
         // int option = Integer.parseInt(scanner.nextLine());
         // if(option==1);
         // else if(option==2) receptionist.editUserInformation();
         // else receptionist.setAppointment();
-        
+
         // System.out.println("Which option would you like to pick:\nOption1: Access medical history\nOption2: Access upcoming appointments\nOption3: Schedule with dentist");
         // int option = Integer.parseInt(scanner.nextLine());
         // if(option==1);
         // else if(option==2) receptionist.editUserInformation();
         // else receptionist.setAppointment();
-        
+
         createUI();
     }
 
