@@ -5,8 +5,7 @@ import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import Patient.Patient;
 
 public class ReceptionistUI {
@@ -138,7 +137,7 @@ public class ReceptionistUI {
       panel.setBounds(0,0, f.getWidth(), 120);
       panel.setBackground(Color.red);
 
-      JLabel label = new JLabel("Please enter patiend ID:");
+      JLabel label = new JLabel("Please enter patient ID:");
       label.setBounds(425, 15,150,30);
       JTextField field = new JTextField(10);
       field.setBounds(475, 50, 50, 20);
@@ -151,15 +150,107 @@ public class ReceptionistUI {
       btn.addActionListener(new ActionListener() {
 
           public void actionPerformed(ActionEvent e) {
-              panel.setVisible(false);
+              String s = field.getText();
+              if (isInteger(s) && patient.isPatient(Integer.parseInt(s))){
+                panel.setVisible(false);
 
-              JPanel panel2 = new JPanel();
-              panel2.setLayout(null);
-              panel2.setBounds(0, 120, f.getWidth(), 120);
-              panel2.setBackground(Color.blue);
+                JPanel panel2 = new JPanel();
+                panel2.setLayout(null);
+                panel2.setBounds(0, 120, f.getWidth(), 100);
+                panel2.setBackground(Color.blue);
 
-              f.add(panel2);
-              f.repaint();
+                JLabel day = new JLabel("Select date (yyyy-mm-dd)");
+                day.setBounds(20,20, 150, 20);
+
+                JTextField dayField = new JTextField();
+                dayField.setBounds(180, 20, 100, 20);
+
+                JLabel startTime = new JLabel("Select start time (military time)");
+                startTime.setBounds(300,20, 170, 20);
+
+                JTextField startTimeField = new JTextField();
+                startTimeField.setBounds(480, 20, 100, 20);
+
+                JLabel endTime = new JLabel("Select end time (military time)");
+                endTime.setBounds(630,20, 150, 20);
+
+                JTextField endTimeField = new JTextField();
+                endTimeField.setBounds(800, 20, 100, 20);
+
+                JButton btn2 = new JButton("Confirm");
+                btn2.setBounds(450, 60, 100, 20);
+
+                panel2.add(day);
+                panel2.add(dayField);
+                panel2.add(startTime);
+                panel2.add(startTimeField);
+                panel2.add(endTime);
+                panel2.add(endTimeField);
+                panel2.add(btn2);
+                btn2.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+                      ArrayList<String> availRooms = receptionist.checkAvailableRoom(dayField.getText(), startTimeField.getText());
+
+                      panel2.setVisible(false);
+
+                      JPanel panel3 = new JPanel();
+                      panel3.setLayout(null);
+                      panel3.setBounds(0, 220, f.getWidth(), 100);
+                      panel3.setBackground(Color.white);
+
+                      JComboBox roomsDropDown = new JComboBox();
+                      for(int i = 0; i < availRooms.size(); i++){
+                        roomsDropDown.addItem(availRooms.get(i));
+                      }
+                      roomsDropDown.setBounds(450, 20, 100, 30);
+
+                      JButton btn3 = new JButton("Select");
+                      btn3.setBounds(450, 55, 100, 20);
+
+                      panel3.add(roomsDropDown);
+                      panel3.add(btn3);
+                      btn3.addActionListener(new ActionListener() {
+
+                          public void actionPerformed(ActionEvent e) {
+                            ArrayList<Integer> availDentist = receptionist.getAvailableDentists(dayField.getText(), startTimeField.getText(), 1 ); ///
+                            panel3.setVisible(false);
+
+                            JPanel panel4 = new JPanel();
+                            panel4.setLayout(null);
+                            panel4.setBounds(0, 320, f.getWidth(), 100);
+                            panel4.setBackground(Color.yellow);
+
+                            JComboBox dentistDropDown = new JComboBox();
+                            for(int i = 0; i < availDentist.size(); i++){
+                              dentistDropDown.addItem(availDentist.get(i).toString());
+                            }
+                            dentistDropDown.setBounds(450, 20, 100, 30);
+
+                            JButton btn4 = new JButton("Select");
+                            btn4.setBounds(450, 55, 100, 20);
+
+                            panel4.add(dentistDropDown);
+                            panel4.add(btn4);
+
+                            f.add(panel4);
+                            f.repaint();
+                          }
+
+                      });
+                      f.add(panel3);
+                      f.repaint();
+
+                    }
+
+                });
+                f.add(panel2);
+                f.repaint();
+              } else {
+                label.setText("Please enter patient ID: Error");
+                label.setBounds(410, 15,180,30);
+                panel.repaint();
+              }
           }
       });
       f.add(panel);
