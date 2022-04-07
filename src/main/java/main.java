@@ -1,6 +1,6 @@
 import Receptionist.Receptionist;
 import Receptionist.ReceptionistUI;
-import Dentist.DentistUI;
+// import Dentist.DentistUI;
 import Patient.PatientUI;
 import Patient.Patient;
 //UI imports
@@ -35,14 +35,21 @@ public class main {
          * OR run with java -cp ".\postgresql-42.3.3.jar;" main
          */
 
-        //Receptionist receptionist = new Receptionist();
+        Receptionist receptionist = new Receptionist();
         // receptionist.getInformation(conn,true);
-        // scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         // System.out.println("Which option would you like to pick:\nOption1: Add Patient to database\nOption2: Update Patient information\nOption3: Set Patient appointment");
         // int option = Integer.parseInt(scanner.nextLine());
-        // if(option==1) receptionist.helper(true);
+        // if(option==1);
         // else if(option==2) receptionist.editUserInformation();
         // else receptionist.setAppointment();
+        
+        // System.out.println("Which option would you like to pick:\nOption1: Access medical history\nOption2: Access upcoming appointments\nOption3: Schedule with dentist");
+        // int option = Integer.parseInt(scanner.nextLine());
+        // if(option==1);
+        // else if(option==2) receptionist.editUserInformation();
+        // else receptionist.setAppointment();
+        
         createUI();
     }
 
@@ -90,7 +97,7 @@ public class main {
                 } else if (r2.isSelected()) {
                     System.out.println("Dentist");
                     radiopanel.setVisible(false);
-                    DentistUI Dentist = new DentistUI(f);
+                    // DentistUI Dentist = new DentistUI(f);
                 } else if (r3.isSelected()) {
                     System.out.println("User");
                     radiopanel.setVisible(false);
