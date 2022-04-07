@@ -116,6 +116,7 @@ public class Patient {
                 map.put("tooth", resultSet.getString("toothinvolved"));
                 map.put("description", resultSet.getString("description"));
                 map.put("comments", resultSet.getString("comments"));
+                map.put("date", resultSet.getString("date"));
                 medicalHistory.add(map);
             }
             return medicalHistory;

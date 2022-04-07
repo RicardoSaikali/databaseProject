@@ -183,14 +183,42 @@ public class DentistUI extends JPanel {
     for(int i = 0; i < patientRecord.size(); i++){
       JPanel secondPanel = new JPanel();
       secondPanel.setBounds(0, i*60 + 30, recordFrame.getWidth(), 60);
-      secondPanel.setBackground(Color.green);
+      secondPanel.setBackground(Color.gray);
+      secondPanel.setBorder(BorderFactory.createLineBorder(Color.black));
       secondPanel.setLayout(new FlowLayout());
+
+      JLabel lblDate = new JLabel("Date: " + patientRecord.get(i).get("date"));
+      lblDate.setBounds(0, 0, 200, 30);
+      secondPanel.add(lblDate);
+
       JLabel lbltype = new JLabel("Type: " + patientRecord.get(i).get("type"));
       lbltype.setBounds(0, 0, 200, 30);
       secondPanel.add(lbltype);
+
+      JLabel lblTooth = new JLabel("Type: " + patientRecord.get(i).get("type"));
+      lbltype.setBounds(0, 0, 200, 30);
+      secondPanel.add(lbltype);
+
       JLabel lblsymptoms = new JLabel("Symptoms: " + patientRecord.get(i).get("symptoms"));
       lblsymptoms.setBounds(0, 0, 200, 30);
       secondPanel.add(lblsymptoms);
+
+      JLabel lblMedications = new JLabel("Medication: " + patientRecord.get(i).get("medication"));
+      lblMedications.setBounds(0, 0, 200, 30);
+      secondPanel.add(lblMedications);
+
+      if(patientRecord.get(i).get("comments")!=null){
+        JLabel lblComments = new JLabel("Treatment comments: " + patientRecord.get(i).get("comments"));
+        lblComments.setBounds(0, 0, 200, 30);
+        secondPanel.add(lblComments);
+      }
+
+      if(patientRecord.get(i).get("description")!=null){
+        JLabel lblDescription = new JLabel("Appointment Proceedure Description: " + patientRecord.get(i).get("description"));
+        lblDescription.setBounds(0, 0, 200, 30);
+        secondPanel.add(lblDescription);
+      }
+
       recordFrame.add(secondPanel);
     }
     
