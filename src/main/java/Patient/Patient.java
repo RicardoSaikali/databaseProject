@@ -105,7 +105,7 @@ public class Patient {
     public static ArrayList<HashMap<String, String>> getMedicalHistory(int patientId) {//this has to be patientID not userID
         try {
             preparedStatement = conn.prepareStatement(
-                "SELECT type, symptoms, public.appointmentprocedure.toothinvolved, description FROM public.treatmenttype, public.treatment, public.appointmentprocedure, public.appointment WHERE patient_id="+ patientId+ 
+                "SELECT type, symptoms, medication, comments, description, public.appointmentprocedure.toothinvolved, date FROM public.treatmenttype, public.treatment, public.appointmentprocedure, public.appointment WHERE patient_id="+ patientId+ 
                 " and public.treatmenttype.treatment_id=public.treatment.treatment_id and public.appointmentprocedure.appointment_id=public.treatment.appointment_id and public.appointment.appointment_id=public.appointmentprocedure.appointment_id;");
             resultSet = preparedStatement.executeQuery();
             ArrayList<HashMap<String,String>> medicalHistory = new ArrayList<HashMap<String,String>>();
@@ -115,6 +115,7 @@ public class Patient {
                 map.put("symptoms", resultSet.getString("symptoms"));
                 map.put("tooth", resultSet.getString("toothinvolved"));
                 map.put("description", resultSet.getString("description"));
+                map.put("comments", resultSet.getString("comments"));
                 medicalHistory.add(map);
             }
             return medicalHistory;

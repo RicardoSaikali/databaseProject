@@ -2,7 +2,7 @@ package Dentist;
 
 import Patient.Patient;
 import Receptionist.Receptionist;
-
+import java.util.ArrayList;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.*;
 
 public class DentistUI extends JPanel {
-  public Dentist dentist;
+  public  Dentist dentist;
   private static Patient patient = new Patient();
   private static JFrame f;
   private static String patientID = "";
@@ -154,8 +154,10 @@ public class DentistUI extends JPanel {
     JLabel lblLastName = new JLabel("Last Name: " + patientInfo.get("lastname") + "  ");
     JLabel lblGender = new JLabel("Gender: " + patientInfo.get("gender") + "  ");
     JLabel lblDateOfBirth = new JLabel("Date Of Birth: " + patientInfo.get("datebirth"));
+    JLabel lblPostalcode = new JLabel("Postal Code: " + patientInfo.get("postalcode") + "  ");
     // firstLabel.setBounds(150,0, 100, 30);
 
+    
     lblLastName.setBounds(0, 0, 200, 30);
     lblGender.setBounds(0, 0, 200, 30);
     lblDateOfBirth.setBounds(0, 0, 200, 30);
@@ -171,11 +173,27 @@ public class DentistUI extends JPanel {
     firstPanel.add(lblLastName);
     firstPanel.add(lblGender);
     firstPanel.add(lblDateOfBirth);
+    firstPanel.add(lblPostalcode);
 
     recordFrame.add(firstPanel);
     // f.add(secondPanel);
 
     // bottom section should display records
+    ArrayList<HashMap<String, String>> patientRecord = patient.getMedicalHistory(Integer.parseInt(patientID));
+    for(int i = 0; i < patientRecord.size(); i++){
+      JPanel secondPanel = new JPanel();
+      secondPanel.setBounds(0, i*60 + 30, recordFrame.getWidth(), 60);
+      secondPanel.setBackground(Color.green);
+      secondPanel.setLayout(new FlowLayout());
+      JLabel lbltype = new JLabel("Type: " + patientRecord.get(i).get("type"));
+      lbltype.setBounds(0, 0, 200, 30);
+      secondPanel.add(lbltype);
+      JLabel lblsymptoms = new JLabel("Symptoms: " + patientRecord.get(i).get("symptoms"));
+      lblsymptoms.setBounds(0, 0, 200, 30);
+      secondPanel.add(lblsymptoms);
+      recordFrame.add(secondPanel);
+    }
+    
 
   }
 
@@ -206,8 +224,17 @@ public class DentistUI extends JPanel {
     JPanel panel2 = new JPanel();
     // panel2.setBackground(Color.blue);
     panel2.setBounds(0, 130, f.getWidth(), 40);
+
     JButton button = new JButton("Search");
     panel2.add(button);
+    // JButton back = new JButton("Back");
+    // back.addActionListener(new ActionListener() {
+
+    //   public void actionPerformed(ActionEvent e) {
+        
+    //   }
+    // });
+    // panel2.add(back);
     f.add(error);
     f.add(panel);
     f.add(panel2);

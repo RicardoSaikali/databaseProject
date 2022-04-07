@@ -1,6 +1,6 @@
 import Receptionist.Receptionist;
 import Receptionist.ReceptionistUI;
-// import Dentist.DentistUI;
+import Dentist.DentistUI;
 import Patient.PatientUI;
 import Patient.Patient;
 //UI imports
@@ -97,7 +97,7 @@ public class main {
                 } else if (r2.isSelected()) {
                     System.out.println("Dentist");
                     radiopanel.setVisible(false);
-                    // DentistUI Dentist = new DentistUI(f);
+                    DentistUI Dentist = new DentistUI(f);
                 } else if (r3.isSelected()) {
                     System.out.println("User");
                     radiopanel.setVisible(false);
