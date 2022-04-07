@@ -54,8 +54,8 @@ public class Dentist {
         }
         return false;
     }
-    //Gets all upcoming appointments for dentist and returns a list that should be shown on the UI
-    public static ArrayList<HashMap<String,String>> upcomingAppointments(int employeeId) {//this has to be employeeId not userID
+
+    public static ArrayList<HashMap<String,String>> upcomingAppointments(int employeeId) {//this has to be patientID not userID
         try {
             preparedStatement = conn.prepareStatement(
                 "SELECT * FROM public.appointment WHERE employee_id="+ employeeId);
