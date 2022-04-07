@@ -11,7 +11,9 @@ public class Dentist {
     private static String phonenumber;
     private static PreparedStatement preparedStatement;
     private static ResultSet resultSet;
+    private static ResultSet newSet;
     private static int contactInformationId;
+
 
     public Dentist() {
         // String user = "mzjycxzivsmkni";
@@ -63,6 +65,15 @@ public class Dentist {
             ArrayList<HashMap<String,String>> appointment = new ArrayList<HashMap<String,String>>();
             while (resultSet.next()) {
                 HashMap<String, String> map = new HashMap<String, String>();
+                preparedStatement = conn.prepareStatement("SELECT firstname, middlename, lastname FROM public.user,public.appointment, public.patient where public.patient.patient_id="+ 
+                resultSet.getInt("patient_id")+ " and public.patient.patient_id=public.appointment.patient_id");
+                newSet = preparedStatement.executeQuery();
+                while (newSet.next()) { //get patient names
+                    map.put("firstname", resultSet.getString("firstname"));
+                    map.put("middlename", resultSet.getString("middlename"));
+                    map.put("lastname", resultSet.getString("lastname"));
+                }
+                
                 map.put("date", resultSet.getString("date"));
                 map.put("starttime", resultSet.getString("starttime"));
                 map.put("endtime", resultSet.getString("endtime"));

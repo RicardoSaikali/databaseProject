@@ -272,6 +272,20 @@ public class Receptionist {
         }
     }
 
+    public int getBranch(int employee_id){
+        try{
+            preparedStatement = conn.prepareStatement(
+                    "SELECT branch_id FROM public.employee WHERE employee_id="+employee_id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return resultSet.getInt("branch_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public void setAppointment() {
         try {
             // Get contact information id
