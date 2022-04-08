@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.*;
 
 public class DentistUI extends JPanel {
-  public  Dentist dentist;
+  public  static Dentist dentist;
   private static Patient patient = new Patient();
   private static JFrame f;
   private static String patientID = "";
@@ -77,15 +77,15 @@ public class DentistUI extends JPanel {
             btnAddRecords.setBounds(150, 0, 200, 30);
 
             JPanel p4 = new JPanel();
-            p4.setBounds(0, 180, f.getWidth(), 40);
-            // p3.setBackground(Color.green);
+            p4.setBounds(0, 220, f.getWidth(), 40);
             JButton btnAppointments = new JButton("View Appointments");
-            btnAddRecords.setBounds(150, 0, 200, 30);
+            btnAppointments.setBounds(150, 0, 200, 30);
 
-            p4.add(btnAppointments);
+            
             p3.add(btnAddRecords);
             p2.add(btnGetRecords);
             p.add(lblSelectFunc);
+            p4.add(btnAppointments);
             f.add(p);
             f.add(p2);
             f.add(p3);
@@ -94,7 +94,6 @@ public class DentistUI extends JPanel {
             btnGetRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
                 getValidPatientIDUI(1);
-
               }
             });
             btnAddRecords.addActionListener(new ActionListener() {
@@ -153,10 +152,7 @@ public class DentistUI extends JPanel {
     
 
     String middleName = patientInfo.get("middlename");
-
     JLabel lblFirstName = new JLabel("First Name: " + patientInfo.get("firstname") + "  ");
-
-
     JLabel lblLastName = new JLabel("Last Name: " + patientInfo.get("lastname") + "  ");
     JLabel lblGender = new JLabel("Gender: " + patientInfo.get("gender") + "  ");
     JLabel lblDateOfBirth = new JLabel("Date Of Birth: " + patientInfo.get("datebirth"));
@@ -263,9 +259,35 @@ public class DentistUI extends JPanel {
   }
 
   public static void viewAppointmentsUI(){
-    //use dentistID to fetch appointments;
+    f.setTitle("");
+    f.getContentPane().removeAll();
+    SwingUtilities.updateComponentTreeUI(f);
+    //Header here
 
-    
+    //Display appointments here
+    ArrayList<HashMap<String,String>> upcomingAppointments = dentist.upcomingAppointments(dentistID);
+    HashMap<String, String> tmpAppointment;
+    String[] dataKeys = {"firstname", "middlename", "lastname", "date", "starttime", "endtime", "status", "roomassigned", "notes"};
+    String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "Date: ", "Start Time: ", "End Time: ", "Status: ", "Room: ", "Notes: "};
+    JLabel tmpLabel;
+    JPanel tmpPanel;
+    for(int i = 0; i<upcomingAppointments.size();i++){
+      tmpAppointment = upcomingAppointments.get(i);
+      //set panel
+      tmpPanel = new JPanel();
+      tmpPanel.setBounds(0, i*60 + 90, f.getWidth(), 80); //mess with this to try to get auto height
+      tmpPanel.setBackground(Color.gray);
+      tmpPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+      tmpPanel.setLayout(new FlowLayout());
+      for(int j = 0; j<dataKeys.length; j++){
+        //set labels for this panel
+        tmpLabel = new JLabel(associatedText[j]+ tmpAppointment.get(dataKeys[j]) + "  ");
+        tmpLabel.setBounds(0, 0, 200, 30);
+        tmpPanel.add(tmpLabel);
+      }
+      f.add(tmpPanel);
+    }
+
     return; //TODO
   }
 

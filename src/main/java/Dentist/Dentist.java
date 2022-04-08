@@ -69,9 +69,9 @@ public class Dentist {
                 resultSet.getInt("patient_id")+ " and public.patient.patient_id=public.appointment.patient_id");
                 newSet = preparedStatement.executeQuery();
                 while (newSet.next()) { //get patient names
-                    map.put("firstname", resultSet.getString("firstname"));
-                    map.put("middlename", resultSet.getString("middlename"));
-                    map.put("lastname", resultSet.getString("lastname"));
+                    map.put("firstname", newSet.getString("firstname"));
+                    map.put("middlename", newSet.getString("middlename"));
+                    map.put("lastname", newSet.getString("lastname"));
                 }
                 
                 map.put("date", resultSet.getString("date"));
