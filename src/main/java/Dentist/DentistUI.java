@@ -265,7 +265,7 @@ public class DentistUI extends JPanel {
 
     //Header here
     JPanel TitlePannel = new JPanel();
-    TitlePannel.setBounds(0, 30, f.getWidth(), 60);
+    TitlePannel.setBounds(0, 0, f.getWidth(), 60);
     TitlePannel.setBackground(new Color(10, 20, 130));//Color here
     TitlePannel.setLayout(new GridBagLayout());
     TitlePannel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -287,7 +287,7 @@ public class DentistUI extends JPanel {
       tmpAppointment = upcomingAppointments.get(i);
       //set panel
       tmpPanel = new JPanel();
-      tmpPanel.setBounds(0, i*60 + 90, f.getWidth(), 80); //mess with this to try to get auto height
+      tmpPanel.setBounds(0, i*60 + 60, f.getWidth(), 80); //mess with this to try to get auto height
       tmpPanel.setBackground(Color.gray);
       tmpPanel.setBorder(BorderFactory.createLineBorder(Color.black));
       tmpPanel.setLayout(new FlowLayout());
