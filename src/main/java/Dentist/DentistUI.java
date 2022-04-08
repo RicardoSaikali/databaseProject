@@ -171,7 +171,7 @@ public class DentistUI extends JPanel {
     //Title
     JPanel TitlePannel = new JPanel();
     TitlePannel.setBounds(0, 30, recordFrame.getWidth(), 60);
-    TitlePannel.setBackground(Color.black);
+    TitlePannel.setBackground(new Color(10, 20, 130));
     TitlePannel.setLayout(new GridBagLayout());
     TitlePannel.setBorder(BorderFactory.createLineBorder(Color.black));
 
