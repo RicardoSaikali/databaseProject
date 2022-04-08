@@ -297,6 +297,17 @@ public class DentistUI extends JPanel {
         tmpLabel.setBounds(0, 0, 200, 30);
         tmpPanel.add(tmpLabel);
       }
+
+      //button for panel
+      JButton btnOpen = new JButton("Open");
+      btnOpen.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Call function to open appointment and pass appointment id
+        }
+      });
+      tmpPanel.add(btnOpen);
+
+      //add panel to frame
       f.add(tmpPanel);
     }
 
