@@ -328,7 +328,7 @@ public class DentistUI extends JPanel {
       JButton btnOpen = new JButton("Open");
       btnOpen.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          openAppointmentUI(tmpAppointment.get("Appointment_id"));
+          openAppointmentUI(Integer.parseInt(tmpAppointment.get("Appointment_id")));
         }
       });
       tmpPanel.add(btnOpen);
