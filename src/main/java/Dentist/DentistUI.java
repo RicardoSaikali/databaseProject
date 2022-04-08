@@ -149,7 +149,6 @@ public class DentistUI extends JPanel {
     f = recordFrame;
     recordFrame.setTitle("Patient Medical History");
     recordFrame.getContentPane().removeAll();
-    Dimension tmpSize = f.getSize();
     recordFrame.setLayout(null);
     recordFrame.setSize(1000, 500);
     recordFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -342,8 +341,103 @@ public class DentistUI extends JPanel {
   public static void openAppointmentUI(int appointment_id){
     //page shown when dentist presses on an appointment
     //it should show all info for the appointment as well as procedures and treatments associated
+    //TODO: clear page and add panels
+    JFrame openedAppointmentFrame = new JFrame();
+    openedAppointmentFrame.setTitle("Viewing Appointment Data");
+    openedAppointmentFrame.getContentPane().removeAll();
+    openedAppointmentFrame.setLayout(null);
+    openedAppointmentFrame.setSize(1000, 500);
+    openedAppointmentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    openedAppointmentFrame.setLocationRelativeTo(null);
+    f.setVisible(false);
+    openedAppointmentFrame.setVisible(true);
+    openedAppointmentFrame.setResizable(false);
+    openedAppointmentFrame.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+          f.setVisible(true);
+      }
+  });
+
     //TODO: call getAppointment_ProceduresForAppointment and getTreatementsForAppointment and display them seperately
+    int height=0;
+    //Display Treatments for appointment
+    //TODO add title: List of treatments
+
+    JPanel appointmentPanel= new JPanel();
+    appointmentPanel.setBounds(0, height, openedAppointmentFrame.getWidth(), 60);
+    height+=60;
+    // treatmentPanel.setBackground(Color.gray);
+    appointmentPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    appointmentPanel.setLayout(new GridBagLayout());
+    JLabel lblProceedure = new JLabel("List of Procedures");
+    lblProceedure.setBounds(0, 0, 200, 60);
+    lblProceedure.setForeground(Color.red);
+    lblProceedure.setFont(new Font(lblProceedure.getName(), Font.PLAIN, 15));
+    appointmentPanel.add(lblProceedure);
+    openedAppointmentFrame.add(appointmentPanel);
+
+    ArrayList<HashMap<String, String>> treatments = dentist.getTreatmentsForAppointment(appointment_id);
+    String[] dataKeys = {"Medication", "Symptoms", "Tooth_involved", "Comments"};
+    String[] associatedText = { "Medication: ", "Symptoms: ", "Tooth_involved: ", "Comments: "};
+    JLabel tmpLabel;
+    JPanel tmpPanel;
     
+    height=60;
+    for (int i = 0; i < treatments.size(); i++) {
+      HashMap<String, String> tmpTreatment = treatments.get(i);
+      // set panel
+      tmpPanel = new JPanel();
+      tmpPanel.setBounds(0, i * 60 + height, openedAppointmentFrame.getWidth(), 30); // mess with this to try to get auto height
+      tmpPanel.setBackground(Color.gray);
+      tmpPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+      tmpPanel.setLayout(new FlowLayout());
+      height+=30;//increment to shift certin items down
+      for (int j = 0; j < dataKeys.length; j++) {
+        // set labels for this panel
+        tmpLabel = new JLabel(associatedText[j] + tmpTreatment.get(dataKeys[j]) + "  ");
+        tmpLabel.setBounds(0, 0, 200, 30);
+        tmpPanel.add(tmpLabel);
+      }
+      openedAppointmentFrame.add(tmpPanel);
+    }
+    //Display appointment_proceedures
+    //TODO add title: List of proceedures and increment height
+    JPanel treatmentPanel= new JPanel();
+    treatmentPanel.setBounds(0, height, openedAppointmentFrame.getWidth(), 60);
+    height+=60;
+    // treatmentPanel.setBackground(Color.gray);
+    treatmentPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    treatmentPanel.setLayout(new GridBagLayout());
+    JLabel lblTreatment = new JLabel("List of Treatments");
+    lblTreatment.setBounds(0, 0, 200, 60);
+    lblTreatment.setForeground(Color.red);
+    lblTreatment.setFont(new Font(lblTreatment.getName(), Font.PLAIN, 15));
+    treatmentPanel.add(lblTreatment);
+    openedAppointmentFrame.add(treatmentPanel);
+
+
+    ArrayList<HashMap<String, String>> appointmentProceedures = dentist.getAppointment_ProceduresForAppointment(appointment_id);
+    String[] dataKeys2 = {"Description", "Tooth_involved", "Amount_procedures"};
+    String[] associatedText2 = { "Description: ", "Tooth Involved: ", "Amount_procedures: "};
+    JLabel tmpLabel2;
+    JPanel tmpPanel2;
+    for (int i = 0; i < appointmentProceedures.size(); i++) {
+      HashMap<String, String> tmpProceedure = appointmentProceedures.get(i);
+      // set panel
+      tmpPanel2 = new JPanel();
+      tmpPanel2.setBounds(0, i * 60 + height, openedAppointmentFrame.getWidth(), 30); // mess with this to try to get auto height
+      tmpPanel2.setBackground(Color.gray);
+      tmpPanel2.setBorder(BorderFactory.createLineBorder(Color.black));
+      tmpPanel2.setLayout(new FlowLayout());
+      for (int j = 0; j < dataKeys2.length; j++) {
+        // set labels for this panel
+        tmpLabel2 = new JLabel(associatedText2[j] + tmpProceedure.get(dataKeys2[j]) + "  ");
+        tmpLabel2.setBounds(0, 0, 200, 30);
+        tmpPanel2.add(tmpLabel2);
+      }
+      openedAppointmentFrame.add(tmpPanel2);
+    }
+
     return;
   }
 

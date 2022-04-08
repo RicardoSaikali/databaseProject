@@ -61,7 +61,7 @@ public class Patient {
             resultSet = preparedStatement.executeQuery();
             int count=0;
             while (resultSet.next()) {
-                 count = Integer.parseInt(resultSet.getString("count"));
+                count = Integer.parseInt(resultSet.getString("count"));
             }
             if(count>0) return true;
             else return false;

@@ -94,23 +94,23 @@ public class Dentist {
     
     //call Patient.getMedicalHistory with patientId to get medical history 
 
-    public static ArrayList<HashMap<String,String>> getTreatementsForAppointment(int Appointment_id){
+    public static ArrayList<HashMap<String,String>> getTreatmentsForAppointment(int Appointment_id){
         try {
             preparedStatement = conn.prepareStatement(
-                "SELECT * FROM public.Treatment WHERE Appointment_id="+ Appointment_id);
+                "SELECT * FROM public.treatment WHERE Appointment_id="+ Appointment_id);
             resultSet = preparedStatement.executeQuery();
             ArrayList<HashMap<String,String>> treatments = new ArrayList<HashMap<String,String>>();
             while (resultSet.next()) {
                 HashMap<String, String> map = new HashMap<String, String>();                
-                map.put("Treatment_id", resultSet.getString("Treatment_id"));
-                map.put("Record_id", resultSet.getString("Record_id"));
-                map.put("Appointment_id", resultSet.getString("Appointment_id"));
-                map.put("Type_id", resultSet.getString("Type_id"));
-                map.put("Medication", resultSet.getString("Medication"));
-                map.put("Symptoms", resultSet.getString("Symptoms"));
-                map.put("Tooth_involved", resultSet.getString("Tooth_involved"));
-                map.put("Comments", resultSet.getString("Comments"));
-                appointment.add(map);
+                map.put("Treatment_id", resultSet.getString("treatment_id"));
+                map.put("Record_id", resultSet.getString("record_id"));
+                map.put("Appointment_id", resultSet.getString("appointment_id"));
+                map.put("Type_id", resultSet.getString("type_id"));
+                map.put("Medication", resultSet.getString("medication"));
+                map.put("Symptoms", resultSet.getString("symptoms"));
+                map.put("Tooth_involved", resultSet.getString("toothinvolved"));
+                map.put("Comments", resultSet.getString("comments"));
+                treatments.add(map);
             }
             System.out.println(treatments.toString());
 
@@ -124,18 +124,17 @@ public class Dentist {
     public static ArrayList<HashMap<String,String>> getAppointment_ProceduresForAppointment(int Appointment_id){
         try {
             preparedStatement = conn.prepareStatement(
-                "SELECT * FROM public.Appointment_Procedure WHERE Appointment_id="+ Appointment_id);
+                "SELECT * FROM public.appointmentprocedure WHERE Appointment_id="+ Appointment_id);
             resultSet = preparedStatement.executeQuery();
             ArrayList<HashMap<String,String>> appointmentProcedures = new ArrayList<HashMap<String,String>>();
             while (resultSet.next()) {
                 HashMap<String, String> map = new HashMap<String, String>();                
-                map.put("Procedure_code", resultSet.getString("Procedure_code"));
-                map.put("Appointment_id", resultSet.getString("Appointment_id"));
-                map.put("Description", resultSet.getString("Description"));
-                map.put("Tooth_involved", resultSet.getString("Tooth_involved"));
-                map.put("Amount_procedures", resultSet.getString("Amount_procedures"));
-                map.put("Biling_id", resultSet.getString("Biling_id"));
-                appointment.add(map);
+                map.put("Procedure_code", resultSet.getString("procedurecode"));
+                map.put("Appointment_id", resultSet.getString("appointment_id"));
+                map.put("Description", resultSet.getString("description"));
+                map.put("Tooth_involved", resultSet.getString("toothinvolved"));
+                map.put("Amount_procedures", resultSet.getString("amountprocedures"));
+                appointmentProcedures.add(map);
             }
             System.out.println(appointmentProcedures.toString());
 
