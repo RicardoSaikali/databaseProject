@@ -125,17 +125,7 @@ public class DentistUI extends JPanel {
     recordFrame.setVisible(true);
     recordFrame.setResizable(false);
 
-    JPanel panelb = new JPanel();
-    panelb.setBounds(0, 130, f.getWidth(), 40);
-    JButton back = new JButton("Back");
-    back.addActionListener(new ActionListener() {
-
-      public void actionPerformed(ActionEvent e) {
-        getValidPatientIDUI(1);
-      }
-    });
-    panelb.add(back);
-    recordFrame.add(panelb);
+    
     SwingUtilities.updateComponentTreeUI(f);
     // Display all user information up top such as name, gender, date of birth, etc.
     HashMap<String, String> patientInfo = patient.getPatientInfo(Integer.parseInt(patientID));
@@ -178,50 +168,77 @@ public class DentistUI extends JPanel {
     recordFrame.add(firstPanel);
     // f.add(secondPanel);
 
+    //Title
+    JPanel TitlePannel = new JPanel();
+    TitlePannel.setBounds(0, 30, recordFrame.getWidth(), 60);
+    TitlePannel.setBackground(Color.black);
+    TitlePannel.setLayout(new GridBagLayout());
+    TitlePannel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+    JLabel lblTitle = new JLabel("Medical History");
+    lblTitle.setBounds(0, 0, 200, 60);
+    lblTitle.setForeground(Color.white);
+    lblTitle.setFont(new Font(lblTitle.getName(), Font.PLAIN, 15));
+    TitlePannel.add(lblTitle);
+    recordFrame.add(TitlePannel);
+
+
     // bottom section should display records
+    int totalheight = 90;
     ArrayList<HashMap<String, String>> patientRecord = patient.getMedicalHistory(Integer.parseInt(patientID));
     for(int i = 0; i < patientRecord.size(); i++){
-      JPanel secondPanel = new JPanel();
-      secondPanel.setBounds(0, i*60 + 30, recordFrame.getWidth(), 60);
-      secondPanel.setBackground(Color.gray);
-      secondPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-      secondPanel.setLayout(new FlowLayout());
+      totalheight += 60;
+      JPanel HistoryInstance = new JPanel();
+      HistoryInstance.setBounds(0, i*60 + 90, recordFrame.getWidth(), 60);
+      HistoryInstance.setBackground(Color.gray);
+      HistoryInstance.setBorder(BorderFactory.createLineBorder(Color.black));
+      HistoryInstance.setLayout(new FlowLayout());
 
       JLabel lblDate = new JLabel("Date: " + patientRecord.get(i).get("date"));
       lblDate.setBounds(0, 0, 200, 30);
-      secondPanel.add(lblDate);
+      HistoryInstance.add(lblDate);
 
       JLabel lbltype = new JLabel("Type: " + patientRecord.get(i).get("type"));
       lbltype.setBounds(0, 0, 200, 30);
-      secondPanel.add(lbltype);
+      HistoryInstance.add(lbltype);
 
       JLabel lblTooth = new JLabel("Type: " + patientRecord.get(i).get("type"));
       lbltype.setBounds(0, 0, 200, 30);
-      secondPanel.add(lbltype);
+      HistoryInstance.add(lbltype);
 
       JLabel lblsymptoms = new JLabel("Symptoms: " + patientRecord.get(i).get("symptoms"));
       lblsymptoms.setBounds(0, 0, 200, 30);
-      secondPanel.add(lblsymptoms);
+      HistoryInstance.add(lblsymptoms);
 
       JLabel lblMedications = new JLabel("Medication: " + patientRecord.get(i).get("medication"));
       lblMedications.setBounds(0, 0, 200, 30);
-      secondPanel.add(lblMedications);
+      HistoryInstance.add(lblMedications);
 
       if(patientRecord.get(i).get("comments")!=null){
         JLabel lblComments = new JLabel("Treatment Comments: " + patientRecord.get(i).get("comments"));
         lblComments.setBounds(0, 0, 200, 30);
-        secondPanel.add(lblComments);
+        HistoryInstance.add(lblComments);
       }
 
       if(patientRecord.get(i).get("description")!=null){
         JLabel lblDescription = new JLabel("Appointment Proceedure Description: " + patientRecord.get(i).get("description"));
         lblDescription.setBounds(0, 0, 200, 30);
-        secondPanel.add(lblDescription);
+        HistoryInstance.add(lblDescription);
       }
 
-      recordFrame.add(secondPanel);
+      recordFrame.add(HistoryInstance);
     }
-    
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, totalheight, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        getValidPatientIDUI(1);
+      }
+    });
+    panelb.add(back);
+    recordFrame.add(panelb);
 
   }
 
