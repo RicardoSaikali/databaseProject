@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.*;
 
 public class DentistUI extends JPanel {
-  public  static Dentist dentist;
+  public static Dentist dentist;
   private static Patient patient = new Patient();
   private static JFrame f;
   private static String patientID = "";
@@ -51,62 +51,10 @@ public class DentistUI extends JPanel {
     button.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
-        String s = field.getText();
-        if (isInteger(s)) {
-          if (dentist.isDentist(Integer.parseInt(s))) {
-            dentistID=Integer.parseInt(s);
-            f.getContentPane().removeAll();
-            f.repaint();
-
-            JPanel p = new JPanel();
-            p.setBounds(0, 100, f.getWidth(), 40);
-            // p.setBackground(Color.red);
-            JLabel lblSelectFunc = new JLabel("Select function:");
-            lblSelectFunc.setBounds(200, 0, 100, 40);
-
-            JPanel p2 = new JPanel();
-            p2.setBounds(0, 140, f.getWidth(), 40);
-            // p2.setBackground(Color.blue);
-            JButton btnGetRecords = new JButton("Get patient info and records");
-            btnGetRecords.setBounds(150, 0, 200, 30);
-
-            JPanel p3 = new JPanel();
-            p3.setBounds(0, 180, f.getWidth(), 40);
-            // p3.setBackground(Color.green);
-            JButton btnAddRecords = new JButton("Add to patient record");
-            btnAddRecords.setBounds(150, 0, 200, 30);
-
-            JPanel p4 = new JPanel();
-            p4.setBounds(0, 220, f.getWidth(), 40);
-            JButton btnAppointments = new JButton("View Appointments");
-            btnAppointments.setBounds(150, 0, 200, 30);
-
-            
-            p3.add(btnAddRecords);
-            p2.add(btnGetRecords);
-            p.add(lblSelectFunc);
-            p4.add(btnAppointments);
-            f.add(p);
-            f.add(p2);
-            f.add(p3);
-            f.add(p4);
-
-            btnGetRecords.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                getValidPatientIDUI(1);
-              }
-            });
-            btnAddRecords.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                getValidPatientIDUI(2);
-              }
-            });
-            btnAppointments.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
-                viewAppointmentsUI();
-              }
-            });
-
+        String idInput = field.getText();
+        if (isInteger(idInput)) {
+          if (dentist.isDentist(Integer.parseInt(idInput))) {
+            dentistChoiceUI(Integer.parseInt(idInput));
           } else {
             JLabel errorLabel = new JLabel("Wrong ID");
             errorLabel.setBounds(200, 0, 100, 30);
@@ -127,6 +75,60 @@ public class DentistUI extends JPanel {
     });
   }
 
+  public static void dentistChoiceUI(int id) {
+    dentistID = id;
+    f.getContentPane().removeAll();
+    f.repaint();
+
+    JPanel p = new JPanel();
+    p.setBounds(0, 100, f.getWidth(), 40);
+    // p.setBackground(Color.red);
+    JLabel lblSelectFunc = new JLabel("Select function:");
+    lblSelectFunc.setBounds(200, 0, 100, 40);
+
+    JPanel p2 = new JPanel();
+    p2.setBounds(0, 140, f.getWidth(), 40);
+    // p2.setBackground(Color.blue);
+    JButton btnGetRecords = new JButton("Get patient info and records");
+    btnGetRecords.setBounds(150, 0, 200, 30);
+
+    JPanel p3 = new JPanel();
+    p3.setBounds(0, 180, f.getWidth(), 40);
+    // p3.setBackground(Color.green);
+    JButton btnAddRecords = new JButton("Add to patient record");
+    btnAddRecords.setBounds(150, 0, 200, 30);
+
+    JPanel p4 = new JPanel();
+    p4.setBounds(0, 220, f.getWidth(), 40);
+    JButton btnAppointments = new JButton("View Appointments");
+    btnAppointments.setBounds(150, 0, 200, 30);
+
+    p3.add(btnAddRecords);
+    p2.add(btnGetRecords);
+    p.add(lblSelectFunc);
+    p4.add(btnAppointments);
+    f.add(p);
+    f.add(p2);
+    f.add(p3);
+    f.add(p4);
+
+    btnGetRecords.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        getValidPatientIDUI(1);
+      }
+    });
+    btnAddRecords.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        getValidPatientIDUI(2);
+      }
+    });
+    btnAppointments.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        viewAppointmentsUI();
+      }
+    });
+  }
+
   public static void createGetRecordsUI(String patientID) {
     f.setVisible(false);
     JFrame recordFrame = new JFrame();
@@ -134,13 +136,12 @@ public class DentistUI extends JPanel {
     recordFrame.getContentPane().removeAll();
     Dimension tmpSize = f.getSize();
     recordFrame.setLayout(null);
-    recordFrame.setSize(1000,500);
+    recordFrame.setSize(1000, 500);
     recordFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     recordFrame.setLocationRelativeTo(null);
     recordFrame.setVisible(true);
     recordFrame.setResizable(false);
 
-    
     SwingUtilities.updateComponentTreeUI(f);
     // Display all user information up top such as name, gender, date of birth, etc.
     HashMap<String, String> patientInfo = patient.getPatientInfo(Integer.parseInt(patientID));
@@ -149,7 +150,6 @@ public class DentistUI extends JPanel {
     firstPanel.setBounds(0, 0, recordFrame.getWidth(), 30);
     firstPanel.setBackground(Color.red);
     firstPanel.setLayout(new FlowLayout());
-    
 
     String middleName = patientInfo.get("middlename");
     JLabel lblFirstName = new JLabel("First Name: " + patientInfo.get("firstname") + "  ");
@@ -159,7 +159,6 @@ public class DentistUI extends JPanel {
     JLabel lblPostalcode = new JLabel("Postal Code: " + patientInfo.get("postalcode") + "  ");
     // firstLabel.setBounds(150,0, 100, 30);
 
-    
     lblLastName.setBounds(0, 0, 200, 30);
     lblGender.setBounds(0, 0, 200, 30);
     lblDateOfBirth.setBounds(0, 0, 200, 30);
@@ -180,7 +179,7 @@ public class DentistUI extends JPanel {
     recordFrame.add(firstPanel);
     // f.add(secondPanel);
 
-    //Title
+    // Title
     JPanel TitlePannel = new JPanel();
     TitlePannel.setBounds(0, 30, recordFrame.getWidth(), 60);
     TitlePannel.setBackground(new Color(10, 20, 130));
@@ -194,14 +193,13 @@ public class DentistUI extends JPanel {
     TitlePannel.add(lblTitle);
     recordFrame.add(TitlePannel);
 
-
     // bottom section should display records
     int totalheight = 90;
     ArrayList<HashMap<String, String>> patientRecord = patient.getMedicalHistory(Integer.parseInt(patientID));
-    for(int i = 0; i < patientRecord.size(); i++){
+    for (int i = 0; i < patientRecord.size(); i++) {
       totalheight += 60;
       JPanel HistoryInstance = new JPanel();
-      HistoryInstance.setBounds(0, i*60 + 90, recordFrame.getWidth(), 60);
+      HistoryInstance.setBounds(0, i * 60 + 90, recordFrame.getWidth(), 60);
       HistoryInstance.setBackground(Color.gray);
       HistoryInstance.setBorder(BorderFactory.createLineBorder(Color.black));
       HistoryInstance.setLayout(new FlowLayout());
@@ -226,14 +224,15 @@ public class DentistUI extends JPanel {
       lblMedications.setBounds(0, 0, 200, 30);
       HistoryInstance.add(lblMedications);
 
-      if(patientRecord.get(i).get("comments")!=null){
+      if (patientRecord.get(i).get("comments") != null) {
         JLabel lblComments = new JLabel("Treatment Comments: " + patientRecord.get(i).get("comments"));
         lblComments.setBounds(0, 0, 200, 30);
         HistoryInstance.add(lblComments);
       }
 
-      if(patientRecord.get(i).get("description")!=null){
-        JLabel lblDescription = new JLabel("Appointment Proceedure Description: " + patientRecord.get(i).get("description"));
+      if (patientRecord.get(i).get("description") != null) {
+        JLabel lblDescription = new JLabel(
+            "Appointment Proceedure Description: " + patientRecord.get(i).get("description"));
         lblDescription.setBounds(0, 0, 200, 30);
         HistoryInstance.add(lblDescription);
       }
@@ -258,60 +257,72 @@ public class DentistUI extends JPanel {
     return; // TODO
   }
 
-  public static void viewAppointmentsUI(){
+  public static void viewAppointmentsUI() {
     f.setTitle("Upcoming Appointments");
     f.getContentPane().removeAll();
     SwingUtilities.updateComponentTreeUI(f);
 
-    //Header here
+    // Header here
+    JButton back = new JButton("Back");
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        dentistChoiceUI(dentistID);// TODO
+      }
+    });
+
     JPanel TitlePannel = new JPanel();
     TitlePannel.setBounds(0, 0, f.getWidth(), 60);
-    TitlePannel.setBackground(new Color(10, 20, 130));//Color here
+    TitlePannel.setBackground(new Color(10, 20, 130));// Color here
     TitlePannel.setLayout(new GridBagLayout());
     TitlePannel.setBorder(BorderFactory.createLineBorder(Color.black));
     JLabel lblTitle = new JLabel("Upcoming Appointments");
     lblTitle.setBounds(0, 0, 200, 60);
     lblTitle.setForeground(Color.white);
     lblTitle.setFont(new Font(lblTitle.getName(), Font.PLAIN, 15));
+    TitlePannel.add(back);
     TitlePannel.add(lblTitle);
     f.add(TitlePannel);
 
-    //Display appointments here
-    ArrayList<HashMap<String,String>> upcomingAppointments = dentist.upcomingAppointments(dentistID);
-    
-    String[] dataKeys = {"firstname", "middlename", "lastname", "date", "starttime", "endtime", "status", "roomassigned", "notes"};
-    String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "Date: ", "Start Time: ", "End Time: ", "Status: ", "Room: ", "Notes: "};
+    // Display appointments here
+    ArrayList<HashMap<String, String>> upcomingAppointments = dentist.upcomingAppointments(dentistID);
+
+    String[] dataKeys = { "firstname", "middlename", "lastname", "date", "starttime", "endtime", "status",
+        "roomassigned", "notes" };
+    String[] associatedText = { "First Name: ", "Middle Name: ", "Last Name: ", "Date: ", "Start Time: ", "End Time: ",
+        "Status: ", "Room: ", "Notes: " };
     JLabel tmpLabel;
     JPanel tmpPanel;
-    for(int i = 0; i<upcomingAppointments.size();i++){
+    for (int i = 0; i < upcomingAppointments.size(); i++) {
       HashMap<String, String> tmpAppointment = upcomingAppointments.get(i);
-      //set panel
+      // set panel
       tmpPanel = new JPanel();
-      tmpPanel.setBounds(0, i*60 + 60, f.getWidth(), 80); //mess with this to try to get auto height
+      tmpPanel.setBounds(0, i * 60 + 60, f.getWidth(), 80); // mess with this to try to get auto height
       tmpPanel.setBackground(Color.gray);
       tmpPanel.setBorder(BorderFactory.createLineBorder(Color.black));
       tmpPanel.setLayout(new FlowLayout());
-      for(int j = 0; j<dataKeys.length; j++){
-        //set labels for this panel
-        tmpLabel = new JLabel(associatedText[j]+ tmpAppointment.get(dataKeys[j]) + "  ");
+      for (int j = 0; j < dataKeys.length; j++) {
+        // set labels for this panel
+        tmpLabel = new JLabel(associatedText[j] + tmpAppointment.get(dataKeys[j]) + "  ");
         tmpLabel.setBounds(0, 0, 200, 30);
         tmpPanel.add(tmpLabel);
       }
 
-      //button for panel
+      // button for panel
       JButton btnOpen = new JButton("Open");
       btnOpen.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          //use this appointment id to open the next appointment page: tmpAppointment.get("Appointment_id"))
+          // use this appointment id to open the next appointment page:
+          // tmpAppointment.get("Appointment_id"))
         }
       });
       tmpPanel.add(btnOpen);
 
-      //add panel to frame
+      // add panel to frame
       f.add(tmpPanel);
     }
 
-    return; //TODO
+    return; // TODO
   }
 
   public static void getValidPatientIDUI(int nextPage) {
@@ -343,9 +354,9 @@ public class DentistUI extends JPanel {
     // JButton back = new JButton("Back");
     // back.addActionListener(new ActionListener() {
 
-    //   public void actionPerformed(ActionEvent e) {
-        
-    //   }
+    // public void actionPerformed(ActionEvent e) {
+
+    // }
     // });
     // panel2.add(back);
     f.add(error);
