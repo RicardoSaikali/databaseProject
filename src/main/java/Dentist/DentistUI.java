@@ -25,9 +25,7 @@ public class DentistUI extends JPanel {
     dentistLogin();
   }
 
-  public static void dentistLogin() {    
-    
-
+  public static void dentistLogin() {
     f.setTitle("Dentist Login");
     f.getContentPane().removeAll();
     SwingUtilities.updateComponentTreeUI(f);
@@ -82,7 +80,7 @@ public class DentistUI extends JPanel {
     dentistID = id;
     f.getContentPane().removeAll();
     f.repaint();
-
+    f.setTitle("Dentist Function Select");
     JPanel p = new JPanel();
     p.setBounds(0, 100, f.getWidth(), 40);
     // p.setBackground(Color.red);
@@ -149,6 +147,7 @@ public class DentistUI extends JPanel {
     f.setVisible(false);
     JFrame recordFrame = new JFrame();
     f = recordFrame;
+    recordFrame.setTitle("Patient Medical History");
     recordFrame.getContentPane().removeAll();
     Dimension tmpSize = f.getSize();
     recordFrame.setLayout(null);
@@ -261,6 +260,7 @@ public class DentistUI extends JPanel {
     back.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
+
         getValidPatientIDUI(1);
       }
     });
@@ -328,9 +328,7 @@ public class DentistUI extends JPanel {
       JButton btnOpen = new JButton("Open");
       btnOpen.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          // use this appointment id to open the next appointment page:
-          // tmpAppointment.get("Appointment_id"))
-          // TODO
+          openAppointmentUI(tmpAppointment.get("Appointment_id"));
         }
       });
       tmpPanel.add(btnOpen);
@@ -338,15 +336,25 @@ public class DentistUI extends JPanel {
       // add panel to frame
       f.add(tmpPanel);
     }
+    return;
+  }
 
-    return; 
+  public static void openAppointmentUI(int appointment_id){
+    //page shown when dentist presses on an appointment
+    //it should show all info for the appointment as well as procedures and treatments associated
+    return;
   }
 
   public static void getValidPatientIDUI(int nextPage) {
     // page where the doctor enters the patient ID
     // returns the id once its valid
     // this page is just a simple text box search
-
+    f.setLayout(null);
+    f.setSize(500, 500);
+    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    f.setLocationRelativeTo(null);
+    f.setVisible(true);
+    f.setResizable(false);
     f.setTitle("Patient Search Page");
     f.getContentPane().removeAll();
     SwingUtilities.updateComponentTreeUI(f);
@@ -422,9 +430,18 @@ public class DentistUI extends JPanel {
       }
     });
 
-    // while(!idIsValid){
-    // ;//stay on this screen until they enter a valid id
-    // }
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 260, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.setBounds(150, 0, 200, 30);
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        dentistChoiceUI(dentistID);
+      }
+    });
+    panelb.add(back);
+    f.add(panelb);
 
   }
 
