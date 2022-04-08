@@ -267,7 +267,7 @@ public class DentistUI extends JPanel {
     back.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
-        dentistChoiceUI(dentistID);// TODO
+        dentistChoiceUI(dentistID);
       }
     });
 
@@ -314,6 +314,7 @@ public class DentistUI extends JPanel {
         public void actionPerformed(ActionEvent e) {
           // use this appointment id to open the next appointment page:
           // tmpAppointment.get("Appointment_id"))
+          // TODO
         }
       });
       tmpPanel.add(btnOpen);
@@ -322,7 +323,7 @@ public class DentistUI extends JPanel {
       f.add(tmpPanel);
     }
 
-    return; // TODO
+    return; 
   }
 
   public static void getValidPatientIDUI(int nextPage) {
