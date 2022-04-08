@@ -16,6 +16,7 @@ public class DentistUI extends JPanel {
   private static JFrame f;
   private static String patientID = "";
   private static boolean idIsValid = false;
+  private static int dentistID;
 
   public DentistUI(JFrame aJFrame) {
     f = aJFrame;
@@ -53,6 +54,7 @@ public class DentistUI extends JPanel {
         String s = field.getText();
         if (isInteger(s)) {
           if (dentist.isDentist(Integer.parseInt(s))) {
+            dentistID=Integer.parseInt(s);
             f.getContentPane().removeAll();
             f.repaint();
 
@@ -74,12 +76,21 @@ public class DentistUI extends JPanel {
             JButton btnAddRecords = new JButton("Add to patient record");
             btnAddRecords.setBounds(150, 0, 200, 30);
 
+            JPanel p4 = new JPanel();
+            p4.setBounds(0, 180, f.getWidth(), 40);
+            // p3.setBackground(Color.green);
+            JButton btnAppointments = new JButton("View Appointments");
+            btnAddRecords.setBounds(150, 0, 200, 30);
+
+            p4.add(btnAppointments);
             p3.add(btnAddRecords);
             p2.add(btnGetRecords);
             p.add(lblSelectFunc);
             f.add(p);
             f.add(p2);
             f.add(p3);
+            f.add(p4);
+
             btnGetRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
                 getValidPatientIDUI(1);
@@ -89,6 +100,11 @@ public class DentistUI extends JPanel {
             btnAddRecords.addActionListener(new ActionListener() {
               public void actionPerformed(ActionEvent e) {
                 getValidPatientIDUI(2);
+              }
+            });
+            btnAppointments.addActionListener(new ActionListener() {
+              public void actionPerformed(ActionEvent e) {
+                viewAppointmentsUI();
               }
             });
 
@@ -246,6 +262,13 @@ public class DentistUI extends JPanel {
     return; // TODO
   }
 
+  public static void viewAppointmentsUI(){
+    //use dentistID to fetch appointments;
+
+    
+    return; //TODO
+  }
+
   public static void getValidPatientIDUI(int nextPage) {
     // page where the doctor enters the patient ID
     // returns the id once its valid
@@ -302,6 +325,10 @@ public class DentistUI extends JPanel {
 
               case 2:
                 createAddRecordsUI(patientID);
+                break;
+
+              case 3:
+                viewAppointmentsUI();
                 break;
             }
 
