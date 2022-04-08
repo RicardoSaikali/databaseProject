@@ -259,10 +259,22 @@ public class DentistUI extends JPanel {
   }
 
   public static void viewAppointmentsUI(){
-    f.setTitle("");
+    f.setTitle("Upcoming Appointments");
     f.getContentPane().removeAll();
     SwingUtilities.updateComponentTreeUI(f);
+
     //Header here
+    JPanel TitlePannel = new JPanel();
+    TitlePannel.setBounds(0, 30, f.getWidth(), 60);
+    TitlePannel.setBackground(new Color(10, 20, 130));//Color here
+    TitlePannel.setLayout(new GridBagLayout());
+    TitlePannel.setBorder(BorderFactory.createLineBorder(Color.black));
+    JLabel lblTitle = new JLabel("Upcoming Appointments");
+    lblTitle.setBounds(0, 0, 200, 60);
+    lblTitle.setForeground(Color.white);
+    lblTitle.setFont(new Font(lblTitle.getName(), Font.PLAIN, 15));
+    TitlePannel.add(lblTitle);
+    f.add(TitlePannel);
 
     //Display appointments here
     ArrayList<HashMap<String,String>> upcomingAppointments = dentist.upcomingAppointments(dentistID);
