@@ -342,7 +342,8 @@ public class DentistUI extends JPanel {
   public static void openAppointmentUI(int appointment_id){
     //page shown when dentist presses on an appointment
     //it should show all info for the appointment as well as procedures and treatments associated
-    //TODO
+    //TODO: call getAppointment_ProceduresForAppointment and getTreatementsForAppointment and display them seperately
+    
     return;
   }
 

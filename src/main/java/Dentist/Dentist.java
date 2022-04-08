@@ -94,5 +94,56 @@ public class Dentist {
     
     //call Patient.getMedicalHistory with patientId to get medical history 
 
+    public static ArrayList<HashMap<String,String>> getTreatementsForAppointment(int Appointment_id){
+        try {
+            preparedStatement = conn.prepareStatement(
+                "SELECT * FROM public.Treatment WHERE Appointment_id="+ Appointment_id);
+            resultSet = preparedStatement.executeQuery();
+            ArrayList<HashMap<String,String>> treatments = new ArrayList<HashMap<String,String>>();
+            while (resultSet.next()) {
+                HashMap<String, String> map = new HashMap<String, String>();                
+                map.put("Treatment_id", resultSet.getString("Treatment_id"));
+                map.put("Record_id", resultSet.getString("Record_id"));
+                map.put("Appointment_id", resultSet.getString("Appointment_id"));
+                map.put("Type_id", resultSet.getString("Type_id"));
+                map.put("Medication", resultSet.getString("Medication"));
+                map.put("Symptoms", resultSet.getString("Symptoms"));
+                map.put("Tooth_involved", resultSet.getString("Tooth_involved"));
+                map.put("Comments", resultSet.getString("Comments"));
+                appointment.add(map);
+            }
+            System.out.println(treatments.toString());
+
+            return treatments; // returns an arraylist that has many hashmaps with appointment information
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<HashMap<String,String>> getAppointment_ProceduresForAppointment(int Appointment_id){
+        try {
+            preparedStatement = conn.prepareStatement(
+                "SELECT * FROM public.Appointment_Procedure WHERE Appointment_id="+ Appointment_id);
+            resultSet = preparedStatement.executeQuery();
+            ArrayList<HashMap<String,String>> appointmentProcedures = new ArrayList<HashMap<String,String>>();
+            while (resultSet.next()) {
+                HashMap<String, String> map = new HashMap<String, String>();                
+                map.put("Procedure_code", resultSet.getString("Procedure_code"));
+                map.put("Appointment_id", resultSet.getString("Appointment_id"));
+                map.put("Description", resultSet.getString("Description"));
+                map.put("Tooth_involved", resultSet.getString("Tooth_involved"));
+                map.put("Amount_procedures", resultSet.getString("Amount_procedures"));
+                map.put("Biling_id", resultSet.getString("Biling_id"));
+                appointment.add(map);
+            }
+            System.out.println(appointmentProcedures.toString());
+
+            return appointmentProcedures; // returns an arraylist that has many hashmaps with appointment information
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
