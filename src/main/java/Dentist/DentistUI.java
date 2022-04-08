@@ -278,13 +278,13 @@ public class DentistUI extends JPanel {
 
     //Display appointments here
     ArrayList<HashMap<String,String>> upcomingAppointments = dentist.upcomingAppointments(dentistID);
-    HashMap<String, String> tmpAppointment;
+    
     String[] dataKeys = {"firstname", "middlename", "lastname", "date", "starttime", "endtime", "status", "roomassigned", "notes"};
     String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "Date: ", "Start Time: ", "End Time: ", "Status: ", "Room: ", "Notes: "};
     JLabel tmpLabel;
     JPanel tmpPanel;
     for(int i = 0; i<upcomingAppointments.size();i++){
-      tmpAppointment = upcomingAppointments.get(i);
+      HashMap<String, String> tmpAppointment = upcomingAppointments.get(i);
       //set panel
       tmpPanel = new JPanel();
       tmpPanel.setBounds(0, i*60 + 60, f.getWidth(), 80); //mess with this to try to get auto height
@@ -302,7 +302,7 @@ public class DentistUI extends JPanel {
       JButton btnOpen = new JButton("Open");
       btnOpen.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          //Call function to open appointment and pass appointment id
+          //use this appointment id to open the next appointment page: tmpAppointment.get("Appointment_id"))
         }
       });
       tmpPanel.add(btnOpen);

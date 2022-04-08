@@ -80,6 +80,7 @@ public class Dentist {
                 map.put("status", resultSet.getString("status"));
                 map.put("roomassigned", resultSet.getString("roomassigned"));
                 map.put("notes", resultSet.getString("notes"));
+                map.put("Appointment_id", resultSet.getString("Appointment_id"));
                 appointment.add(map);
             }
             System.out.println(appointment.toString());
