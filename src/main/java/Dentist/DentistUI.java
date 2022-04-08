@@ -12,7 +12,7 @@ import java.util.*;
 
 public class DentistUI extends JPanel {
   public static Dentist dentist;
-  private static Patient patient = new Patient();
+  private static Patient patient;
   private static JFrame f;
   private static String patientID = "";
   private static boolean idIsValid = false;
@@ -20,14 +20,17 @@ public class DentistUI extends JPanel {
 
   public DentistUI(JFrame aJFrame) {
     f = aJFrame;
-    createUI();
+    dentist = new Dentist();
+    patient = new Patient();
+    dentistLogin();
   }
 
-  private void createUI() {
-    dentist = new Dentist();
-    f.setTitle("Dentist Page");
+  public static void dentistLogin() {    
+    
+
+    f.setTitle("Dentist Login");
     f.getContentPane().removeAll();
-    f.repaint();
+    SwingUtilities.updateComponentTreeUI(f);
     JPanel error = new JPanel();
     error.setBounds(0, 0, f.getWidth(), 30);
     // error.setBackground(Color.red);
@@ -127,6 +130,19 @@ public class DentistUI extends JPanel {
         viewAppointmentsUI();
       }
     });
+
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 260, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.setBounds(150, 0, 200, 30);
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        dentistLogin();
+      }
+    });
+    panelb.add(back);
+    f.add(panelb);
   }
 
   public static void createGetRecordsUI(String patientID) {
