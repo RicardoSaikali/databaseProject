@@ -341,7 +341,6 @@ public class DentistUI extends JPanel {
   public static void openAppointmentUI(int appointment_id){
     //page shown when dentist presses on an appointment
     //it should show all info for the appointment as well as procedures and treatments associated
-    //TODO: clear page and add panels
     JFrame openedAppointmentFrame = new JFrame();
     openedAppointmentFrame.setTitle("Viewing Appointment Data");
     openedAppointmentFrame.getContentPane().removeAll();
@@ -358,10 +357,9 @@ public class DentistUI extends JPanel {
       }
   });
 
-    //TODO: call getAppointment_ProceduresForAppointment and getTreatementsForAppointment and display them seperately
+    //call getAppointment_ProceduresForAppointment and getTreatementsForAppointment and display them seperately
     int height=0;
     //Display Treatments for appointment
-    //TODO add title: List of treatments
 
     JPanel appointmentPanel= new JPanel();
     appointmentPanel.setBounds(0, height, openedAppointmentFrame.getWidth(), 60);
@@ -381,7 +379,6 @@ public class DentistUI extends JPanel {
     String[] associatedText = { "Medication: ", "Symptoms: ", "Tooth_involved: ", "Comments: "};
     JLabel tmpLabel;
     JPanel tmpPanel;
-    
     height=60;
     for (int i = 0; i < treatments.size(); i++) {
       HashMap<String, String> tmpTreatment = treatments.get(i);
@@ -401,7 +398,6 @@ public class DentistUI extends JPanel {
       openedAppointmentFrame.add(tmpPanel);
     }
     //Display appointment_proceedures
-    //TODO add title: List of proceedures and increment height
     JPanel treatmentPanel= new JPanel();
     treatmentPanel.setBounds(0, height, openedAppointmentFrame.getWidth(), 60);
     height+=60;
