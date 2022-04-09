@@ -507,7 +507,7 @@ public class Receptionist {
                     + "', '" + tooth + "', '" + notes + "', " + recordId + ", " + appointmentId + ", "
                     + appointmenttypeId + ")";
             String sql6 = "INSERT INTO public.treatmenttype values (" + treatmenttypeId + ", '" + appointmentType
-                    + "', " + treatmentId + ")";
+                    + "')";
 
             String[] arr = new String[] { sql1, sql2, sql3, sql4, sql5, sql6 };
 
