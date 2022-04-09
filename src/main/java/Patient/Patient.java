@@ -59,12 +59,14 @@ public class Patient {
             // Get contact information id
             preparedStatement = conn.prepareStatement("SELECT COUNT(*) FROM public.patient WHERE patient_id=" + id);
             resultSet = preparedStatement.executeQuery();
-            int count=0;
+            int count = 0;
             while (resultSet.next()) {
                 count = Integer.parseInt(resultSet.getString("count"));
             }
-            if(count>0) return true;
-            else return false;
+            if (count > 0)
+                return true;
+            else
+                return false;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +78,8 @@ public class Patient {
     public static HashMap<String, String> getPatientInfo(int patientId) {
         try {
             preparedStatement = conn.prepareStatement(
-                    "SELECT * FROM public.user, public.address, public.contactinformation, public.patient WHERE patient_id=" + patientId
+                    "SELECT * FROM public.user, public.address, public.contactinformation, public.patient WHERE patient_id="
+                            + patientId
                             + " and public.user.address_id=public.address.address_id and public.user.contactinfo_id=public.contactinformation.contactinfo_id and public.user.user_id=public.patient.userid");
             resultSet = preparedStatement.executeQuery();
             HashMap<String, String> map = new HashMap<String, String>();
@@ -92,8 +95,8 @@ public class Patient {
                 map.put("province", resultSet.getString("province"));
                 map.put("postalcode", resultSet.getString("postalcode"));
                 map.put("email", resultSet.getString("email"));
-                map.put("phonenumber", resultSet.getString("phonenumber"));                
-                map.put("insurancenumber", resultSet.getString("insurancenumber"));                
+                map.put("phonenumber", resultSet.getString("phonenumber"));
+                map.put("insurancenumber", resultSet.getString("insurancenumber"));
             }
             return map;
         } catch (SQLException e) {
@@ -102,13 +105,15 @@ public class Patient {
         return null;
     }
 
-    public static ArrayList<HashMap<String, String>> getMedicalHistory(int patientId) {//this has to be patientID not userID
+    public static ArrayList<HashMap<String, String>> getMedicalHistory(int patientId) {// this has to be patientID not
+                                                                                       // userID
         try {
             preparedStatement = conn.prepareStatement(
-                "SELECT type, symptoms, medication, comments, description, public.appointmentprocedure.toothinvolved, date FROM public.treatmenttype, public.treatment, public.appointmentprocedure, public.appointment WHERE patient_id="+ patientId+ 
-                " and public.treatmenttype.treatmenttype_id=public.treatment.type_id and public.appointmentprocedure.appointment_id=public.treatment.appointment_id and public.appointment.appointment_id=public.appointmentprocedure.appointment_id;");
+                    "SELECT type, symptoms, medication, comments, description, public.appointmentprocedure.toothinvolved, date FROM public.treatmenttype, public.treatment, public.appointmentprocedure, public.appointment WHERE patient_id="
+                            + patientId +
+                            " and public.treatmenttype.treatmenttype_id=public.treatment.type_id and public.appointmentprocedure.appointment_id=public.treatment.appointment_id and public.appointment.appointment_id=public.appointmentprocedure.appointment_id;");
             resultSet = preparedStatement.executeQuery();
-            ArrayList<HashMap<String,String>> medicalHistory = new ArrayList<HashMap<String,String>>();
+            ArrayList<HashMap<String, String>> medicalHistory = new ArrayList<HashMap<String, String>>();
             while (resultSet.next()) {
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("type", resultSet.getString("type"));
@@ -125,12 +130,14 @@ public class Patient {
         }
         return null;
     }
-    public static ArrayList<HashMap<String,String>> upcomingAppointments(int patientId) {//this has to be patientID not userID
+
+    public static ArrayList<HashMap<String, String>> upcomingAppointments(int patientId) {// this has to be patientID
+                                                                                          // not userID
         try {
             preparedStatement = conn.prepareStatement(
-                "SELECT * FROM public.appointment WHERE patient_id="+ patientId);
+                    "SELECT * FROM public.appointment WHERE patient_id=" + patientId);
             resultSet = preparedStatement.executeQuery();
-            ArrayList<HashMap<String,String>> appointment = new ArrayList<HashMap<String,String>>();
+            ArrayList<HashMap<String, String>> appointment = new ArrayList<HashMap<String, String>>();
             while (resultSet.next()) {
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("date", resultSet.getString("date"));
@@ -148,6 +155,20 @@ public class Patient {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static int getPatientIDWithAppointmentID(int appointment_id) {
+        try {
+            preparedStatement = conn.prepareStatement(
+                    "SELECT patient_id FROM public.appointment WHERE appointment_id=" + appointment_id);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt("patient_id");
+        } catch (
+        SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }

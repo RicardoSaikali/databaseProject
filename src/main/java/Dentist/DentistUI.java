@@ -340,7 +340,7 @@ public class DentistUI extends JPanel {
 
   public static void openAppointmentUI(int appointment_id){
     //page shown when dentist presses on an appointment
-    //it should show all info for the appointment as well as procedures and treatments associated
+    //Show patient info up top
     JFrame openedAppointmentFrame = new JFrame();
     openedAppointmentFrame.setTitle("Viewing Appointment Data");
     openedAppointmentFrame.getContentPane().removeAll();
@@ -357,8 +357,47 @@ public class DentistUI extends JPanel {
       }
   });
 
+    int patientID = patient.getPatientIDWithAppointmentID(appointment_id);
+
+    HashMap<String, String> patientInfo = patient.getPatientInfo(patientID);
+
+    JPanel firstPanel = new JPanel();
+    firstPanel.setBounds(0, 0, openedAppointmentFrame.getWidth(), 30);
+    firstPanel.setBackground(Color.red);
+    firstPanel.setLayout(new FlowLayout());
+
+    String middleName = patientInfo.get("middlename");
+    JLabel lblFirstName = new JLabel("First Name: " + patientInfo.get("firstname") + "  ");
+    JLabel lblLastName = new JLabel("Last Name: " + patientInfo.get("lastname") + "  ");
+    JLabel lblGender = new JLabel("Gender: " + patientInfo.get("gender") + "  ");
+    JLabel lblDateOfBirth = new JLabel("Date Of Birth: " + patientInfo.get("datebirth"));
+    JLabel lblPostalcode = new JLabel("Postal Code: " + patientInfo.get("postalcode") + "  ");
+
+    lblLastName.setBounds(0, 0, 200, 30);
+    lblGender.setBounds(0, 0, 200, 30);
+    lblDateOfBirth.setBounds(0, 0, 200, 30);
+
+    firstPanel.add(lblFirstName);
+
+    if (middleName != "") {
+      JLabel lblMiddleName = new JLabel("Middle Name: " + middleName + "  ");
+      lblFirstName.setBounds(0, 0, 200, 30);
+      firstPanel.add(lblMiddleName);
+    }
+
+    firstPanel.add(lblLastName);
+    firstPanel.add(lblGender);
+    firstPanel.add(lblDateOfBirth);
+    firstPanel.add(lblPostalcode);
+
+    openedAppointmentFrame.add(firstPanel);
+
+    //it should show all info for the appointment as well as procedures and treatments associated
+    
+    
+
     //call getAppointment_ProceduresForAppointment and getTreatementsForAppointment and display them seperately
-    int height=0;
+    int height=30;
     //Display Treatments for appointment
 
     JPanel appointmentPanel= new JPanel();
@@ -367,7 +406,7 @@ public class DentistUI extends JPanel {
     // treatmentPanel.setBackground(Color.gray);
     appointmentPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     appointmentPanel.setLayout(new GridBagLayout());
-    JLabel lblProceedure = new JLabel("List of Procedures");
+    JLabel lblProceedure = new JLabel("List of Treatments");
     lblProceedure.setBounds(0, 0, 200, 60);
     lblProceedure.setForeground(Color.red);
     lblProceedure.setFont(new Font(lblProceedure.getName(), Font.PLAIN, 15));
@@ -379,20 +418,19 @@ public class DentistUI extends JPanel {
     String[] associatedText = { "Medication: ", "Symptoms: ", "Tooth_involved: ", "Comments: "};
     JLabel tmpLabel;
     JPanel tmpPanel;
-    height=60;
     for (int i = 0; i < treatments.size(); i++) {
       HashMap<String, String> tmpTreatment = treatments.get(i);
       // set panel
       tmpPanel = new JPanel();
-      tmpPanel.setBounds(0, i * 60 + height, openedAppointmentFrame.getWidth(), 30); // mess with this to try to get auto height
+      tmpPanel.setBounds(0, i * 60 + height, openedAppointmentFrame.getWidth(), 60); // mess with this to try to get auto height
       tmpPanel.setBackground(Color.gray);
       tmpPanel.setBorder(BorderFactory.createLineBorder(Color.black));
       tmpPanel.setLayout(new FlowLayout());
-      height+=30;//increment to shift certin items down
+      height+=60;//increment to shift certin items down
       for (int j = 0; j < dataKeys.length; j++) {
         // set labels for this panel
         tmpLabel = new JLabel(associatedText[j] + tmpTreatment.get(dataKeys[j]) + "  ");
-        tmpLabel.setBounds(0, 0, 200, 30);
+        tmpLabel.setBounds(0, 0, 200, 60);
         tmpPanel.add(tmpLabel);
       }
       openedAppointmentFrame.add(tmpPanel);
@@ -404,7 +442,7 @@ public class DentistUI extends JPanel {
     // treatmentPanel.setBackground(Color.gray);
     treatmentPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     treatmentPanel.setLayout(new GridBagLayout());
-    JLabel lblTreatment = new JLabel("List of Treatments");
+    JLabel lblTreatment = new JLabel("List of Procedures");
     lblTreatment.setBounds(0, 0, 200, 60);
     lblTreatment.setForeground(Color.red);
     lblTreatment.setFont(new Font(lblTreatment.getName(), Font.PLAIN, 15));
@@ -421,14 +459,15 @@ public class DentistUI extends JPanel {
       HashMap<String, String> tmpProceedure = appointmentProceedures.get(i);
       // set panel
       tmpPanel2 = new JPanel();
-      tmpPanel2.setBounds(0, i * 60 + height, openedAppointmentFrame.getWidth(), 30); // mess with this to try to get auto height
+      tmpPanel2.setBounds(0, i * 60 + height, openedAppointmentFrame.getWidth(), 60); // mess with this to try to get auto height
       tmpPanel2.setBackground(Color.gray);
       tmpPanel2.setBorder(BorderFactory.createLineBorder(Color.black));
       tmpPanel2.setLayout(new FlowLayout());
+      height+=60;
       for (int j = 0; j < dataKeys2.length; j++) {
         // set labels for this panel
         tmpLabel2 = new JLabel(associatedText2[j] + tmpProceedure.get(dataKeys2[j]) + "  ");
-        tmpLabel2.setBounds(0, 0, 200, 30);
+        tmpLabel2.setBounds(0, 0, 200, 60);
         tmpPanel2.add(tmpLabel2);
       }
       openedAppointmentFrame.add(tmpPanel2);
