@@ -286,6 +286,21 @@ public class Receptionist {
         return 0;
     }
 
+    public ArrayList<String> getTreatmentTypes(){
+        try{
+            ArrayList<String> arr = new ArrayList<String>();
+            preparedStatement = conn.prepareStatement(
+                    "SELECT type FROM public.treatmenttype");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                arr.add(resultSet.getString("type"));
+            }
+            return arr;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public void setAppointment() {
         try {
             // Get contact information id
