@@ -106,7 +106,7 @@ public class Patient {
         try {
             preparedStatement = conn.prepareStatement(
                 "SELECT type, symptoms, medication, comments, description, public.appointmentprocedure.toothinvolved, date FROM public.treatmenttype, public.treatment, public.appointmentprocedure, public.appointment WHERE patient_id="+ patientId+ 
-                " and public.treatmenttype.treatment_id=public.treatment.treatment_id and public.appointmentprocedure.appointment_id=public.treatment.appointment_id and public.appointment.appointment_id=public.appointmentprocedure.appointment_id;");
+                " and public.treatmenttype.treatmenttype_id=public.treatment.type_id and public.appointmentprocedure.appointment_id=public.treatment.appointment_id and public.appointment.appointment_id=public.appointmentprocedure.appointment_id;");
             resultSet = preparedStatement.executeQuery();
             ArrayList<HashMap<String,String>> medicalHistory = new ArrayList<HashMap<String,String>>();
             while (resultSet.next()) {
