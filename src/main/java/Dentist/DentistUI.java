@@ -144,6 +144,7 @@ public class DentistUI extends JPanel {
   }
 
   public static void createGetRecordsUI(String patientID) {
+    //TODO: this should be changed to be like the appointment one 
     f.setVisible(false);
     JFrame recordFrame = new JFrame();
     f = recordFrame;
