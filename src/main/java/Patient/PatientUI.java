@@ -92,8 +92,8 @@ public class PatientUI{
     // String column[]={"ID","NAME","SALARY"};         
     // JTable jt=new JTable(data,column);    
     // jt.setBounds(0,0,200,300);          
-    // //JScrollPane sp=new JScrollPane(jt);    
-    // f.add(jt);     
+    // JScrollPane sp=new JScrollPane(jt);    
+    // f.add(sp);     
     // f.setVisible(true);
     // f.setSize(1000, 1000);     
 
@@ -109,9 +109,14 @@ public class PatientUI{
         System.out.println(history[i][0]);
     }
     String column[]={"Type","Symptoms","Tooth", "Description", "Comments", "Date"};         
-    JTable jt=new JTable(history, column);           
-    // JScrollPane sp=new JScrollPane(jt);    
-    f.add(jt);    
+    JTable jt=new JTable(history, column); 
+    jt.setBounds(0,0,500,300);         
+    JScrollPane sp=new JScrollPane(jt);  
+    f.add(sp);
+    SwingUtilities.updateComponentTreeUI(f);
+
+    f.setVisible(true);
+    f.setSize(1000, 1000);
   }
   
     public static boolean isInteger(String s) {
