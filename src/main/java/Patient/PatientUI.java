@@ -76,47 +76,99 @@ public class PatientUI{
       f.getContentPane().removeAll();
       SwingUtilities.updateComponentTreeUI(f);
 
-    // String[] dataKeys = {"firstname", "middlename", "lastname", "datebirth", "gender", "ssn", "streetaddress", "city", "province", "postalcode", "email", "phonenumber", "insurancenumber"};
-    // String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "D.O.B: ", "Gender: ", "SSN: ", "Street: ", "City: ", "Province: ", "Postal Code: ", "Email: ", "Phone Number: ", "Insurance: "};
-    // JLabel tmpLabel;
-    // for(int j = 0; j<dataKeys.length; j++){
-    //     //set labels for this panel
-    //     tmpLabel = new JLabel(associatedText[j]+ patientInfo.get(dataKeys[j]) + "  ");
-    //     tmpLabel.setBounds(0, j*30 + 10, 200, 30);
-    //     f.add(tmpLabel);
-    // }
-
-    //  String data[][]={ {"101","Amit","670000"},    
-    //                       {"102","Jai","780000"},    
-    //                       {"101","Sachin","700000"}};    
-    // String column[]={"ID","NAME","SALARY"};         
-    // JTable jt=new JTable(data,column);    
-    // jt.setBounds(0,0,200,300);          
-    // JScrollPane sp=new JScrollPane(jt);    
-    // f.add(sp);     
-    // f.setVisible(true);
-    // f.setSize(1000, 1000);     
-
-    ArrayList<HashMap<String, String>> medicalHistory = patient.getMedicalHistory(s);
-    String[][] history = new String[medicalHistory.size()][6];
-    for(int i = 0; i < medicalHistory.size(); i++){
-        history[i][0] = medicalHistory.get(i).get("type");
-        history[i][1] = medicalHistory.get(i).get("symptoms");
-        history[i][2] = medicalHistory.get(i).get("tooth");
-        history[i][3] = medicalHistory.get(i).get("description");
-        history[i][4] = medicalHistory.get(i).get("comments");
-        history[i][5] = medicalHistory.get(i).get("date");
-        System.out.println(history[i][0]);
+    String[] dataKeys = {"firstname", "middlename", "lastname", "datebirth", "gender", "ssn", "streetaddress", "city", "province", "postalcode", "email", "phonenumber", "insurancenumber"};
+    String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "D.O.B: ", "Gender: ", "SSN: ", "Street: ", "City: ", "Province: ", "Postal Code: ", "Email: ", "Phone Number: ", "Insurance: "};
+    JLabel tmpLabel;
+    for(int j = 0; j<dataKeys.length; j++){
+        //set labels for this panel
+        tmpLabel = new JLabel(associatedText[j]+ patientInfo.get(dataKeys[j]) + "  ");
+        tmpLabel.setBounds(0, j*20 + 10, 200, 30);
+        f.add(tmpLabel);
     }
-    String column[]={"Type","Symptoms","Tooth", "Description", "Comments", "Date"};         
-    JTable jt=new JTable(history, column); 
-    jt.setBounds(0,0,500,300);         
-    JScrollPane sp=new JScrollPane(jt);  
-    f.add(sp);
-    SwingUtilities.updateComponentTreeUI(f);
 
-    f.setVisible(true);
-    f.setSize(1000, 1000);
+    f.setSize(1000, 1000);     
+    int totalheight = 300;
+    JLabel lblHistory = new JLabel("Patient medical history:");
+    lblHistory.setBounds(0, 290, 200, 30);
+    f.add(lblHistory);
+    ArrayList<HashMap<String, String>> patientRecord = patient.getMedicalHistory(s);
+    for (int i = 0; i < patientRecord.size(); i++) {
+      totalheight += 30;
+      JPanel HistoryInstance = new JPanel();
+      HistoryInstance.setBounds(0, i * 30 + totalheight, f.getWidth(), 30);
+      HistoryInstance.setBackground(Color.gray);
+      HistoryInstance.setBorder(BorderFactory.createLineBorder(Color.black));
+      HistoryInstance.setLayout(new FlowLayout());
+
+      JLabel lblDate = new JLabel("Date: " + patientRecord.get(i).get("date"));
+      lblDate.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lblDate);
+
+      JLabel lbltype = new JLabel("Type: " + patientRecord.get(i).get("type"));
+      lbltype.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lbltype);
+
+      JLabel lblTooth = new JLabel("Tooth: " + patientRecord.get(i).get("type"));
+      lbltype.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lbltype);
+
+      JLabel lblsymptoms = new JLabel("Symptoms: " + patientRecord.get(i).get("symptoms"));
+      lblsymptoms.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lblsymptoms);
+
+      if (patientRecord.get(i).get("comments") != null) {
+        JLabel lblComments = new JLabel("Comments: " + patientRecord.get(i).get("comments"));
+        lblComments.setBounds(0, 0, 200, 30);
+        HistoryInstance.add(lblComments);
+      }
+
+      if (patientRecord.get(i).get("description") != null) {
+        JLabel lblDescription = new JLabel(
+            "Description: " + patientRecord.get(i).get("description"));
+        lblDescription.setBounds(0, 0, 200, 30);
+        HistoryInstance.add(lblDescription);
+      }
+      f.add(HistoryInstance);
+    }
+
+    ArrayList<HashMap<String, String>> appointments = patient.upcomingAppointments(s);
+    totalheight += 50;
+    JLabel lblAppointments = new JLabel("Patient upcoming appointments:");
+    lblAppointments.setBounds(0, totalheight - 10, 200, 30);
+    f.add(lblAppointments);
+    for (int i = 0; i < appointments.size(); i++) {
+      totalheight += 30;
+      JPanel HistoryInstance = new JPanel();
+      HistoryInstance.setBounds(0, i * 30 + totalheight, f.getWidth(), 30);
+      HistoryInstance.setBackground(Color.gray);
+      HistoryInstance.setBorder(BorderFactory.createLineBorder(Color.black));
+      HistoryInstance.setLayout(new FlowLayout());
+
+      JLabel lblDate = new JLabel("Date: " + appointments.get(i).get("date"));
+      lblDate.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lblDate);
+
+      JLabel lbltype = new JLabel("Starttime: " + appointments.get(i).get("starttime"));
+      lbltype.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lbltype);
+
+      JLabel lblTooth = new JLabel("Endtime: " + appointments.get(i).get("endtime"));
+      lbltype.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lbltype);
+
+      JLabel lblsymptoms = new JLabel("Status: " + appointments.get(i).get("status"));
+      lblsymptoms.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lblsymptoms);
+
+      JLabel lblComments = new JLabel("Room assigned: " + appointments.get(i).get("roomassigned"));
+      lblComments.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lblComments);
+
+      JLabel lblDescription = new JLabel("Notes: " + appointments.get(i).get("notes"));
+      lblDescription.setBounds(0, 0, 200, 30);
+      HistoryInstance.add(lblDescription);
+      f.add(HistoryInstance);
+    }
   }
   
     public static boolean isInteger(String s) {
