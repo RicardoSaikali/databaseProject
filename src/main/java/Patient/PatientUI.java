@@ -3,11 +3,10 @@ package Patient;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.BorderFactory;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.Border;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import Patient.Patient;
 
 public class PatientUI{
@@ -51,7 +50,7 @@ public class PatientUI{
                   patient = new Patient();
                   if (patient.isPatient(Integer.parseInt(s))) {
                       patientInfo = patient.getPatientInfo(Integer.parseInt(s));
-                      constructMainPatientUI(f);
+                      constructMainPatientUI(f, Integer.parseInt(s));
                   } else {
                       JLabel errorLabel = new JLabel("Wrong ID");
                       errorLabel.setBounds(200, 0, 100, 30);
@@ -73,59 +72,46 @@ public class PatientUI{
 
   }
 
-  public void constructMainPatientUI(JFrame f) {
+  public void constructMainPatientUI(JFrame f, int s) {
       f.getContentPane().removeAll();
       SwingUtilities.updateComponentTreeUI(f);
 
-    String[] dataKeys = {"firstname", "middlename", "lastname", "datebirth", "gender", "ssn", "streetaddress", "city", "province", "postalcode", "email", "phonenumber", "insurancenumber"};
-    String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "D.O.B: ", "Gender: ", "SSN: ", "Street: ", "City: ", "Province: ", "Postal Code: ", "Email: ", "Phone Number: ", "Insurance: "};
-    JLabel tmpLabel;
-    for(int j = 0; j<dataKeys.length; j++){
-        //set labels for this panel
-        tmpLabel = new JLabel(associatedText[j]+ patientInfo.get(dataKeys[j]) + "  ");
-        tmpLabel.setBounds(0, j*30 + 10, 200, 30);
-        f.add(tmpLabel);
+    // String[] dataKeys = {"firstname", "middlename", "lastname", "datebirth", "gender", "ssn", "streetaddress", "city", "province", "postalcode", "email", "phonenumber", "insurancenumber"};
+    // String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "D.O.B: ", "Gender: ", "SSN: ", "Street: ", "City: ", "Province: ", "Postal Code: ", "Email: ", "Phone Number: ", "Insurance: "};
+    // JLabel tmpLabel;
+    // for(int j = 0; j<dataKeys.length; j++){
+    //     //set labels for this panel
+    //     tmpLabel = new JLabel(associatedText[j]+ patientInfo.get(dataKeys[j]) + "  ");
+    //     tmpLabel.setBounds(0, j*30 + 10, 200, 30);
+    //     f.add(tmpLabel);
+    // }
+
+    //  String data[][]={ {"101","Amit","670000"},    
+    //                       {"102","Jai","780000"},    
+    //                       {"101","Sachin","700000"}};    
+    // String column[]={"ID","NAME","SALARY"};         
+    // JTable jt=new JTable(data,column);    
+    // jt.setBounds(0,0,200,300);          
+    // //JScrollPane sp=new JScrollPane(jt);    
+    // f.add(jt);     
+    // f.setVisible(true);
+    // f.setSize(1000, 1000);     
+
+    ArrayList<HashMap<String, String>> medicalHistory = patient.getMedicalHistory(s);
+    String[][] history = new String[medicalHistory.size()][6];
+    for(int i = 0; i < medicalHistory.size(); i++){
+        history[i][0] = medicalHistory.get(i).get("type");
+        history[i][1] = medicalHistory.get(i).get("symptoms");
+        history[i][2] = medicalHistory.get(i).get("tooth");
+        history[i][3] = medicalHistory.get(i).get("description");
+        history[i][4] = medicalHistory.get(i).get("comments");
+        history[i][5] = medicalHistory.get(i).get("date");
+        System.out.println(history[i][0]);
     }
-      //label.setBounds(200, 0, 100, 40);
-
-      // JPanel p2 = new JPanel();
-      // p2.setBounds(0, 140, f.getWidth(), 40);
-      // // p2.setBackground(Color.blue);
-      // JButton btn = new JButton("Insert new patient");
-      // btn.setPreferredSize(new Dimension(150, 30));
-
-      // JPanel p3 = new JPanel();
-      // p3.setBounds(0, 180, f.getWidth(), 40);
-      // // p3.setBackground(Color.green);
-      // JButton btn2 = new JButton("Edit exsiting patient");
-      // btn2.setPreferredSize(new Dimension(150, 30));
-
-      // JPanel p4 = new JPanel();
-      // p4.setBounds(0, 220, f.getWidth(), 40);
-      // // p4.setBackground(Color.yellow);
-      // JButton btn3 = new JButton("Set Appointment");
-      // btn3.setPreferredSize(new Dimension(150, 30));
-
-      // p4.add(btn3);
-      // p3.add(btn2);
-      // p2.add(btn);
-
-      // f.add(p2);
-      // f.add(p3);
-      // f.add(p4);
-      // btn2.addActionListener(new ActionListener() {
-
-      //     public void actionPerformed(ActionEvent e) {
-      //       findPatientUI(f);
-      //     }
-
-      // });
-      // btn.addActionListener(new ActionListener() {
-
-      //     public void actionPerformed(ActionEvent e) {
-      //         patientInfo(f);
-      //     }
-      // });
+    String column[]={"Type","Symptoms","Tooth", "Description", "Comments", "Date"};         
+    JTable jt=new JTable(history, column);           
+    // JScrollPane sp=new JScrollPane(jt);    
+    f.add(jt);    
   }
   
     public static boolean isInteger(String s) {
