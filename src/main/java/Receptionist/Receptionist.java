@@ -301,6 +301,9 @@ public class Receptionist {
         }
         return null;
     }
+    public void setAppointment(HashMap<String,String> appointmentInfo){
+
+    }
     public void setAppointment() {
         try {
             // Get contact information id

@@ -11,6 +11,7 @@ import Patient.Patient;
 public class ReceptionistUI {
     public Patient patient;
     public Receptionist receptionist;
+    public int receptionistId;
 
     public ReceptionistUI(JFrame aJFrame) {
         patient = new Patient();
@@ -50,6 +51,7 @@ public class ReceptionistUI {
                 if (isInteger(s)) {
                     //receptionist = new Receptionist();
                     if (receptionist.isReceptionist(Integer.parseInt(s))) {
+                        receptionistId = Integer.parseInt(s);
                         constructMainReceptionistUI(f);
                     } else {
                         JLabel errorLabel = new JLabel("Wrong ID");
@@ -128,6 +130,7 @@ public class ReceptionistUI {
         });
     }
     public void setAppointment(){ // Assumption: receptionist can only make appointments to own branch
+      HashMap<String, String> appointmentInfo = new HashMap<String, String>();
       JFrame f = new JFrame("Set Appointment");
       f.setSize(1000, 1000);
       f.setLayout(null);
@@ -152,6 +155,7 @@ public class ReceptionistUI {
           public void actionPerformed(ActionEvent e) {
               String s = field.getText();
               if (isInteger(s) && patient.isPatient(Integer.parseInt(s))){
+                appointmentInfo.put("patientid", s);
                 panel.setVisible(false);
 
                 JPanel panel2 = new JPanel();
@@ -191,6 +195,10 @@ public class ReceptionistUI {
 
                     public void actionPerformed(ActionEvent e) {
                       ArrayList<String> availRooms = receptionist.checkAvailableRoom(dayField.getText(), startTimeField.getText());
+                      appointmentInfo.put("date", dayField.getText());
+                      appointmentInfo.put("startime", startTimeField.getText());
+                      appointmentInfo.put("endtime", endTimeField.getText());
+
 
                       panel2.setVisible(false);
 
@@ -203,17 +211,19 @@ public class ReceptionistUI {
                       for(int i = 0; i < availRooms.size(); i++){
                         roomsDropDown.addItem(availRooms.get(i));
                       }
-                      roomsDropDown.setBounds(450, 20, 100, 30);
+                      roomsDropDown.setBounds(425, 20, 150, 30);
 
-                      JButton btn3 = new JButton("Select");
-                      btn3.setBounds(450, 55, 100, 20);
+                      JButton btn3 = new JButton("Select room");
+                      btn3.setBounds(425, 55, 150, 20);
 
                       panel3.add(roomsDropDown);
                       panel3.add(btn3);
                       btn3.addActionListener(new ActionListener() {
 
                           public void actionPerformed(ActionEvent e) {
-                            ArrayList<Integer> availDentist = receptionist.getAvailableDentists(dayField.getText(), startTimeField.getText(), 1 ); ///
+                            appointmentInfo.put("room", String.valueOf(roomsDropDown.getSelectedItem()));
+
+                            ArrayList<Integer> availDentist = receptionist.getAvailableDentists(dayField.getText(), startTimeField.getText(), receptionist.getBranch(receptionistId)); ///
                             panel3.setVisible(false);
 
                             JPanel panel4 = new JPanel();
@@ -225,14 +235,53 @@ public class ReceptionistUI {
                             for(int i = 0; i < availDentist.size(); i++){
                               dentistDropDown.addItem(availDentist.get(i).toString());
                             }
-                            dentistDropDown.setBounds(450, 20, 100, 30);
+                            dentistDropDown.setBounds(425, 20, 150, 30);
 
-                            JButton btn4 = new JButton("Select");
-                            btn4.setBounds(450, 55, 100, 20);
+                            JButton btn4 = new JButton("Select dentist");
+                            btn4.setBounds(425, 55, 150, 20);
 
                             panel4.add(dentistDropDown);
                             panel4.add(btn4);
 
+                            btn4.addActionListener(new ActionListener() {
+
+                                public void actionPerformed(ActionEvent e) {
+                                  appointmentInfo.put("dentistid",String.valueOf(dentistDropDown.getSelectedItem()));
+                                  panel4.setVisible(false);
+
+                                  JPanel panel5 = new JPanel();
+                                  panel5.setLayout(null);
+                                  panel5.setBounds(0, 420, f.getWidth(), 200);
+                                  panel5.setBackground(Color.red);
+
+                                  JLabel commentLabel = new JLabel("Enter comments (optinal)");
+                                  commentLabel.setBounds(450, 0, 100, 15);
+                                  JTextArea comment = new JTextArea();
+                                  comment.setBounds(350, 20, 300, 100);
+                                  comment.setLineWrap(true);
+
+                                  JButton btn5 = new JButton("Set Appointment");
+                                  btn5.setBounds(425, 140, 150, 30);
+
+                                  btn5.addActionListener(new ActionListener() {
+
+                                      public void actionPerformed(ActionEvent e) {
+                                        appointmentInfo.put("comment", comment.getText());
+                                        
+
+                                      }
+
+                                  });
+
+                                  panel5.add(commentLabel);
+                                  panel5.add(comment);
+                                  panel5.add(btn5);
+                                  f.add(panel5);
+                                  f.repaint();
+
+                                }
+
+                            });
                             f.add(panel4);
                             f.repaint();
                           }
