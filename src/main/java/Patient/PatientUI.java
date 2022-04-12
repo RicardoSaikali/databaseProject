@@ -73,8 +73,52 @@ public class PatientUI{
   }
 
   public void constructMainPatientUI(JFrame f, int s) {
-      f.getContentPane().removeAll();
-      SwingUtilities.updateComponentTreeUI(f);
+    f.getContentPane().removeAll();
+    f.repaint();
+    f.setTitle("Patient Function Select");
+    JPanel p = new JPanel();
+    p.setBounds(0, 100, f.getWidth(), 40);
+    // p.setBackground(Color.red);
+    JLabel lblSelectFunc = new JLabel("Select function:");
+    lblSelectFunc.setBounds(200, 0, 100, 40);
+
+    JPanel p2 = new JPanel();
+    p2.setBounds(0, 140, f.getWidth(), 40);
+    // p2.setBackground(Color.blue);
+    JButton btnGetRecords = new JButton("View patient info and records");
+    btnGetRecords.setBounds(150, 0, 200, 30);
+
+    JPanel p3 = new JPanel();
+    p3.setBounds(0, 180, f.getWidth(), 40);
+    // p3.setBackground(Color.green);
+    JButton btnAddReview = new JButton("Write a review");
+    btnAddReview.setBounds(150, 0, 200, 30);
+
+    p3.add(btnAddReview);
+    p2.add(btnGetRecords);
+    p.add(lblSelectFunc);
+
+    f.add(p);
+    f.add(p2);
+    f.add(p3);
+
+    btnGetRecords.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        viewPatientRecords(f, s);
+      }
+    });
+    btnAddReview.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        writeReview(f, s);
+      }
+    });
+
+  }
+
+  public void viewPatientRecords(JFrame f, int s){
+
+    f.getContentPane().removeAll();
+    SwingUtilities.updateComponentTreeUI(f);
 
     String[] dataKeys = {"firstname", "middlename", "lastname", "datebirth", "gender", "ssn", "streetaddress", "city", "province", "postalcode", "email", "phonenumber", "insurancenumber"};
     String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "D.O.B: ", "Gender: ", "SSN: ", "Street: ", "City: ", "Province: ", "Postal Code: ", "Email: ", "Phone Number: ", "Insurance: "};
@@ -169,6 +213,42 @@ public class PatientUI{
       HistoryInstance.add(lblDescription);
       f.add(HistoryInstance);
     }
+  }
+
+  public void writeReview(JFrame f, int s){
+    f.getContentPane().removeAll();
+    SwingUtilities.updateComponentTreeUI(f);
+
+    JPanel p = new JPanel();
+    p.setBounds(0, 100, f.getWidth(), 700);
+    // p.setBackground(Color.red);
+    JLabel lblSelectFunc = new JLabel("Select a branch:");
+    lblSelectFunc.setBounds(200, 0, 100, 40);
+    JComboBox combo1 = new JComboBox();
+    combo1.setBounds(200, 50, 20, 10);
+
+    // Add entries like this
+    combo1.addItem("Bashful");
+    combo1.addItem("Doc");
+    combo1.addItem("Dopey");
+    combo1.addItem("Grumpy");
+    combo1.addItem("Happy");
+    combo1.addItem("Sleepy");
+    combo1.addItem("Sneezy");
+    // String[] theSeven = {"Bashful", "Doc", "Dopey",
+    //       "Grumpy", "Happy", "Sleepy",
+    //       "Sneezy"};
+    // JComboBox combo1 = new JComboBox(theSeven);
+    JTextArea jt = new JTextArea("please write a review ");
+    jt.setBounds(200, 75, 100, 500);
+    JButton btnSubmitReview = new JButton("Submit review");
+    btnSubmitReview.setBounds(200, 600, 100, 30);
+
+    p.add(lblSelectFunc);
+    p.add(combo1);
+    p.add(jt);
+    p.add(btnSubmitReview);
+    f.add(p);
   }
   
     public static boolean isInteger(String s) {
