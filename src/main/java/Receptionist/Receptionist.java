@@ -43,25 +43,6 @@ public class Receptionist {
             "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
     public Receptionist() {
-        // String user = "mzjycxzivsmkni";
-        // String pass =
-        // "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
-        // String LINK =
-        // "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
-
-        // try {
-        // conn = DriverManager.getConnection(LINK, user, pass);
-        // if (conn != null) {
-        // System.out.println("Connected to the database!");
-        // } else {
-        // System.out.println("Failed to make connection!");
-        // }
-
-        // } catch (SQLException e) {
-        // System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
         DBConnection connection = new DBConnection();
         conn = connection.Connection();
     }
@@ -85,35 +66,6 @@ public class Receptionist {
         insuranceNumber = patientInfo.get("insurancenumber");
 
         insertUserInformation();
-
-        // scanner = new Scanner(System.in);
-        // System.out.println("Please enter the patients First Name:");
-        // firstName = scanner.nextLine();
-        // System.out.println("Please enter the patients Middle Name:");
-        // middleName = scanner.nextLine();
-        // System.out.println("Please enter the patients Last Name:");
-        // lastName = scanner.nextLine();
-        // System.out.println("Please enter the patients Email:");
-        // email = scanner.nextLine();
-        // System.out.println("Please enter the patients Phone Number:");
-        // phonenumber = scanner.nextLine();
-        // System.out.println("Please enter the patients Gender:");
-        // gender = scanner.nextLine();
-        // System.out.println("Please enter the patients SSN:");
-        // ssn = Integer.parseInt(scanner.nextLine());
-        // System.out.println("Please enter the patients Date of Birth (yyyy-mm-dd):");
-        // dateOfBirth = scanner.nextLine();
-        // System.out.println("Please enter the patients Full Address:");
-        // street = scanner.nextLine();
-        // System.out.println("Please enter the patients City:");
-        // city = scanner.nextLine();
-        // System.out.println("Please enter the patients Province:");
-        // province = scanner.nextLine();
-        // System.out.println("Please enter the patients Postal Code:");
-        // postalCode = scanner.nextLine();
-        // System.out.println("Please enter the patients Insurance Number:");
-        // insuranceNumber = scanner.nextLine();
-        // if (flag) insertUserInformation();
     }
 
     public boolean isReceptionist(int id) {

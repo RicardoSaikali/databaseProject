@@ -15,28 +15,9 @@ import java.sql.*;
 
 public class Patient {
     private static Connection conn = null;
-    private static Scanner scanner;
-    private static String firstName;
-    private static String lastName;
-    private static String middleName;
-    private static String gender;
-    private static int ssn;
-    private static String dateOfBirth;
-    private static Integer apartmentNumber;
-    private static int streetNumber;
-    private static String street;
-    private static String city;
-    private static String province;
-    private static String postalCode;
     private static int patientId;
-    private static String email;
-    private static String phonenumber;
     private static PreparedStatement preparedStatement;
     private static ResultSet resultSet;
-    private static int contactInformationId;
-    private static int addressId;
-    private static int userId;
-    private static Statement statement;
 
     public Patient() {
         DBConnection connection = new DBConnection();

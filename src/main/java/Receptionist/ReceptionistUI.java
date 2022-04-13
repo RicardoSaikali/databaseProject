@@ -2,8 +2,6 @@ package Receptionist;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
 import java.awt.event.*;
 import java.util.*;
 import Patient.Patient;
