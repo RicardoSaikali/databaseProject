@@ -260,15 +260,51 @@ public class ReceptionistUI {
                                   comment.setBounds(350, 20, 300, 100);
                                   comment.setLineWrap(true);
 
-                                  JButton btn5 = new JButton("Set Appointment");
+                                  JButton btn5 = new JButton("Proceed");
                                   btn5.setBounds(425, 140, 150, 30);
 
                                   btn5.addActionListener(new ActionListener() {
 
                                       public void actionPerformed(ActionEvent e) {
                                         appointmentInfo.put("comment", comment.getText());
-                                        
+                                        panel5.setVisible(false);
 
+                                        JPanel panel6 = new JPanel();
+                                        panel6.setLayout(null);
+                                        panel6.setBounds(0, 620, f.getWidth(), 100);
+                                        panel6.setBackground(Color.red);
+
+                                        JLabel l1 = new JLabel("Appointment Type:");
+                                        l1.setBounds(300, 20, 80, 30);
+                                        String appointmentTypes[] = { "Jalpaiguri", "Mumbai", "Noida", "Kolkata", "New Delhi" };
+                                        JComboBox appointmentTypesDropDown = new JComboBox(appointmentTypes);
+                                        appointmentTypesDropDown.setBounds(385, 20, 115, 30);
+
+                                        JLabel l2 = new JLabel("Number of procedures(1-3):");
+                                        l1.setBounds(505, 20, 100, 30);
+                                        JTextField numAppointments = new JTextField();
+                                        numAppointments.setBounds(610, 20, 90, 30);
+                                        JButton btn6 = new JButton("Confirm");
+                                        btn6.setBounds(450, 60, 100, 30);
+                                        panel6.add(l1);
+                                        panel6.add(appointmentTypesDropDown);
+                                        panel6.add(l2);
+                                        panel6.add(numAppointments);
+                                        panel6.add(btn6);
+
+                                        btn6.addActionListener(new ActionListener() {
+
+                                            public void actionPerformed(ActionEvent e) {
+                                              appointmentInfo.put("appointmenttype", String.valueOf(appointmentTypesDropDown.getSelectedItem()));
+                                              appointmentInfo.put("amountprocedures", numAppointments.getText());
+                                              panel6.setVisible(false);
+
+                                              generateProcuedureUI(f, Integer.parseInt(numAppointments.getText()));
+                                            }
+
+                                        });
+                                        f.add(panel6);
+                                        f.repaint();
                                       }
 
                                   });
@@ -307,6 +343,9 @@ public class ReceptionistUI {
       f.setLocationRelativeTo(null);
       f.setVisible(true);
       f.setResizable(false);
+    }
+    public void generateProcuedureUI(JFrame f, int numAppointments){
+      
     }
     public void findPatientUI(JFrame f){
       f.getContentPane().removeAll();
