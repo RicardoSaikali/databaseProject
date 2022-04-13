@@ -28,7 +28,7 @@ public class Patient {
     private static String city;
     private static String province;
     private static String postalCode;
-
+    private static int patientId;
     private static String email;
     private static String phonenumber;
     private static PreparedStatement preparedStatement;
@@ -56,7 +56,7 @@ public class Patient {
 
     public boolean isPatient(int id) {
         try {
-            // Get contact information id
+            patientId=id;
             preparedStatement = conn.prepareStatement("SELECT COUNT(*) FROM public.patient WHERE patient_id=" + id);
             resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -75,6 +75,39 @@ public class Patient {
 
     }
 
+    public ArrayList<String> getBranchs() {
+        try {
+            // Get contact information id
+            preparedStatement = conn.prepareStatement("SELECT branch_id FROM public.branch");
+            resultSet = preparedStatement.executeQuery();
+            ArrayList<String> arr = new ArrayList<String>();
+            while (resultSet.next()) {
+               arr.add(resultSet.getString("branch_id"));
+            }
+            return arr;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public void submitReview(HashMap<String,String> map){
+        try {
+            
+            preparedStatement = conn.prepareStatement("SELECT max(review_id) FROM public.review");
+            resultSet = preparedStatement.executeQuery();
+            int reviewId=0;
+            while (resultSet.next())
+                reviewId = resultSet.getInt("max");
+            reviewId++;
+            preparedStatement = conn.prepareStatement("INSERT INTO public.review values (" + reviewId+", "+map.get("professionalism")+", "+ map.get("communication")+", "+map.get("cleanliness")+", "+ map.get("value")+", '"+ map.get("date")+ ", "+patientId+", "+ map.get("branch")+")");
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public static HashMap<String, String> getPatientInfo(int patientId) {
         try {
             preparedStatement = conn.prepareStatement(

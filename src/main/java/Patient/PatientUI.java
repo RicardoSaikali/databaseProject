@@ -226,15 +226,11 @@ public class PatientUI{
     lblSelectFunc.setBounds(200, 0, 100, 40);
     JComboBox combo1 = new JComboBox();
     combo1.setBounds(200, 50, 20, 10);
-
+    ArrayList<String> branchs = patient.getBranchs();
     // Add entries like this
-    combo1.addItem("Bashful");
-    combo1.addItem("Doc");
-    combo1.addItem("Dopey");
-    combo1.addItem("Grumpy");
-    combo1.addItem("Happy");
-    combo1.addItem("Sleepy");
-    combo1.addItem("Sneezy");
+    for(int i=0;i<branchs.size();i++){
+        combo1.addItem(branchs.get(i));
+    }
     // String[] theSeven = {"Bashful", "Doc", "Dopey",
     //       "Grumpy", "Happy", "Sleepy",
     //       "Sneezy"};
