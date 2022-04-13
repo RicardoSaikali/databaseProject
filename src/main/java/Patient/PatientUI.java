@@ -3,11 +3,9 @@ package Patient;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.Border;
 import java.awt.event.*;
 import java.util.*;
-import Patient.Patient;
+
 
 public class PatientUI{
 
