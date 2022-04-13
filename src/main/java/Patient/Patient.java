@@ -102,7 +102,7 @@ public class Patient {
             while (resultSet.next())
                 reviewId = resultSet.getInt("max");
             reviewId++;
-            preparedStatement = conn.prepareStatement("INSERT INTO public.review values (" + reviewId+", "+map.get("professionalism")+", "+ map.get("communication")+", "+map.get("cleanliness")+", "+ map.get("value")+", '"+ map.get("date")+ ", "+patientId+", "+ map.get("branch")+")");
+            preparedStatement = conn.prepareStatement("INSERT INTO public.review values (" + reviewId+", "+map.get("professionalism")+", "+ map.get("communication")+", "+map.get("cleanliness")+", '"+ map.get("date")+ "'', "+patientId+", "+ map.get("branch")+")");
             resultSet = preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
