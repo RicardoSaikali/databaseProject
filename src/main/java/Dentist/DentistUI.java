@@ -313,7 +313,7 @@ public class DentistUI extends JPanel {
       HashMap<String, String> tmpAppointment = upcomingAppointments.get(i);
       // set panel
       tmpPanel = new JPanel();
-      tmpPanel.setBounds(0, i * 60 + 60, f.getWidth(), 80); // mess with this to try to get auto height
+      tmpPanel.setBounds(0, i * 80 + 60, f.getWidth(), 80); // mess with this to try to get auto height
       tmpPanel.setBackground(Color.gray);
       tmpPanel.setBorder(BorderFactory.createLineBorder(Color.black));
       tmpPanel.setLayout(new FlowLayout());
