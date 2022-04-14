@@ -72,6 +72,12 @@ public class PatientUI{
   }
 
   public void constructMainPatientUI(JFrame f, int s) {
+    f.setLayout(null);
+    f.setSize(500, 500);
+    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    f.setLocationRelativeTo(null);
+    f.setVisible(true);
+    f.setResizable(false);
     f.getContentPane().removeAll();
     f.repaint();
     //SwingUtilities.updateComponentTreeUI(f);
@@ -130,9 +136,10 @@ public class PatientUI{
   }
 
   public void viewPatientRecords(JFrame f, int s){
-
+    
     f.getContentPane().removeAll();
     SwingUtilities.updateComponentTreeUI(f);
+    
 
     String[] dataKeys = {"firstname", "middlename", "lastname", "datebirth", "gender", "ssn", "streetaddress", "city", "province", "postalcode", "email", "phonenumber", "insurancenumber"};
     String[] associatedText = {"First Name: ", "Middle Name: ", "Last Name: ", "D.O.B: ", "Gender: ", "SSN: ", "Street: ", "City: ", "Province: ", "Postal Code: ", "Email: ", "Phone Number: ", "Insurance: "};
@@ -236,6 +243,7 @@ public class PatientUI{
 
       public void actionPerformed(ActionEvent e) {
         constructMainPatientUI(f,s);
+        //f.setSize(500,600);
       }
     });
     panelb.add(back);
