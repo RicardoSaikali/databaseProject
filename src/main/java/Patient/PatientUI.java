@@ -19,6 +19,7 @@ public class PatientUI{
   private void createUI(JFrame f){
     f.setTitle("Patient Page");
     f.getContentPane().removeAll();
+    SwingUtilities.updateComponentTreeUI(f);
     f.repaint();
     JPanel error = new JPanel();
     error.setBounds(0, 0, f.getWidth(), 30);
@@ -73,6 +74,8 @@ public class PatientUI{
   public void constructMainPatientUI(JFrame f, int s) {
     f.getContentPane().removeAll();
     f.repaint();
+    //SwingUtilities.updateComponentTreeUI(f);
+    
     f.setTitle("Patient Function Select");
     JPanel p = new JPanel();
     p.setBounds(0, 100, f.getWidth(), 40);
@@ -91,6 +94,19 @@ public class PatientUI{
     // p3.setBackground(Color.green);
     JButton btnAddReview = new JButton("Write a review");
     btnAddReview.setBounds(150, 0, 200, 30);
+
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 220, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.setBounds(150, 0, 200, 30);
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        createUI(f);
+      }
+    });
+    panelb.add(back);
+    f.add(panelb);
 
     p3.add(btnAddReview);
     p2.add(btnGetRecords);
@@ -211,6 +227,19 @@ public class PatientUI{
       HistoryInstance.add(lblDescription);
       f.add(HistoryInstance);
     }
+
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 500, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.setBounds(150, 0, 200, 30);
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        constructMainPatientUI(f,s);
+      }
+    });
+    panelb.add(back);
+    f.add(panelb);
   }
 
   public void writeReview(JFrame f, int s){
@@ -243,6 +272,19 @@ public class PatientUI{
     p.add(jt);
     p.add(btnSubmitReview);
     f.add(p);
+
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 140, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.setBounds(150, 0, 200, 30);
+    back.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        constructMainPatientUI(f,s);
+      }
+    });
+    panelb.add(back);
+    f.add(panelb);
   }
 
     public static boolean isInteger(String s) {

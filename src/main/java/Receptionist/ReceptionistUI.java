@@ -21,6 +21,7 @@ public class ReceptionistUI {
         f.setTitle("Receptionist Page");
         f.getContentPane().removeAll();
         f.repaint();
+        SwingUtilities.updateComponentTreeUI(f);
         JPanel error = new JPanel();
         error.setBounds(0, 0, f.getWidth(), 30);
         // error.setBackground(Color.red);
@@ -100,14 +101,30 @@ public class ReceptionistUI {
         JButton btn3 = new JButton("Set Appointment");
         btn3.setPreferredSize(new Dimension(150, 30));
 
+        JPanel panelb = new JPanel();
+        panelb.setBounds(0, 220, f.getWidth(), 40);
+        JButton back = new JButton("Back");
+        back.setPreferredSize(new Dimension(150, 30));
+        
+
+        panelb.add(back);
         p4.add(btn3);
         p3.add(btn2);
         p2.add(btn);
         p.add(label);
+        f.add(panelb);
         f.add(p);
         f.add(p2);
         f.add(p3);
         f.add(p4);
+
+        back.addActionListener(new ActionListener() {
+    
+          public void actionPerformed(ActionEvent e) {
+            createUI(f);
+          }
+        });
+
         btn3.addActionListener(new ActionListener(){
           public void actionPerformed(ActionEvent e){
             setAppointment();
