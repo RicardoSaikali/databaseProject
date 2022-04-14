@@ -72,6 +72,7 @@ public class PatientUI{
   }
 
   public void constructMainPatientUI(JFrame f, int s) {
+    
     f.setLayout(null);
     f.setSize(500, 500);
     f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

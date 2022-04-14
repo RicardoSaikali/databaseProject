@@ -75,6 +75,12 @@ public class ReceptionistUI {
     public void constructMainReceptionistUI(JFrame f) {
         f.getContentPane().removeAll();
         SwingUtilities.updateComponentTreeUI(f);
+        f.setLayout(null);
+        f.setSize(500, 500);
+        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
 
         // Receptionist receptionist = new Receptionist();
         JPanel p = new JPanel();
@@ -127,7 +133,7 @@ public class ReceptionistUI {
 
         btn3.addActionListener(new ActionListener(){
           public void actionPerformed(ActionEvent e){
-            setAppointment();
+            setAppointment(f);
           }
         });
         btn2.addActionListener(new ActionListener() {
@@ -144,12 +150,13 @@ public class ReceptionistUI {
             }
         });
     }
-    public void setAppointment(){ // Assumption: receptionist can only make appointments to own branch
+    public void setAppointment(JFrame f){ // Assumption: receptionist can only make appointments to own branch
       HashMap<String, String> appointmentInfo = new HashMap<String, String>();
-      JFrame f = new JFrame("Set Appointment");
+      //JFrame f = new JFrame("Set Appointment");
       f.setSize(1000, 1000);
       f.setLayout(null);
-
+      f.getContentPane().removeAll();
+      f.repaint();
       JPanel panel = new JPanel();
       panel.setLayout(null);
       panel.setBounds(0,0, f.getWidth(), 120);
@@ -164,6 +171,20 @@ public class ReceptionistUI {
       panel.add(label);
       panel.add(field);
       panel.add(btn);
+
+      JPanel panelb = new JPanel();
+      panelb.setBounds(0, 500, f.getWidth(), 40);
+      JButton back = new JButton("Back");
+      back.setBounds(150, 0, 200, 30);
+      back.addActionListener(new ActionListener() {
+  
+        public void actionPerformed(ActionEvent e) {
+          constructMainReceptionistUI(f);
+          
+        }
+      });
+      panelb.add(back);
+      f.add(panelb);
 
       btn.addActionListener(new ActionListener() {
 
