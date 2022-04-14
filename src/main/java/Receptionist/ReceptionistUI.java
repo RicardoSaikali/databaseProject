@@ -136,7 +136,7 @@ public class ReceptionistUI {
       JPanel panel = new JPanel();
       panel.setLayout(null);
       panel.setBounds(0,0, f.getWidth(), 120);
-      panel.setBackground(Color.red);
+      //panel.setBackground(Color.red);
 
       JLabel label = new JLabel("Please enter patient ID:");
       label.setBounds(425, 15,150,30);
@@ -159,7 +159,7 @@ public class ReceptionistUI {
                 JPanel panel2 = new JPanel();
                 panel2.setLayout(null);
                 panel2.setBounds(0, 120, f.getWidth(), 100);
-                panel2.setBackground(Color.blue);
+                //panel2.setBackground(Color.blue);
 
                 JLabel day = new JLabel("Select date (yyyy-mm-dd)");
                 day.setBounds(20,20, 150, 20);
@@ -203,7 +203,7 @@ public class ReceptionistUI {
                       JPanel panel3 = new JPanel();
                       panel3.setLayout(null);
                       panel3.setBounds(0, 220, f.getWidth(), 100);
-                      panel3.setBackground(Color.white);
+                      //panel3.setBackground(Color.white);
 
                       JComboBox roomsDropDown = new JComboBox();
                       for(int i = 0; i < availRooms.size(); i++){
@@ -227,7 +227,7 @@ public class ReceptionistUI {
                             JPanel panel4 = new JPanel();
                             panel4.setLayout(null);
                             panel4.setBounds(0, 320, f.getWidth(), 100);
-                            panel4.setBackground(Color.yellow);
+                            //panel4.setBackground(Color.yellow);
 
                             JComboBox dentistDropDown = new JComboBox();
                             for(int i = 0; i < availDentist.size(); i++){
@@ -250,7 +250,7 @@ public class ReceptionistUI {
                                   JPanel panel5 = new JPanel();
                                   panel5.setLayout(null);
                                   panel5.setBounds(0, 420, f.getWidth(), 200);
-                                  panel5.setBackground(Color.red);
+                                  //panel5.setBackground(Color.red);
 
                                   JLabel commentLabel = new JLabel("Enter comments (optinal)");
                                   commentLabel.setBounds(450, 0, 100, 15);
@@ -270,16 +270,16 @@ public class ReceptionistUI {
                                         JPanel panel6 = new JPanel();
                                         panel6.setLayout(null);
                                         panel6.setBounds(0, 620, f.getWidth(), 100);
-                                        panel6.setBackground(Color.red);
+                                        //panel6.setBackground(Color.red);
 
                                         JLabel l1 = new JLabel("Appointment Type:");
                                         l1.setBounds(300, 20, 80, 30);
-                                        String appointmentTypes[] = { "Jalpaiguri", "Mumbai", "Noida", "Kolkata", "New Delhi" };
+                                        String appointmentTypes[] = { "Cleaning", "cleaning", "cleaning", "cleaning", "cleaning" };
                                         JComboBox appointmentTypesDropDown = new JComboBox(appointmentTypes);
                                         appointmentTypesDropDown.setBounds(385, 20, 115, 30);
 
                                         JLabel l2 = new JLabel("Number of procedures(1-3):");
-                                        l1.setBounds(505, 20, 100, 30);
+                                        l2.setBounds(505, 20, 100, 30);
                                         JTextField numAppointments = new JTextField();
                                         numAppointments.setBounds(610, 20, 90, 30);
                                         JButton btn6 = new JButton("Confirm");
@@ -297,7 +297,7 @@ public class ReceptionistUI {
                                               appointmentInfo.put("amountprocedures", numAppointments.getText());
                                               panel6.setVisible(false);
 
-                                              generateProcuedureUI(f, Integer.parseInt(numAppointments.getText()));
+                                              generateProcuedureUI(f, Integer.parseInt(numAppointments.getText()), appointmentInfo);
                                             }
 
                                         });
@@ -342,8 +342,263 @@ public class ReceptionistUI {
       f.setVisible(true);
       f.setResizable(false);
     }
-    public void generateProcuedureUI(JFrame f, int numAppointments){
-      
+    public void generateProcuedureUI(JFrame f, int numAppointments, HashMap<String, String> appointmentInfo){
+      JTextField procedureTypeField;
+      JTextArea descriptionField;
+      JTextField toothInvolvedField;
+
+      if (numAppointments == 1){
+        JPanel p1 = new JPanel();
+        p1.setLayout(null);
+        p1.setBounds(0,0,f.getWidth(), f.getHeight()/2);
+
+        JLabel procedureType = new JLabel("Procedure type:");
+        procedureType.setBounds(400, 20, 100, 30);
+
+        procedureTypeField = new JTextField();
+        procedureTypeField.setBounds(505, 20, 95, 30);
+
+        JLabel toothInvolved = new JLabel("Tooth invlolved:");
+        toothInvolved.setBounds(400, 55, 100, 30);
+
+        toothInvolvedField = new JTextField();
+        toothInvolvedField.setBounds(505, 55, 95, 30);
+
+        JLabel description  = new JLabel("Description:");
+        description.setBounds(400, 90, 100, 30);
+
+        descriptionField = new JTextArea();
+        descriptionField.setBounds(505, 90, 95, 30);
+        descriptionField.setLineWrap(true);
+
+        p1.add(procedureType);
+        p1.add(procedureTypeField);
+        p1.add(toothInvolved);
+        p1.add(toothInvolvedField);
+        p1.add(description);
+        p1.add(descriptionField);
+
+        f.add(p1);
+        f.repaint();
+
+      }
+      else if (numAppointments == 2){
+        JPanel p1 = new JPanel();
+        p1.setLayout(null);
+        p1.setBounds(0,0,f.getWidth()/2, f.getHeight()/2);
+        //p1.setBackground(Color.blue);
+
+        JLabel procedureType = new JLabel("Procedure type:");
+        procedureType.setBounds(150, 20, 100, 30);
+
+        procedureTypeField = new JTextField();
+        procedureTypeField.setBounds(255, 20, 95, 30);
+
+        JLabel toothInvolved = new JLabel("Tooth invlolved:");
+        toothInvolved.setBounds(150, 55, 100, 30);
+
+        toothInvolvedField = new JTextField();
+        toothInvolvedField.setBounds(255, 55, 95, 30);
+
+        JLabel description  = new JLabel("Description:");
+        description.setBounds(150, 90, 100, 30);
+
+        descriptionField = new JTextArea();
+        descriptionField.setBounds(255, 90, 95, 30);
+        descriptionField.setLineWrap(true);
+
+        p1.add(procedureType);
+        p1.add(procedureTypeField);
+        p1.add(toothInvolved);
+        p1.add(toothInvolvedField);
+        p1.add(description);
+        p1.add(descriptionField);
+
+        JPanel p2 = new JPanel();
+        p2.setLayout(null);
+        p2.setBounds(f.getWidth()/2,0,f.getWidth()/2, f.getHeight()/2);
+        //p2.setBackground(Color.red);
+
+        JLabel procedureType2 = new JLabel("Procedure type:");
+        procedureType2.setBounds(150, 20, 100, 30);
+
+        JTextField procedureTypeField2 = new JTextField();
+        procedureTypeField2.setBounds(255, 20, 95, 30);
+
+        JLabel toothInvolved2 = new JLabel("Tooth invlolved:");
+        toothInvolved2.setBounds(150, 55, 100, 30);
+
+        JTextField toothInvolvedField2 = new JTextField();
+        toothInvolvedField2.setBounds(255, 55, 95, 30);
+
+        JLabel description2  = new JLabel("Description:");
+        description2.setBounds(150, 90, 100, 30);
+
+        JTextArea descriptionField2 = new JTextArea();
+        descriptionField2.setBounds(255, 90, 95, 30);
+        descriptionField2.setLineWrap(true);
+
+        p2.add(procedureType2);
+        p2.add(procedureTypeField2);
+        p2.add(toothInvolved2);
+        p2.add(toothInvolvedField2);
+        p2.add(description2);
+        p2.add(descriptionField2);
+
+        f.add(p1);
+        f.add(p2);
+        f.repaint();
+      } else {
+        JPanel p1 = new JPanel();
+        p1.setLayout(null);
+        p1.setBounds(0,0,f.getWidth()/3, f.getHeight()/2);
+        //p1.setBackground(Color.blue);
+
+        JLabel procedureType = new JLabel("Procedure type:");
+        procedureType.setBounds(66, 20, 100, 30);
+
+        procedureTypeField = new JTextField();
+        procedureTypeField.setBounds(171, 20, 95, 30);
+
+        JLabel toothInvolved = new JLabel("Tooth invlolved:");
+        toothInvolved.setBounds(66, 55, 100, 30);
+
+        toothInvolvedField = new JTextField();
+        toothInvolvedField.setBounds(171, 55, 95, 30);
+
+        JLabel description  = new JLabel("Description:");
+        description.setBounds(66, 90, 100, 30);
+
+        descriptionField = new JTextArea();
+        descriptionField.setBounds(171, 90, 95, 30);
+        descriptionField.setLineWrap(true);
+
+        p1.add(procedureType);
+        p1.add(procedureTypeField);
+        p1.add(toothInvolved);
+        p1.add(toothInvolvedField);
+        p1.add(description);
+        p1.add(descriptionField);
+
+        JPanel p2 = new JPanel();
+        p2.setLayout(null);
+        p2.setBounds(f.getWidth()/3, 0, f.getWidth()/3, f.getHeight()/2);
+      //  p2.setBackground(Color.red);
+
+        JLabel procedureType2 = new JLabel("Procedure type:");
+        procedureType2.setBounds(66, 20, 100, 30);
+
+        JTextField procedureTypeField2 = new JTextField();
+        procedureTypeField2.setBounds(171, 20, 95, 30);
+
+        JLabel toothInvolved2 = new JLabel("Tooth invlolved:");
+        toothInvolved2.setBounds(66, 55, 100, 30);
+
+        JTextField toothInvolvedField2 = new JTextField();
+        toothInvolvedField2.setBounds(171, 55, 95, 30);
+
+        JLabel description2  = new JLabel("Description:");
+        description2.setBounds(66, 90, 100, 30);
+
+        JTextArea descriptionField2 = new JTextArea();
+        descriptionField2.setBounds(171, 90, 95, 30);
+        descriptionField2.setLineWrap(true);
+
+        p2.add(procedureType2);
+        p2.add(procedureTypeField2);
+        p2.add(toothInvolved2);
+        p2.add(toothInvolvedField2);
+        p2.add(description2);
+        p2.add(descriptionField2);
+
+        JPanel p3 = new JPanel();
+        p3.setLayout(null);
+        p3.setBounds(2*f.getWidth()/3, 0, f.getWidth()/3 ,f.getHeight()/2);
+        //p3.setBackground(Color.blue);
+
+        JLabel procedureType3 = new JLabel("Procedure type:");
+        procedureType3.setBounds(66, 20, 100, 30);
+
+        JTextField procedureTypeField3 = new JTextField();
+        procedureTypeField3.setBounds(171, 20, 95, 30);
+
+        JLabel toothInvolved3 = new JLabel("Tooth invlolved:");
+        toothInvolved3.setBounds(66, 55, 100, 30);
+
+        JTextField toothInvolvedField3 = new JTextField();
+        toothInvolvedField3.setBounds(171, 55, 95, 30);
+
+        JLabel description3  = new JLabel("Description:");
+        description3.setBounds(66, 90, 100, 30);
+
+        JTextArea descriptionField3 = new JTextArea();
+        descriptionField3.setBounds(171, 90, 95, 30);
+        descriptionField3.setLineWrap(true);
+
+        p3.add(procedureType3);
+        p3.add(procedureTypeField3);
+        p3.add(toothInvolved3);
+        p3.add(toothInvolvedField3);
+        p3.add(description3);
+        p3.add(descriptionField3);
+
+        f.add(p1);
+        f.add(p2);
+        f.add(p3);
+        f.repaint();
+      }
+      JPanel p4 = new JPanel();
+      p4.setLayout(null);
+      p4.setBounds(0, f.getHeight()/2, f.getWidth(), f.getHeight()/2);
+      p4.setBackground(Color.yellow);
+
+      JLabel medication =  new JLabel("Medication (optinal):");
+      medication.setBounds(375, 20, 150, 30);
+
+      JTextField medicationField = new JTextField();
+      medicationField.setBounds(530, 20, 95, 25);
+
+      JLabel symptoms =  new JLabel("Symptoms (optinal):");
+      symptoms.setBounds(375, 60, 150, 30);
+
+      JTextField symptomsField = new JTextField();
+      symptomsField.setBounds(530, 60, 95, 25);
+
+      JLabel notes =  new JLabel("Dr Notes (optinal):");
+      notes.setBounds(450, 90, 100, 30);
+
+      JTextArea notesField = new JTextArea();
+      notesField.setBounds(350, 120, 300, 100);
+      notesField.setLineWrap(true);
+
+      JButton setAppointmentbtn = new JButton("Set Appointment");
+      setAppointmentbtn.setBounds(425, 300, 150, 30);
+
+      p4.add(medication);
+      p4.add(medicationField);
+      p4.add(symptoms);
+      p4.add(symptomsField);
+      p4.add(notes);
+      p4.add(notesField);
+      p4.add(setAppointmentbtn);
+
+      f.add(p4);
+      f.repaint();
+      setAppointmentbtn.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent e) {
+            System.out.println(appointmentInfo);
+            appointmentInfo.put("proceduretype",procedureTypeField.getText());
+            appointmentInfo.put("description",descriptionField.getText());
+            appointmentInfo.put("notes", notesField.getText());
+            appointmentInfo.put("tooth",toothInvolvedField.getText());
+            appointmentInfo.put("medication",medicationField.getText());
+            appointmentInfo.put("symptoms",symptomsField.getText());
+            receptionist.setAppointment(appointmentInfo);
+            f.dispatchEvent(new WindowEvent(f, WindowEvent.WINDOW_CLOSING));
+          }
+
+      });
     }
     public void findPatientUI(JFrame f){
       f.getContentPane().removeAll();

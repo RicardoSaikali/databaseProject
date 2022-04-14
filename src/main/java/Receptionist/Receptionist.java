@@ -253,9 +253,6 @@ public class Receptionist {
         }
         return null;
     }
-    public void setAppointment(HashMap<String,String> appointmentInfo){
-
-    }
     public void setAppointment() {
         try {
             // Get contact information id
@@ -390,6 +387,99 @@ public class Receptionist {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+    public void setAppointment(HashMap<String, String> appointmentMap){
+      try{
+        System.out.println("hello");
+        preparedStatement = conn.prepareStatement("SELECT max(proceduretype_id) FROM public.proceduretype");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            proceduretype = resultSet.getInt("max");
+        proceduretype++;
+
+        preparedStatement = conn.prepareStatement("SELECT max(procedurecode) FROM public.appointmentprocedure");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            procedurecode = resultSet.getInt("max");
+        procedurecode++;
+
+        preparedStatement = conn.prepareStatement("SELECT max(record_id) FROM public.record");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            recordId = resultSet.getInt("max");
+        recordId++;
+
+        preparedStatement = conn.prepareStatement("SELECT max(type_id) FROM public.appointmenttype");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            appointmenttypeId = resultSet.getInt("max");
+        appointmenttypeId++;
+
+        preparedStatement = conn.prepareStatement("SELECT max(treatment_id) FROM public.treatment");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            treatmentId = resultSet.getInt("max");
+        treatmentId++;
+
+        preparedStatement = conn.prepareStatement("SELECT max(treatmenttype_id) FROM public.treatmenttype");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            treatmenttypeId = resultSet.getInt("max");
+        treatmenttypeId++;
+        preparedStatement = conn.prepareStatement("SELECT max(appointment_id) FROM public.appointment");
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            appointmentId = resultSet.getInt("max");
+        appointmentId++;
+
+        String date = appointmentMap.get("date");
+        String startime =  appointmentMap.get("startime");
+        String endtime = appointmentMap.get("endtime");
+        String room = appointmentMap.get("room");
+        String dentistId =  appointmentMap.get("dentistid");
+        String notes = appointmentMap.get("comment");
+        String patiendId = appointmentMap.get("patientid");
+        String description = appointmentMap.get("description");
+        String tooth = appointmentMap.get("tooth");
+        String amount = appointmentMap.get("amountprocedures");
+        String type = appointmentMap.get("proceduretype");
+        String appointmentType = appointmentMap.get("appointmenttype");
+        String medication = appointmentMap.get("medication");
+        String symptoms = appointmentMap.get("symptoms");
+        String drnotes = appointmentMap.get("notes");
+
+        String appointmentInfo = appointmentId + ", '" + date + "', '" + startime + "', '" + endtime + "'," + null
+                + ",'" + room + "', '" + notes + "', " + patientId + ", " + dentistId;
+        String sql1 = "INSERT INTO public.appointment values (" + appointmentInfo + ")";
+
+        String procedureInfo = procedurecode + ", '" + description + "', '" + tooth + "', " + amount + ","
+                + appointmentId;
+        String sql2 = "INSERT INTO public.appointmentprocedure values (" + procedureInfo + ")";
+        String sql3 = "INSERT INTO public.proceduretype values (" + proceduretype + ", '" + type + "', "
+                + procedurecode + ")";
+        String sql4 = "INSERT INTO public.record values (" + recordId + ", '" + description + "', " + dentistId
+                + ", " + patientId + ")";
+        String sql5 = "INSERT INTO public.appointmenttype values (" + appointmenttypeId + ", '" + appointmentType
+                + "', " + procedurecode + ")";
+        String sql6 = "INSERT INTO public.treatment values (" + treatmentId + ", '" + medication + "', '" + symptoms
+                + "', '" + tooth + "', '" + drnotes + "', " + recordId + ", " + appointmentId + ", "
+                + appointmenttypeId + ")";
+        String sql7 = "INSERT INTO public.treatmenttype values (" + treatmenttypeId + ", '" + appointmentType
+                + "')";
+        statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        statement.addBatch(sql1);
+        statement.addBatch(sql2);
+        statement.addBatch(sql3);
+        statement.addBatch(sql4);
+        statement.addBatch(sql5);
+        statement.addBatch(sql6);
+        statement.addBatch(sql7);
+
+        statement.executeBatch();
+      } catch (Exception e){
+        System.out.println(e);
+      }
 
     }
 
