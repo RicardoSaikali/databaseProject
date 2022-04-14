@@ -102,7 +102,7 @@ public class ReceptionistUI {
         btn3.setPreferredSize(new Dimension(150, 30));
 
         JPanel panelb = new JPanel();
-        panelb.setBounds(0, 220, f.getWidth(), 40);
+        panelb.setBounds(0, 260, f.getWidth(), 40);
         JButton back = new JButton("Back");
         back.setPreferredSize(new Dimension(150, 30));
         
