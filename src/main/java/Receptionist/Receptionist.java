@@ -439,7 +439,8 @@ public class Receptionist {
         String room = appointmentMap.get("room");
         String dentistId =  appointmentMap.get("dentistid");
         String notes = appointmentMap.get("comment");
-        String patiendId = appointmentMap.get("patientid");
+        patientId = Integer.parseInt(appointmentMap.get("patientid"));
+        System.out.println(patientId);
         String description = appointmentMap.get("description");
         String tooth = appointmentMap.get("tooth");
         String amount = appointmentMap.get("amountprocedures");

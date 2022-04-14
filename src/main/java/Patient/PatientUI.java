@@ -128,7 +128,7 @@ public class PatientUI{
         f.add(tmpLabel);
     }
 
-    f.setSize(1000, 1000);     
+    f.setSize(1000, 1000);
     int totalheight = 300;
     JLabel lblHistory = new JLabel("Patient medical history:");
     lblHistory.setBounds(0, 290, 200, 30);
@@ -175,7 +175,7 @@ public class PatientUI{
 
     ArrayList<HashMap<String, String>> appointments = patient.upcomingAppointments(s);
     totalheight += 50;
-    JLabel lblAppointments = new JLabel("Patient upcoming appointments:");
+    JLabel lblAppointments = new JLabel("Patient appointments:");
     lblAppointments.setBounds(0, totalheight - 10, 200, 30);
     f.add(lblAppointments);
     for (int i = 0; i < appointments.size(); i++) {
@@ -244,7 +244,7 @@ public class PatientUI{
     p.add(btnSubmitReview);
     f.add(p);
   }
-  
+
     public static boolean isInteger(String s) {
         return isInteger(s, 10);
     }

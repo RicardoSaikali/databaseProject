@@ -12,7 +12,16 @@ import java.util.*;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 //other imports
-
+/*
+        * example:
+        * String user = "mzjycxzivsmkni";
+        * String pass =
+        * "e2de58153c0f251dc70bd1de7544284d80d0032ea323d52bf512ab5f5d93b828";
+        * String LINK =
+        * "jdbc:postgresql://ec2-52-73-155-171.compute-1.amazonaws.com:5432/dc2qa16v4lv078";
+        * run with java -cp ".\postgresql-42.3.3.jar;.\" main
+        * OR run with java -cp ".\postgresql-42.3.3.jar;" main
+        */
 public class main {
     public static Connection conn = null;
     public static void main(String s[]) {
