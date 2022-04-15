@@ -303,9 +303,9 @@ public class DentistUI extends JPanel {
     // Display appointments here
     ArrayList<HashMap<String, String>> upcomingAppointments = dentist.upcomingAppointments(dentistID);
 
-    String[] dataKeys = { "firstname", "middlename", "lastname", "date", "starttime", "endtime", "status",
+    String[] dataKeys = { "Patient_id","firstname", "middlename", "lastname", "date", "starttime", "endtime", "status",
         "roomassigned", "notes" };
-    String[] associatedText = { "First Name: ", "Middle Name: ", "Last Name: ", "Date: ", "Start Time: ", "End Time: ",
+    String[] associatedText = { "Patient ID: ","First Name: ", "Middle Name: ", "Last Name: ", "Date: ", "Start Time: ", "End Time: ",
         "Status: ", "Room: ", "Notes: " };
     JLabel tmpLabel;
     JPanel tmpPanel;
@@ -368,6 +368,7 @@ public class DentistUI extends JPanel {
     firstPanel.setLayout(new FlowLayout());
 
     String middleName = patientInfo.get("middlename");
+    JLabel patId = new JLabel("PatientID: "+ patientID);
     JLabel lblFirstName = new JLabel("First Name: " + patientInfo.get("firstname") + "  ");
     JLabel lblLastName = new JLabel("Last Name: " + patientInfo.get("lastname") + "  ");
     JLabel lblGender = new JLabel("Gender: " + patientInfo.get("gender") + "  ");
@@ -378,6 +379,7 @@ public class DentistUI extends JPanel {
     lblGender.setBounds(0, 0, 200, 30);
     lblDateOfBirth.setBounds(0, 0, 200, 30);
 
+    firstPanel.add(patId);
     firstPanel.add(lblFirstName);
 
     if (middleName != "") {
