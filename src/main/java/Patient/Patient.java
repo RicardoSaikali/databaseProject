@@ -75,16 +75,20 @@ public class Patient {
     }
 
     public void submitReview(HashMap<String,String> map){
+        System.out.println(map);
         try {
-            
             preparedStatement = conn.prepareStatement("SELECT max(review_id) FROM public.review");
             resultSet = preparedStatement.executeQuery();
             int reviewId=0;
             while (resultSet.next())
                 reviewId = resultSet.getInt("max");
             reviewId++;
-            preparedStatement = conn.prepareStatement("INSERT INTO public.review values (" + reviewId+", "+map.get("professionalism")+", "+ map.get("communication")+", "+map.get("cleanliness")+", '"+ map.get("date")+ "'', "+patientId+", "+ map.get("branch")+")");
-            resultSet = preparedStatement.executeQuery();
+            String sql1 = "INSERT INTO public.review values (" + reviewId+", '"+map.get("professionalism")+"', '"+ map.get("communication")+"', '"+map.get("cleanliness")+"', '"+ map.get("date")+ "', "+patientId+", "+ Integer.parseInt(map.get("branch"))+")";
+            Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            statement.addBatch(sql1);
+            statement.executeBatch();
+            // preparedStatement = conn.prepareStatement("INSERT INTO public.review values (" + reviewId+", '"+map.get("professionalism")+"', '"+ map.get("communication")+"', '"+map.get("cleanliness")+"', '"+ map.get("date")+ "', "+patientId+", "+ Integer.parseInt(map.get("branch"))+")");
+            // preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }

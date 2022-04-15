@@ -301,12 +301,10 @@ public class PatientUI{
 
       public void actionPerformed(ActionEvent e) {
         HashMap<String,String> map = new HashMap<String, String>();
-        System.out.println(String.valueOf(combo1.getSelectedItem()));
         map.put("professionalism", String.valueOf(combo2.getSelectedItem()));
         map.put("communication", String.valueOf(combo3.getSelectedItem()));
         map.put("cleanliness", String.valueOf(combo4.getSelectedItem()));
-        map.put("date", new Date(System.currentTimeMillis().toString()));
-        map.put("patient_id", String.valueOf(patient.getPatientId()));
+        map.put("date", new Date(System.currentTimeMillis()).toString());
         map.put("branch", String.valueOf(combo1.getSelectedItem()));
         patient.submitReview(map);
         constructMainPatientUI(f,s);
