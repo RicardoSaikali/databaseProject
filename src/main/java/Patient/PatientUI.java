@@ -255,8 +255,8 @@ public class PatientUI{
     f.getContentPane().removeAll();
     SwingUtilities.updateComponentTreeUI(f);
 
-    JPanel p = new JPanel();
-    p.setBounds(0, 100, f.getWidth(), 250);
+    JPanel p = new JPanel(new GridLayout(4, 1));
+    p.setBounds(0, 100, f.getWidth() - 50, 100);
     // p.setBackground(Color.red);
     JLabel lblSelectFunc = new JLabel("Select a branch:");
     lblSelectFunc.setBounds(200, 0, 100, 40);
@@ -320,8 +320,7 @@ public class PatientUI{
     p.add(lblSelectCleanliness);
     p.add(combo4);
 
-    p.add(btnSubmitReview);
-    f.add(p);
+    // p.add(btnSubmitReview);
 
     JPanel panelb = new JPanel();
     panelb.setBounds(0, 350, f.getWidth(), 40);
@@ -334,6 +333,7 @@ public class PatientUI{
       }
     });
     panelb.add(back);
+    panelb.add(btnSubmitReview);
     f.add(p);
     f.add(panelb);
   }
