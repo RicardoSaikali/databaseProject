@@ -93,24 +93,24 @@ public class DentistUI extends JPanel {
     JButton btnGetRecords = new JButton("Get patient info and records");
     btnGetRecords.setBounds(150, 0, 200, 30);
 
-    JPanel p3 = new JPanel();
-    p3.setBounds(0, 180, f.getWidth(), 40);
-    // p3.setBackground(Color.green);
-    JButton btnAddRecords = new JButton("Add to patient record");
-    btnAddRecords.setBounds(150, 0, 200, 30);
+    // JPanel p3 = new JPanel();
+    // p3.setBounds(0, 180, f.getWidth(), 40);
+    // // p3.setBackground(Color.green);
+    // JButton btnAddRecords = new JButton("Add to patient record");
+    // btnAddRecords.setBounds(150, 0, 200, 30);
 
     JPanel p4 = new JPanel();
-    p4.setBounds(0, 220, f.getWidth(), 40);
+    p4.setBounds(0, 180, f.getWidth(), 40);
     JButton btnAppointments = new JButton("View Appointments");
     btnAppointments.setBounds(150, 0, 200, 30);
 
-    p3.add(btnAddRecords);
+    // p3.add(btnAddRecords);
     p2.add(btnGetRecords);
     p.add(lblSelectFunc);
     p4.add(btnAppointments);
     f.add(p);
     f.add(p2);
-    f.add(p3);
+    // f.add(p3);
     f.add(p4);
 
     btnGetRecords.addActionListener(new ActionListener() {
@@ -118,11 +118,11 @@ public class DentistUI extends JPanel {
         getValidPatientIDUI(1);
       }
     });
-    btnAddRecords.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        getValidPatientIDUI(2);
-      }
-    });
+    // btnAddRecords.addActionListener(new ActionListener() {
+    //   public void actionPerformed(ActionEvent e) {
+    //     getValidPatientIDUI(2);
+    //   }
+    // });
     btnAppointments.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         viewAppointmentsUI();
@@ -269,9 +269,9 @@ public class DentistUI extends JPanel {
 
   }
 
-  public static void createAddRecordsUI(String patientID) {
-    return; // TODO
-  }
+  // public static void createAddRecordsUI(String patientID) {
+  //   return; // TODO
+  // }
 
   public static void viewAppointmentsUI() {
     f.setTitle("Upcoming Appointments");
@@ -539,7 +539,7 @@ public class DentistUI extends JPanel {
                 break;
 
               case 2:
-                createAddRecordsUI(patientID);
+                // createAddRecordsUI(patientID);
                 break;
 
               case 3:
