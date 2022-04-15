@@ -237,7 +237,7 @@ public class PatientUI{
     }
 
     JPanel panelb = new JPanel();
-    panelb.setBounds(0, 500, f.getWidth(), 40);
+    panelb.setBounds(0, 600, f.getWidth(), 40);
     JButton back = new JButton("Back");
     back.setBounds(150, 0, 200, 30);
     back.addActionListener(new ActionListener() {
