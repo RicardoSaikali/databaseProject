@@ -99,23 +99,23 @@ public class PatientUI{
     JPanel p3 = new JPanel();
     p3.setBounds(0, 180, f.getWidth(), 40);
     // p3.setBackground(Color.green);
-    // JButton btnAddReview = new JButton("Write a review");
-    // btnAddReview.setBounds(150, 0, 200, 30);
+    JButton btnAddReview = new JButton("Write a review");
+    btnAddReview.setBounds(150, 0, 200, 30);
 
-    // JPanel panelb = new JPanel();
-    // panelb.setBounds(0, 220, f.getWidth(), 40);
-    // JButton back = new JButton("Back");
-    // back.setBounds(150, 0, 200, 30);
-    // back.addActionListener(new ActionListener() {
+    JPanel panelb = new JPanel();
+    panelb.setBounds(0, 220, f.getWidth(), 40);
+    JButton back = new JButton("Back");
+    back.setBounds(150, 0, 200, 30);
+    back.addActionListener(new ActionListener() {
 
-    //   public void actionPerformed(ActionEvent e) {
-    //     createUI(f);
-    //   }
-    // });
-    // panelb.add(back);
-    // f.add(panelb);
+      public void actionPerformed(ActionEvent e) {
+        createUI(f);
+      }
+    });
+    panelb.add(back);
+    f.add(panelb);
 
-    // p3.add(btnAddReview);
+    p3.add(btnAddReview);
     p2.add(btnGetRecords);
     p.add(lblSelectFunc);
 
@@ -128,11 +128,11 @@ public class PatientUI{
         viewPatientRecords(f, s);
       }
     });
-    // btnAddReview.addActionListener(new ActionListener() {
-    //   public void actionPerformed(ActionEvent e) {
-    //     writeReview(f, s);
-    //   }
-    // });
+    btnAddReview.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        writeReview(f, s);
+      }
+    });
 
   }
 
@@ -237,7 +237,7 @@ public class PatientUI{
     }
 
     JPanel panelb = new JPanel();
-    panelb.setBounds(0, 600, f.getWidth(), 40);
+    panelb.setBounds(0, 500, f.getWidth(), 40);
     JButton back = new JButton("Back");
     back.setBounds(150, 0, 200, 30);
     back.addActionListener(new ActionListener() {
@@ -267,68 +267,18 @@ public class PatientUI{
     for(int i=0;i<branchs.size();i++){
         combo1.addItem(branchs.get(i));
     }
-    
-    JLabel lblSelectProfessionalism = new JLabel("Please rate our professionalism:");
-    lblSelectProfessionalism.setBounds(200, 0, 100, 40);
-    JComboBox combo2 = new JComboBox();
-    combo2.setBounds(200, 50, 20, 10);
-    // Add entries like this
-    for(int i=1;i<=10;i++){
-        combo2.addItem(i);
-    }
-
-    JLabel lblSelectCommunication = new JLabel("Please rate our communication:");
-    lblSelectCommunication.setBounds(200, 0, 100, 40);
-    JComboBox combo3 = new JComboBox();
-    combo3.setBounds(200, 50, 20, 10);
-    // Add entries like this
-    for(int i=1;i<=10;i++){
-        combo3.addItem(i);
-    }
-
-    JLabel lblSelectCleanliness = new JLabel("Please rate our cleanliness:");
-    lblSelectCleanliness.setBounds(200, 0, 100, 40);
-    JComboBox combo4 = new JComboBox();
-    combo4.setBounds(200, 50, 20, 10);
-    // Add entries like this
-    for(int i=1;i<=10;i++){
-        combo4.addItem(i);
-    }
-
-    JLabel lblSelectValue = new JLabel("Please rate our value:");
-    lblSelectValue.setBounds(200, 0, 100, 40);
-    JComboBox combo5 = new JComboBox();
-    combo5.setBounds(200, 50, 20, 10);
-    // Add entries like this
-    for(int i=1;i<=10;i++){
-        combo5.addItem(i);
-    }
-
-
-
-
-
-
+    // String[] theSeven = {"Bashful", "Doc", "Dopey",
+    //       "Grumpy", "Happy", "Sleepy",
+    //       "Sneezy"};
+    // JComboBox combo1 = new JComboBox(theSeven);
+    JTextArea jt = new JTextArea("please write a review ");
+    jt.setBounds(200, 75, 100, 500);
     JButton btnSubmitReview = new JButton("Submit review");
     btnSubmitReview.setBounds(200, 600, 100, 30);
-    btnSubmitReview.addActionListener(new ActionListener() {
-
-      public void actionPerformed(ActionEvent e) {
-        //////Write query Here
-        constructMainPatientUI(f,s);
-      }
-    });
 
     p.add(lblSelectFunc);
     p.add(combo1);
-    p.add(lblSelectProfessionalism);
-    p.add(combo2);
-    p.add(lblSelectCommunication);
-    p.add(combo3);
-    p.add(lblSelectCleanliness);
-    p.add(combo4);
-    p.add(lblSelectValue);
-    p.add(combo5);
+    p.add(jt);
     p.add(btnSubmitReview);
     f.add(p);
 
