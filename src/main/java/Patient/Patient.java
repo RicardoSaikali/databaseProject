@@ -185,4 +185,8 @@ public class Patient {
         return -1;
     }
 
+    public static int getPatientId(){
+        return patientId;
+    }
+
 }

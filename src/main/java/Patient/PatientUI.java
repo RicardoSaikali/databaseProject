@@ -256,12 +256,12 @@ public class PatientUI{
     SwingUtilities.updateComponentTreeUI(f);
 
     JPanel p = new JPanel();
-    p.setBounds(0, 100, f.getWidth(), 700);
+    p.setBounds(0, 100, f.getWidth(), 250);
     // p.setBackground(Color.red);
     JLabel lblSelectFunc = new JLabel("Select a branch:");
     lblSelectFunc.setBounds(200, 0, 100, 40);
     JComboBox combo1 = new JComboBox();
-    combo1.setBounds(200, 50, 20, 10);
+    combo1.setBounds(200, 0, 20, 10);
     ArrayList<String> branchs = patient.getBranchs();
     // Add entries like this
     for(int i=0;i<branchs.size();i++){
@@ -269,7 +269,7 @@ public class PatientUI{
     }
     
     JLabel lblSelectProfessionalism = new JLabel("Please rate our professionalism:");
-    lblSelectProfessionalism.setBounds(200, 0, 100, 40);
+    lblSelectProfessionalism.setBounds(200, 50, 100, 40);
     JComboBox combo2 = new JComboBox();
     combo2.setBounds(200, 50, 20, 10);
     // Add entries like this
@@ -278,43 +278,37 @@ public class PatientUI{
     }
 
     JLabel lblSelectCommunication = new JLabel("Please rate our communication:");
-    lblSelectCommunication.setBounds(200, 0, 100, 40);
+    lblSelectCommunication.setBounds(200, 100, 100, 40);
     JComboBox combo3 = new JComboBox();
-    combo3.setBounds(200, 50, 20, 10);
+    combo3.setBounds(200, 100, 20, 10);
     // Add entries like this
     for(int i=1;i<=10;i++){
         combo3.addItem(i);
     }
 
     JLabel lblSelectCleanliness = new JLabel("Please rate our cleanliness:");
-    lblSelectCleanliness.setBounds(200, 0, 100, 40);
+    lblSelectCleanliness.setBounds(200, 150, 100, 40);
     JComboBox combo4 = new JComboBox();
-    combo4.setBounds(200, 50, 20, 10);
+    combo4.setBounds(200, 150, 20, 10);
     // Add entries like this
     for(int i=1;i<=10;i++){
         combo4.addItem(i);
     }
-
-    JLabel lblSelectValue = new JLabel("Please rate our value:");
-    lblSelectValue.setBounds(200, 0, 100, 40);
-    JComboBox combo5 = new JComboBox();
-    combo5.setBounds(200, 50, 20, 10);
-    // Add entries like this
-    for(int i=1;i<=10;i++){
-        combo5.addItem(i);
-    }
-
-
-
-
-
 
     JButton btnSubmitReview = new JButton("Submit review");
     btnSubmitReview.setBounds(200, 600, 100, 30);
     btnSubmitReview.addActionListener(new ActionListener() {
 
       public void actionPerformed(ActionEvent e) {
-        //////Write query Here
+        HashMap<String,String> map = new HashMap<String, String>();
+        System.out.println(String.valueOf(combo1.getSelectedItem()));
+        map.put("professionalism", String.valueOf(combo2.getSelectedItem()));
+        map.put("communication", String.valueOf(combo3.getSelectedItem()));
+        map.put("cleanliness", String.valueOf(combo4.getSelectedItem()));
+        map.put("date", new Date(System.currentTimeMillis().toString()));
+        map.put("patient_id", String.valueOf(patient.getPatientId()));
+        map.put("branch", String.valueOf(combo1.getSelectedItem()));
+        patient.submitReview(map);
         constructMainPatientUI(f,s);
       }
     });
@@ -327,13 +321,11 @@ public class PatientUI{
     p.add(combo3);
     p.add(lblSelectCleanliness);
     p.add(combo4);
-    p.add(lblSelectValue);
-    p.add(combo5);
     p.add(btnSubmitReview);
     f.add(p);
 
     JPanel panelb = new JPanel();
-    panelb.setBounds(0, 140, f.getWidth(), 40);
+    panelb.setBounds(0, 350, f.getWidth(), 40);
     JButton back = new JButton("Back");
     back.setBounds(150, 0, 200, 30);
     back.addActionListener(new ActionListener() {
@@ -343,6 +335,7 @@ public class PatientUI{
       }
     });
     panelb.add(back);
+    f.add(p);
     f.add(panelb);
   }
 
