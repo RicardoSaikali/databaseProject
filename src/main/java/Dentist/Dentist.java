@@ -42,7 +42,7 @@ public class Dentist {
             while (resultSet.next()) {
                 HashMap<String, String> map = new HashMap<String, String>();
                 preparedStatement = conn.prepareStatement("SELECT firstname, middlename, lastname FROM public.user,public.appointment, public.patient where public.patient.patient_id="+ 
-                resultSet.getInt("patient_id")+ " and public.patient.patient_id=public.appointment.patient_id");
+                resultSet.getInt("patient_id")+ " and public.patient.patient_id=public.appointment.patient_id and public.user.user_id=public.patient.userid");
                 newSet = preparedStatement.executeQuery();
                 while (newSet.next()) { //get patient names
                     map.put("firstname", newSet.getString("firstname"));
