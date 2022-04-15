@@ -267,18 +267,68 @@ public class PatientUI{
     for(int i=0;i<branchs.size();i++){
         combo1.addItem(branchs.get(i));
     }
-    // String[] theSeven = {"Bashful", "Doc", "Dopey",
-    //       "Grumpy", "Happy", "Sleepy",
-    //       "Sneezy"};
-    // JComboBox combo1 = new JComboBox(theSeven);
-    JTextArea jt = new JTextArea("please write a review ");
-    jt.setBounds(200, 75, 100, 500);
+    
+    JLabel lblSelectProfessionalism = new JLabel("Please rate our professionalism:");
+    lblSelectProfessionalism.setBounds(200, 0, 100, 40);
+    JComboBox combo2 = new JComboBox();
+    combo2.setBounds(200, 50, 20, 10);
+    // Add entries like this
+    for(int i=1;i<=10;i++){
+        combo2.addItem(i);
+    }
+
+    JLabel lblSelectCommunication = new JLabel("Please rate our communication:");
+    lblSelectCommunication.setBounds(200, 0, 100, 40);
+    JComboBox combo3 = new JComboBox();
+    combo3.setBounds(200, 50, 20, 10);
+    // Add entries like this
+    for(int i=1;i<=10;i++){
+        combo3.addItem(i);
+    }
+
+    JLabel lblSelectCleanliness = new JLabel("Please rate our cleanliness:");
+    lblSelectCleanliness.setBounds(200, 0, 100, 40);
+    JComboBox combo4 = new JComboBox();
+    combo4.setBounds(200, 50, 20, 10);
+    // Add entries like this
+    for(int i=1;i<=10;i++){
+        combo4.addItem(i);
+    }
+
+    JLabel lblSelectValue = new JLabel("Please rate our value:");
+    lblSelectValue.setBounds(200, 0, 100, 40);
+    JComboBox combo5 = new JComboBox();
+    combo5.setBounds(200, 50, 20, 10);
+    // Add entries like this
+    for(int i=1;i<=10;i++){
+        combo5.addItem(i);
+    }
+
+
+
+
+
+
     JButton btnSubmitReview = new JButton("Submit review");
     btnSubmitReview.setBounds(200, 600, 100, 30);
+    btnSubmitReview.addActionListener(new ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        //////Write query Here
+        constructMainPatientUI(f,s);
+      }
+    });
 
     p.add(lblSelectFunc);
     p.add(combo1);
-    p.add(jt);
+    p.add(lblSelectProfessionalism);
+    p.add(combo2);
+    p.add(lblSelectCommunication);
+    p.add(combo3);
+    p.add(lblSelectCleanliness);
+    p.add(combo4);
+    p.add(lblSelectValue);
+    p.add(combo5);
     p.add(btnSubmitReview);
     f.add(p);
 
