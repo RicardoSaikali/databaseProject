@@ -60,7 +60,6 @@ public class ReceptionistUI {
                         error.repaint();
                     }
                 } else {
-                    System.out.println("bruh");
                     JLabel errorLabel = new JLabel("Wrong ID");
                     errorLabel.setBounds(200, 0, 100, 30);
                     error.add(errorLabel);
@@ -312,7 +311,7 @@ public class ReceptionistUI {
 
                                         JLabel l1 = new JLabel("Appointment Type:");
                                         l1.setBounds(300, 20, 80, 30);
-                                        String appointmentTypes[] = { "Cleaning", "cleaning", "cleaning", "cleaning", "cleaning" };
+                                        String appointmentTypes[] = { "Cleaning", "Root Canal", "Cavity Removal", "General Checkup" };
                                         JComboBox appointmentTypesDropDown = new JComboBox(appointmentTypes);
                                         appointmentTypesDropDown.setBounds(385, 20, 115, 30);
 
@@ -331,7 +330,20 @@ public class ReceptionistUI {
                                         btn6.addActionListener(new ActionListener() {
 
                                             public void actionPerformed(ActionEvent e) {
-                                              appointmentInfo.put("appointmenttype", String.valueOf(appointmentTypesDropDown.getSelectedItem()));
+                                              String tmp = String.valueOf(appointmentTypesDropDown.getSelectedItem());
+                                              appointmentInfo.put("appointmenttype", tmp);
+                                              int num=0;
+                                              if(tmp.equals(appointmentTypes[0])){
+                                                num=1;
+                                              }
+                                              if(tmp.equals(appointmentTypes[1])){
+                                                num=2;
+                                              }if(tmp.equals(appointmentTypes[2])){
+                                                num=3;
+                                              }if(tmp.equals(appointmentTypes[3])){
+                                                num=4;
+                                              }
+                                              appointmentInfo.put("appointmenttypeId",String.valueOf(4));
                                               appointmentInfo.put("amountprocedures", numAppointments.getText());
                                               panel6.setVisible(false);
 
@@ -625,7 +637,7 @@ public class ReceptionistUI {
       setAppointmentbtn.addActionListener(new ActionListener() {
 
           public void actionPerformed(ActionEvent e) {
-            System.out.println(appointmentInfo);
+            // System.out.println(appointmentInfo);
             appointmentInfo.put("proceduretype",procedureTypeField.getText());
             appointmentInfo.put("description",descriptionField.getText());
             appointmentInfo.put("notes", notesField.getText());
@@ -906,7 +918,6 @@ public class ReceptionistUI {
               HashMap<String, String> hashmap = new HashMap<String, String>();
               String arr[] = { "firstname", "middlename", "lastname", "email", "phonenumber", "gender", "ssn",
                       "datebirth", "street", "city", "province", "postalcode", "insurancenumber" };
-              // System.out.println("bruh");
               for (int i = 0; i < 13; i++) {
                   JTextField field = fieldList.get(i);
                   String input = field.getText();
@@ -1120,13 +1131,13 @@ public class ReceptionistUI {
               HashMap<String, String> hashmap = new HashMap<String, String>();
               String arr[] = { "firstname", "middlename", "lastname", "email", "phonenumber", "gender", "ssn",
                       "datebirth", "street", "city", "province", "postalcode", "insurancenumber" };
-              // System.out.println("bruh");
               for (int i = 0; i < 13; i++) {
                   JTextField field = fieldList.get(i);
                   String input = field.getText();
                   System.out.println(arr[i] + ", " + input);
                   hashmap.put(arr[i], input);
               }
+              System.out.println(hashmap);
               receptionist.helper(hashmap);
           }
       });

@@ -237,7 +237,7 @@ public class PatientUI{
     }
 
     JPanel panelb = new JPanel();
-    panelb.setBounds(0, 600, f.getWidth(), 40);
+    panelb.setBounds(0, 500, f.getWidth(), 40);
     JButton back = new JButton("Back");
     back.setBounds(150, 0, 200, 30);
     back.addActionListener(new ActionListener() {
@@ -267,7 +267,7 @@ public class PatientUI{
     for(int i=0;i<branchs.size();i++){
         combo1.addItem(branchs.get(i));
     }
-    
+
     JLabel lblSelectProfessionalism = new JLabel("Please rate our professionalism:");
     lblSelectProfessionalism.setBounds(200, 50, 100, 40);
     JComboBox combo2 = new JComboBox();
@@ -321,6 +321,7 @@ public class PatientUI{
     p.add(combo3);
     p.add(lblSelectCleanliness);
     p.add(combo4);
+
     p.add(btnSubmitReview);
     f.add(p);
 
