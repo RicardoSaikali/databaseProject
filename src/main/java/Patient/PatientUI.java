@@ -99,23 +99,23 @@ public class PatientUI{
     JPanel p3 = new JPanel();
     p3.setBounds(0, 180, f.getWidth(), 40);
     // p3.setBackground(Color.green);
-    JButton btnAddReview = new JButton("Write a review");
-    btnAddReview.setBounds(150, 0, 200, 30);
+    // JButton btnAddReview = new JButton("Write a review");
+    // btnAddReview.setBounds(150, 0, 200, 30);
 
-    JPanel panelb = new JPanel();
-    panelb.setBounds(0, 220, f.getWidth(), 40);
-    JButton back = new JButton("Back");
-    back.setBounds(150, 0, 200, 30);
-    back.addActionListener(new ActionListener() {
+    // JPanel panelb = new JPanel();
+    // panelb.setBounds(0, 220, f.getWidth(), 40);
+    // JButton back = new JButton("Back");
+    // back.setBounds(150, 0, 200, 30);
+    // back.addActionListener(new ActionListener() {
 
-      public void actionPerformed(ActionEvent e) {
-        createUI(f);
-      }
-    });
-    panelb.add(back);
-    f.add(panelb);
+    //   public void actionPerformed(ActionEvent e) {
+    //     createUI(f);
+    //   }
+    // });
+    // panelb.add(back);
+    // f.add(panelb);
 
-    p3.add(btnAddReview);
+    // p3.add(btnAddReview);
     p2.add(btnGetRecords);
     p.add(lblSelectFunc);
 
@@ -128,11 +128,11 @@ public class PatientUI{
         viewPatientRecords(f, s);
       }
     });
-    btnAddReview.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        writeReview(f, s);
-      }
-    });
+    // btnAddReview.addActionListener(new ActionListener() {
+    //   public void actionPerformed(ActionEvent e) {
+    //     writeReview(f, s);
+    //   }
+    // });
 
   }
 

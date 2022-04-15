@@ -62,7 +62,7 @@ public class Receptionist {
         street = patientInfo.get("street");
         city = patientInfo.get("city");
         province = patientInfo.get("province");
-        postalCode = patientInfo.get("postalCode");
+        postalCode = patientInfo.get("postalcode");
         insuranceNumber = patientInfo.get("insurancenumber");
 
         insertUserInformation();
@@ -253,142 +253,7 @@ public class Receptionist {
         }
         return null;
     }
-    public void setAppointment() {
-        try {
-            // Get contact information id
-            scanner = new Scanner(System.in);
-            System.out.println("Please enter the Branch ID: (0-2)");
-            int branch = Integer.parseInt(scanner.nextLine());
-
-            ArrayList<Integer> patients = new ArrayList<Integer>();
-            preparedStatement = conn.prepareStatement("SELECT patient_id FROM public.appointment");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                patients.add(resultSet.getInt("patient_id"));
-
-            }
-            boolean flag = true;
-            while (flag) {
-                System.out.println("Please enter the Patient ID:");
-                patientId = Integer.parseInt(scanner.nextLine());
-
-                if (patients.contains(patientId)) {
-                    System.out.println("This patient already has an appointment");
-                    System.out.println("patientId: " + patientId);
-                } else {
-                    System.out.println("patientId: " + patientId);
-                    flag = false;
-                }
-            }
-
-            System.out.println("Please enter the date (yyyy-mm-dd)");
-            String date = scanner.nextLine();
-            System.out.println("Please enter start time (in military time):");
-            String startime = scanner.nextLine();
-            System.out.println("Please enter end time (in military time):");
-            String endtime = scanner.nextLine();
-
-            preparedStatement = conn.prepareStatement("SELECT roomassigned FROM public.appointment WHERE date='" + date
-                    + "' and starttime='" + startime + "'");
-            resultSet = preparedStatement.executeQuery();
-            System.out.println(
-                    "------------------------------------------------------------------------------------------------------------");
-            ArrayList<String> roomsTaken = new ArrayList<String>();
-            while (resultSet.next()) {
-                roomsTaken.add(resultSet.getString("roomassigned"));
-            }
-            System.out.println("The following rooms are available at that time:");
-            for (int i = 0; i < rooms.length; i++) {
-                if (!roomsTaken.contains(rooms[i])) {
-                    System.out.println(rooms[i]);
-                }
-            }
-            flag = true;
-            String room = "";
-            System.out.println(
-                    "------------------------------------------------------------------------------------------------------------");
-            while (flag) {
-                System.out.println("Please enter which available room you would like to book:");
-                room = scanner.nextLine();
-                if (Arrays.asList(rooms).contains(room) && !roomsTaken.contains(room))
-                    flag = false;
-                else {
-                    System.out.println("Invalid Entry");
-                }
-            }
-            System.out.println(
-                    "------------------------------------------------------------------------------------------------------------");
-            System.out.println("Are there any notes you like to add:");
-            String notes = scanner.nextLine();
-            flag = true;
-            // get all busy dentists
-            preparedStatement = conn.prepareStatement("SELECT employee_id FROM public.appointment WHERE date='" + date
-                    + "' and starttime='" + startime + "'");
-            resultSet = preparedStatement.executeQuery();
-            ArrayList<Integer> busyDentists = new ArrayList<Integer>();
-            while (resultSet.next()) {
-                busyDentists.add(resultSet.getInt("employee_id"));
-            }
-            // get all dentists
-            preparedStatement = conn.prepareStatement(
-                    "SELECT employee_id FROM public.employee WHERE employee_role = 'Dentist' and branch_id=" + branch);
-            resultSet = preparedStatement.executeQuery();
-            ArrayList<Integer> dentists = new ArrayList<Integer>();
-            System.out.println(
-                    "------------------------------------------------------------------------------------------------------------");
-            System.out.println("The following Dentists are available:");
-            while (resultSet.next()) {
-                dentists.add(resultSet.getInt("employee_id"));
-                if (!busyDentists.contains(resultSet.getInt("employee_id")))
-                    System.out.println(resultSet.getInt("employee_id"));
-            }
-
-            while (flag) {
-                System.out.println("Please enter the employee_id of the Dentist");
-                dentistId = Integer.parseInt(scanner.nextLine());
-
-                if (!dentists.contains(dentistId)) {
-                    System.out.println("That is not a valid employee_id");
-                } else if (busyDentists.contains(dentistId)) {
-                    System.out.println("This Dentist is busy at that time");
-                } else if (!busyDentists.contains(dentistId) && dentists.contains(dentistId)) {
-                    flag = false;
-                }
-            }
-            preparedStatement = conn.prepareStatement("SELECT max(appointment_id) FROM public.appointment");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-                appointmentId = resultSet.getInt("max");
-            appointmentId++;
-            // preparedStatement = conn.prepareStatement("UPDATE "+ table + "SET " + field
-            // +" = " +value +" WHERE SSN = "+ssn );
-            System.out.println("1-PatientId= " + patientId);
-            String appointmentInfo = appointmentId + ", '" + date + "', '" + startime + "', '" + endtime + "'," + null
-                    + ",'" + room + "', '" + notes + "', " + patientId + ", " + dentistId;
-            String sql1 = "INSERT INTO public.appointment values (" + appointmentInfo + ")";
-            String[] arr = setProcedure();
-            String sql2 = arr[0];
-            String sql3 = arr[1];
-            String sql4 = arr[2];
-            String sql5 = arr[3];
-            String sql6 = arr[4];
-            String sql7 = arr[5];
-            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            statement.addBatch(sql1);
-            statement.addBatch(sql2);
-            statement.addBatch(sql3);
-            statement.addBatch(sql4);
-            statement.addBatch(sql5);
-            statement.addBatch(sql6);
-            statement.addBatch(sql7);
-
-            statement.executeBatch();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
+   
     public void setAppointment(HashMap<String, String> appointmentMap){
       try{
         System.out.println("hello");
@@ -410,11 +275,7 @@ public class Receptionist {
             recordId = resultSet.getInt("max");
         recordId++;
 
-        preparedStatement = conn.prepareStatement("SELECT max(type_id) FROM public.appointmenttype");
-        resultSet = preparedStatement.executeQuery();
-        while (resultSet.next())
-            appointmenttypeId = resultSet.getInt("max");
-        appointmenttypeId++;
+        
 
         preparedStatement = conn.prepareStatement("SELECT max(treatment_id) FROM public.treatment");
         resultSet = preparedStatement.executeQuery();
@@ -440,7 +301,6 @@ public class Receptionist {
         String dentistId =  appointmentMap.get("dentistid");
         String notes = appointmentMap.get("comment");
         patientId = Integer.parseInt(appointmentMap.get("patientid"));
-        System.out.println(patientId);
         String description = appointmentMap.get("description");
         String tooth = appointmentMap.get("tooth");
         String amount = appointmentMap.get("amountprocedures");
@@ -449,6 +309,7 @@ public class Receptionist {
         String medication = appointmentMap.get("medication");
         String symptoms = appointmentMap.get("symptoms");
         String drnotes = appointmentMap.get("notes");
+        appointmenttypeId = Integer.parseInt(appointmentMap.get("appointmenttypeId"));
 
         String appointmentInfo = appointmentId + ", '" + date + "', '" + startime + "', '" + endtime + "'," + null
                 + ",'" + room + "', '" + notes + "', " + patientId + ", " + dentistId;
@@ -461,8 +322,8 @@ public class Receptionist {
                 + procedurecode + ")";
         String sql4 = "INSERT INTO public.record values (" + recordId + ", '" + description + "', " + dentistId
                 + ", " + patientId + ")";
-        String sql5 = "INSERT INTO public.appointmenttype values (" + appointmenttypeId + ", '" + appointmentType
-                + "', " + procedurecode + ")";
+        // String sql5 = "INSERT INTO public.appointmenttype values (" + appointmenttypeId + ", '" + appointmentType
+        //         + ")";
         String sql6 = "INSERT INTO public.treatment values (" + treatmentId + ", '" + medication + "', '" + symptoms
                 + "', '" + tooth + "', '" + drnotes + "', " + recordId + ", " + appointmentId + ", "
                 + appointmenttypeId + ")";
@@ -473,7 +334,7 @@ public class Receptionist {
         statement.addBatch(sql2);
         statement.addBatch(sql3);
         statement.addBatch(sql4);
-        statement.addBatch(sql5);
+        // statement.addBatch(sql5);
         statement.addBatch(sql6);
         statement.addBatch(sql7);
 
@@ -547,15 +408,15 @@ public class Receptionist {
             System.out.println("PatientID: " + patientId);
             String sql3 = "INSERT INTO public.record values (" + recordId + ", '" + description + "', " + dentistId
                     + ", " + patientId + ")";
-            String sql4 = "INSERT INTO public.appointmenttype values (" + appointmenttypeId + ", '" + appointmentType
-                    + "', " + procedurecode + ")";
+            // String sql4 = "INSERT INTO public.appointmenttype values (" + appointmenttypeId + ", '" + appointmentType
+            //         + "', " + procedurecode + ")";
             String sql5 = "INSERT INTO public.treatment values (" + treatmentId + ", '" + medication + "', '" + symptoms
                     + "', '" + tooth + "', '" + notes + "', " + recordId + ", " + appointmentId + ", "
                     + appointmenttypeId + ")";
             String sql6 = "INSERT INTO public.treatmenttype values (" + treatmenttypeId + ", '" + appointmentType
                     + "')";
 
-            String[] arr = new String[] { sql1, sql2, sql3, sql4, sql5, sql6 };
+            String[] arr = new String[] { sql1, sql2, sql3,sql5, sql6 };
 
             return arr;
 
